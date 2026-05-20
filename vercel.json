@@ -28,6 +28,10 @@
       "dest": "/public/robots.txt"
     },
     {
+      "src": "/api/info.php",
+      "dest": "/api/info.php"
+    },
+    {
       "src": "/(.*)",
       "dest": "/api/index.php"
     }
