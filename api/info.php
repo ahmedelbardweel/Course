@@ -95,6 +95,13 @@ try {
     echo '<p style="color:red; font-weight:bold;">Laravel Path Overrides FAILED: ' . htmlspecialchars($e->getMessage()) . '</p>';
 }
 
+// Bootstrap Console Kernel to load all service providers
+try {
+    $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+} catch (Throwable $e) {
+    // Ignore warnings
+}
+
 // Test Database connection
 echo '<h3>Database Connectivity Test</h3>';
 try {
