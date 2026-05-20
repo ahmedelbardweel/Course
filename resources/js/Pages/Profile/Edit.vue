@@ -4,7 +4,7 @@ import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
 import { Head } from '@inertiajs/vue3';
-import { ChevronLeft, User, ShieldLock, UserX } from 'lucide-vue-next';
+import { ChevronLeft, User, Shield, UserX } from 'lucide-vue-next';
 
 defineProps({
     mustVerifyEmail: {
