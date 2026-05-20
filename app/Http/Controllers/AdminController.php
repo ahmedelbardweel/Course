@@ -64,4 +64,56 @@ class AdminController extends Controller
 
         return response()->json(['error' => 'حدث خطأ أثناء التواصل مع خوادم الفحص.'], 500);
     }
+
+    public function teachers()
+    {
+        $teachers = \App\Models\User::where('role', 'teacher')
+            ->withCount('taughtCourses')
+            ->latest()
+            ->get();
+            
+        return Inertia::render('Admin/Teachers/Index', [
+            'teachers' => $teachers
+        ]);
+    }
+
+    public function storeTeacher(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+        ], [
+            'name.required' => 'الاسم مطلوب.',
+            'email.required' => 'البريد الإلكتروني مطلوب.',
+            'email.email' => 'يجب إدخال بريد إلكتروني صالح.',
+            'email.unique' => 'هذا البريد الإلكتروني مسجل بالفعل.',
+            'password.required' => 'كلمة المرور مطلوبة.',
+            'password.min' => 'يجب أن لا تقل كلمة المرور عن 8 أحرف.',
+        ]);
+
+        \App\Models\User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => \Illuminate\Support\Facades\Hash::make($request->password),
+            'role' => 'teacher',
+        ]);
+
+        return redirect()->back()->with('success', 'تم إضافة المعلم بنجاح.');
+    }
+
+    public function destroyTeacher(\App\Models\User $user)
+    {
+        if ($user->role !== 'teacher') {
+            abort(403);
+        }
+
+        if ($user->taughtCourses()->count() > 0) {
+            return redirect()->back()->with('error', 'لا يمكن حذف هذا المعلم لوجود كورسات مرتبطة به. يرجى نقل أو حذف الكورسات أولاً.');
+        }
+
+        $user->delete();
+
+        return redirect()->back()->with('success', 'تم حذف المعلم بنجاح.');
+    }
 }

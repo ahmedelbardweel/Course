@@ -66,9 +66,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/ai-tutor/roadmap', [\App\Http\Controllers\AIController::class, 'generateRoadmap'])->name('ai.roadmap');
     Route::post('/ai-tutor/interview', [\App\Http\Controllers\AIController::class, 'simulateInterview'])->name('ai.interview');
 
-    // Admin Tools
-    Route::get('/admin/scanner', [\App\Http\Controllers\AdminController::class, 'scanner'])->name('admin.scanner');
-    Route::post('/admin/scanner/scan', [\App\Http\Controllers\AdminController::class, 'scanCourse'])->name('admin.scanner.scan');
+    // Admin Routes
+    Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+        Route::get('/scanner', [\App\Http\Controllers\AdminController::class, 'scanner'])->name('scanner');
+        Route::post('/scanner/scan', [\App\Http\Controllers\AdminController::class, 'scanCourse'])->name('scanner.scan');
+        
+        // Teachers Management
+        Route::get('/teachers', [\App\Http\Controllers\AdminController::class, 'teachers'])->name('teachers.index');
+        Route::post('/teachers', [\App\Http\Controllers\AdminController::class, 'storeTeacher'])->name('teachers.store');
+        Route::delete('/teachers/{user}', [\App\Http\Controllers\AdminController::class, 'destroyTeacher'])->name('teachers.destroy');
+    });
 
     // Teacher Routes
     Route::middleware(['auth', 'role:teacher|admin'])->prefix('teacher')->name('teacher.')->group(function () {

@@ -102,6 +102,21 @@ defineEmits(['close']);
                     </Link>
                 </div>
             </div>
+
+            <!-- إدارة النظام (فقط للأدمن) -->
+            <div v-if="$page.props.auth?.user?.role === 'admin'" class="space-y-1">
+                <h4 class="px-2 text-[10px] font-semibold uppercase tracking-wider text-zinc-400">إدارة النظام</h4>
+                <div class="space-y-1">
+                    <Link :href="route('admin.teachers.index')" :class="[route().current('admin.teachers.index') ? 'bg-zinc-100 text-zinc-950 font-bold' : 'text-zinc-500 hover:bg-zinc-50 hover:text-zinc-950']" class="flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium transition-colors">
+                        <Users class="h-4 w-4" />
+                        إدارة المعلمين
+                    </Link>
+                    <Link :href="route('admin.scanner')" :class="[route().current('admin.scanner') ? 'bg-zinc-100 text-zinc-950 font-bold' : 'text-zinc-500 hover:bg-zinc-50 hover:text-zinc-950']" class="flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium transition-colors">
+                        <Sparkles class="h-4 w-4" />
+                        فاحص المحتوى
+                    </Link>
+                </div>
+            </div>
         </div>
 
         <div class="mt-auto p-4 border-t border-zinc-200">

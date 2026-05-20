@@ -1,7 +1,6 @@
 {
   "\u0000plugin-vue:export-helper": [
-    "/build/assets/Show-Bi0goBe2.js",
-    "/build/assets/Show-CL-ZUsMI.css"
+    "/build/assets/_plugin-vue_export-helper-1tPrXgE0.js"
   ],
   "node_modules/laravel-vite-plugin/inertia-helpers/index.js": [],
   "node_modules/plyr/dist/plyr.css": [
@@ -13,14 +12,14 @@
     "/build/assets/CourseCard-Dj4p1AJI.js"
   ],
   "resources/js/Components/DashboardChart.vue": [
-    "/build/assets/Dashboard-C2i9Ho0Y.js"
+    "/build/assets/Dashboard-D7bvCz-P.js"
   ],
   "resources/js/Components/Layout/StudentSidebar.vue": [
-    "/build/assets/AuthenticatedLayout-CugrFxsQ.js",
+    "/build/assets/AuthenticatedLayout-LaL6PFIH.js",
     "/build/assets/AuthenticatedLayout-CSKSc8O-.css"
   ],
   "resources/js/Components/Layout/TeacherSidebar.vue": [
-    "/build/assets/AuthenticatedLayout-CugrFxsQ.js",
+    "/build/assets/AuthenticatedLayout-LaL6PFIH.js",
     "/build/assets/AuthenticatedLayout-CSKSc8O-.css"
   ],
   "resources/js/Components/Modal.vue": [
@@ -69,15 +68,15 @@
     "/build/assets/Separator-CFmMgQM_.js"
   ],
   "resources/js/Components/ui/textarea/Textarea.vue": [
-    "/build/assets/Show-Bi0goBe2.js",
+    "/build/assets/Show-Cq1giSt-.js",
     "/build/assets/Show-CL-ZUsMI.css"
   ],
   "resources/js/Layouts/AuthenticatedLayout.vue": [
-    "/build/assets/AuthenticatedLayout-CugrFxsQ.js",
+    "/build/assets/AuthenticatedLayout-LaL6PFIH.js",
     "/build/assets/AuthenticatedLayout-CSKSc8O-.css"
   ],
   "resources/js/Layouts/AuthenticatedLayout.vue?vue&type=style&index=0&lang.css": [
-    "/build/assets/AuthenticatedLayout-CugrFxsQ.js",
+    "/build/assets/AuthenticatedLayout-LaL6PFIH.js",
     "/build/assets/AuthenticatedLayout-CSKSc8O-.css"
   ],
   "resources/js/Layouts/GuestLayout.vue": [
@@ -89,10 +88,18 @@
     "/build/assets/GuestLayout-ChmoD2MV.css"
   ],
   "resources/js/Pages/AI/Chat.vue": [
-    "/build/assets/Chat-BrkYjKCI.js"
+    "/build/assets/Chat-CaD-V97z.js"
   ],
   "resources/js/Pages/Admin/ContentScanner.vue": [
-    "/build/assets/ContentScanner-BvsWy59H.js"
+    "/build/assets/ContentScanner-Du6PyfyH.js"
+  ],
+  "resources/js/Pages/Admin/Teachers/Index.vue": [
+    "/build/assets/Index-DIAYxQwu.js",
+    "/build/assets/Index-tn0RQdqM.css"
+  ],
+  "resources/js/Pages/Admin/Teachers/Index.vue?vue&type=style&index=0&scoped=2b4533ed&lang.css": [
+    "/build/assets/Index-DIAYxQwu.js",
+    "/build/assets/Index-tn0RQdqM.css"
   ],
   "resources/js/Pages/Auth/ConfirmPassword.vue": [
     "/build/assets/ConfirmPassword-CYcxO_Xq.js"
@@ -113,30 +120,30 @@
     "/build/assets/VerifyEmail-BEI3Afqx.js"
   ],
   "resources/js/Pages/Courses/Checkout.vue": [
-    "/build/assets/Checkout-CceJb9jI.js"
+    "/build/assets/Checkout-BTRC3sGj.js"
   ],
   "resources/js/Pages/Courses/Index.vue": [
-    "/build/assets/Index-UKA-D0x_.js"
+    "/build/assets/Index-BMknJziE.js"
   ],
   "resources/js/Pages/Courses/MyLearning.vue": [
-    "/build/assets/MyLearning-BW6Md9z9.js"
+    "/build/assets/MyLearning-nlmVitbz.js"
   ],
   "resources/js/Pages/Courses/Show.vue": [
-    "/build/assets/Show-Bi0goBe2.js",
+    "/build/assets/Show-Cq1giSt-.js",
     "/build/assets/Show-CL-ZUsMI.css"
   ],
   "resources/js/Pages/Courses/Show.vue?vue&type=style&index=0&scoped=9e3de796&lang.css": [
-    "/build/assets/Show-Bi0goBe2.js",
+    "/build/assets/Show-Cq1giSt-.js",
     "/build/assets/Show-CL-ZUsMI.css"
   ],
   "resources/js/Pages/Courses/TakeQuiz.vue": [
-    "/build/assets/TakeQuiz-DG_ZOLmf.js"
+    "/build/assets/TakeQuiz-BFhEgvYb.js"
   ],
   "resources/js/Pages/Dashboard.vue": [
-    "/build/assets/Dashboard-CNfuzkb7.js"
+    "/build/assets/Dashboard-DLRZyku2.js"
   ],
   "resources/js/Pages/Profile/Edit.vue": [
-    "/build/assets/Edit-BtyejvVT.js"
+    "/build/assets/Edit-rHm5Aw-f.js"
   ],
   "resources/js/Pages/Profile/Partials/DeleteUserForm.vue": [
     "/build/assets/DeleteUserForm-ycg-BdkO.js"
@@ -161,40 +168,40 @@
     "/build/assets/VideoStage-vOeuwXUh.css"
   ],
   "resources/js/Pages/StudyRoom/Index.vue": [
-    "/build/assets/Index-CkVHbvRX.js"
+    "/build/assets/Index-DkMzpcc6.js"
   ],
   "resources/js/Pages/Teacher/Challenges/Form.vue": [
-    "/build/assets/Form-EZHQewtA.js"
+    "/build/assets/Form-B3G2z8sx.js"
   ],
   "resources/js/Pages/Teacher/Challenges/Index.vue": [
-    "/build/assets/Index-BkrxMBP4.js"
+    "/build/assets/Index--oItUtPd.js"
   ],
   "resources/js/Pages/Teacher/Courses/Form.vue": [
-    "/build/assets/Form-YXytZiGa.js"
+    "/build/assets/Form-CLKwDBFt.js"
   ],
   "resources/js/Pages/Teacher/Courses/Index.vue": [
-    "/build/assets/Index-B19ov00L.js"
+    "/build/assets/Index-Cm_tBtq_.js"
   ],
   "resources/js/Pages/Teacher/Dashboard.vue": [
-    "/build/assets/Dashboard-C2i9Ho0Y.js"
+    "/build/assets/Dashboard-D7bvCz-P.js"
   ],
   "resources/js/Pages/Teacher/Lessons/Form.vue": [
-    "/build/assets/Form-qUde6WBa.js"
+    "/build/assets/Form-bEljMIpT.js"
   ],
   "resources/js/Pages/Teacher/Moderation/Comments.vue": [
-    "/build/assets/Comments-VkNXmeNy.js"
+    "/build/assets/Comments-gs9D6eg9.js"
   ],
   "resources/js/Pages/Teacher/Quizzes/Form.vue": [
-    "/build/assets/Form-BBzuNxxE.js"
+    "/build/assets/Form-YeYTm8xT.js"
   ],
   "resources/js/Pages/Teacher/Quizzes/Index.vue": [
-    "/build/assets/Index-B6kCDiHg.js"
+    "/build/assets/Index-KBQXr2Y_.js"
   ],
   "resources/js/Pages/Teacher/Sales/Index.vue": [
-    "/build/assets/Index-H2GXYDqg.js"
+    "/build/assets/Index-CYa089ZZ.js"
   ],
   "resources/js/Pages/Teacher/Students/Index.vue": [
-    "/build/assets/Index-geMRy08m.js"
+    "/build/assets/Index-BbfL-uLu.js"
   ],
   "resources/js/Pages/Welcome.vue": [
     "/build/assets/Welcome-dDAAA9I_.js",
