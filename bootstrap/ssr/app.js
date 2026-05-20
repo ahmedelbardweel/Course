@@ -7,14 +7,12 @@ window.axios = axios;
 window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 window.Pusher = Pusher;
 Pusher.logToConsole = true;
-window.Echo = new Echo({
-  broadcaster: "reverb",
+const broadcaster = "reverb";
+const echoConfig = {
+  broadcaster,
   key: "reverb_key_xyz123",
-  wsHost: "127.0.0.1",
-  wsPort: 8011,
-  wssPort: 8011,
+  cluster: void 0,
   forceTLS: false,
-  enabledTransports: ["ws", "wss"],
   authorizer: (channel, options) => {
     return {
       authorize: (socketId, callback) => {
@@ -24,6 +22,7 @@ window.Echo = new Echo({
           channel_name: channel.name
         }, {
           headers: {
+            // Dynamically retrieve the CSRF token from the meta tag at the moment of request
             "X-CSRF-TOKEN": (_a = document.querySelector('meta[name="csrf-token"]')) == null ? void 0 : _a.getAttribute("content")
           }
         }).then((response) => {
@@ -35,10 +34,16 @@ window.Echo = new Echo({
       }
     };
   }
-});
+};
+{
+  echoConfig.wsHost = "127.0.0.1";
+  echoConfig.wsPort = "8011";
+  echoConfig.wssPort = "8011";
+  echoConfig.enabledTransports = ["ws", "wss"];
+}
+window.Echo = new Echo(echoConfig);
 window.Echo.connector.pusher.connection.bind("error", function(err) {
   console.error("WebSocket Detailed Error:", err);
-  alert("Detailed Error: " + JSON.stringify(err));
 });
 async function resolvePageComponent(path, pages) {
   for (const p2 of Array.isArray(path) ? path : [path]) {
