@@ -47,6 +47,31 @@ echo '<li>DB_DATABASE: <strong>' . (getenv('DB_DATABASE') ?: 'not set') . '</str
 echo '<li>/tmp Directory Writable: ' . (is_writable('/tmp') ? '<span style="color:green;">✅ YES</span>' : '<span style="color:red;">❌ NO</span>') . '</li>';
 echo '</ul>';
 
+echo '<h3>Public Build Directory Listing</h3>';
+$buildPath = $basePath . '/public/build';
+if (is_dir($buildPath)) {
+    echo '<p>Build directory exists: <strong>' . $buildPath . '</strong></p>';
+    $files = scandir($buildPath);
+    echo '<ul>';
+    foreach ($files as $file) {
+        if ($file === '.' || $file === '..') continue;
+        $fullFile = $buildPath . '/' . $file;
+        echo '<li>' . htmlspecialchars($file) . (is_dir($fullFile) ? ' (DIR)' : ' (FILE)') . '</li>';
+        if (is_dir($fullFile)) {
+            $subFiles = scandir($fullFile);
+            echo '<ul>';
+            foreach ($subFiles as $sf) {
+                if ($sf === '.' || $sf === '..') continue;
+                echo '<li>' . htmlspecialchars($sf) . '</li>';
+            }
+            echo '</ul>';
+        }
+    }
+    echo '</ul>';
+} else {
+    echo '<p style="color:red;">Build directory does NOT exist at: ' . htmlspecialchars($buildPath) . '</p>';
+}
+
 try {
     require $basePath . '/vendor/autoload.php';
     echo '<p style="color:green; font-weight:bold;">Autoload: ✅ OK</p>';
