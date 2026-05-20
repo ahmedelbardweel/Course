@@ -44,27 +44,27 @@ const handleView = () => {
         
         <CardHeader class="p-3 space-y-1">
             <div class="flex items-center gap-1 mb-0.5">
-                <div class="flex items-center text-amber-400">
-                    <Star class="h-2.5 w-2.5 fill-amber-400" />
-                    <Star class="h-2.5 w-2.5 fill-amber-400" />
-                    <Star class="h-2.5 w-2.5 fill-amber-400" />
-                    <Star class="h-2.5 w-2.5 fill-amber-400" />
-                    <Star class="h-2.5 w-2.5 fill-amber-400/30" />
+                <div class="flex items-center text-zinc-950 gap-0.5">
+                    <Star class="h-2.5 w-2.5 fill-zinc-950" />
+                    <Star class="h-2.5 w-2.5 fill-zinc-950" />
+                    <Star class="h-2.5 w-2.5 fill-zinc-950" />
+                    <Star class="h-2.5 w-2.5 fill-zinc-950" />
+                    <Star class="h-2.5 w-2.5 text-zinc-200 fill-zinc-100" />
                 </div>
-                <span class="text-[9px] font-black text-zinc-300">(4.8)</span>
+                <span class="text-[9px] font-semibold text-zinc-400 mr-1">(4.8)</span>
             </div>
-            <CardTitle class="text-[12px] font-bold text-zinc-900 line-clamp-1 group-hover:text-emerald-600 transition-colors leading-tight">{{ title }}</CardTitle>
-            <CardDescription class="text-[10px] line-clamp-2 h-7 leading-relaxed text-zinc-400 font-medium">
+            <CardTitle class="text-[12px] font-bold text-zinc-950 line-clamp-1 group-hover:underline group-hover:underline-offset-4 transition-all leading-tight">{{ title }}</CardTitle>
+            <CardDescription class="text-[10px] line-clamp-2 h-7 leading-relaxed text-zinc-500 font-medium">
                 {{ description }}
             </CardDescription>
         </CardHeader>
 
-        <CardFooter class="p-3 pt-0 mt-auto border-t border-zinc-50 bg-zinc-50/20 flex items-center justify-between">
-            <div class="text-[12px] font-black text-zinc-900">
+        <CardFooter class="p-3 pt-0 mt-auto border-t border-zinc-100 bg-zinc-50/50 flex items-center justify-between">
+            <div class="text-[12px] font-extrabold text-zinc-950">
                 {{ price }}
             </div>
             <Link :href="route('courses.show', { slug: props.slug })" class="shrink-0">
-                <Button @click="handleView" variant="ghost" size="sm" class="h-7 text-[10px] font-black hover:bg-zinc-900 hover:text-white rounded-md px-3 transition-all">
+                <Button @click="handleView" variant="ghost" size="sm" class="h-7 text-[10px] font-bold hover:bg-zinc-950 hover:text-white rounded px-3 transition-all">
                     {{ isEnrolled ? 'دخلت' : 'التفاصيل' }}
                 </Button>
             </Link>
