@@ -155,12 +155,12 @@
     "/build/assets/UpdateProfileInformationForm-D1RhZpGa.js"
   ],
   "resources/js/Pages/StudyRoom/Components/JitsiStage.vue": [
-    "/build/assets/JitsiStage-DwbcK6fw.js",
-    "/build/assets/JitsiStage-BPtDIqjC.css"
+    "/build/assets/JitsiStage-CakFY8uk.js",
+    "/build/assets/JitsiStage-C8qPonjt.css"
   ],
-  "resources/js/Pages/StudyRoom/Components/JitsiStage.vue?vue&type=style&index=0&scoped=8815b010&lang.css": [
-    "/build/assets/JitsiStage-DwbcK6fw.js",
-    "/build/assets/JitsiStage-BPtDIqjC.css"
+  "resources/js/Pages/StudyRoom/Components/JitsiStage.vue?vue&type=style&index=0&scoped=f4a41bdd&lang.css": [
+    "/build/assets/JitsiStage-CakFY8uk.js",
+    "/build/assets/JitsiStage-C8qPonjt.css"
   ],
   "resources/js/Pages/StudyRoom/Components/LiveKitStage.vue": [
     "/build/assets/LiveKitStage-D9VpSxRx.js"
@@ -173,7 +173,7 @@
     "/build/assets/VideoStage-vOeuwXUh.css"
   ],
   "resources/js/Pages/StudyRoom/Index.vue": [
-    "/build/assets/Index-K7IZ3cmH.js"
+    "/build/assets/Index-k5s4rJdg.js"
   ],
   "resources/js/Pages/Teacher/Challenges/Form.vue": [
     "/build/assets/Form-B3G2z8sx.js"

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import { Loader2 } from 'lucide-vue-next';
+import { Loader2, Video } from 'lucide-vue-next';
 
 const props = defineProps({
     room: Object,
@@ -10,6 +10,7 @@ const props = defineProps({
 
 const jitsiContainer = ref(null);
 const isLoading = ref(true);
+const isTerminated = ref(false);
 let api = null;
 
 const loadJitsiScript = () => {
@@ -25,6 +26,22 @@ const loadJitsiScript = () => {
         script.onerror = reject;
         document.head.appendChild(script);
     });
+};
+
+const handleHangup = () => {
+    if (api) {
+        api.dispose();
+        api = null;
+    }
+    isTerminated.value = true;
+};
+
+const reconnect = () => {
+    isTerminated.value = false;
+    isLoading.value = true;
+    setTimeout(() => {
+        initJitsi();
+    }, 100);
 };
 
 const initJitsi = async () => {
@@ -71,6 +88,14 @@ const initJitsi = async () => {
             isLoading.value = false;
             console.log('Successfully joined Jitsi room!');
         });
+
+        api.addEventListener('videoConferenceLeft', () => {
+            handleHangup();
+        });
+
+        api.addEventListener('readyToClose', () => {
+            handleHangup();
+        });
         
         // Hide loading once iframe finishes initial loading
         const iframe = api.getIFrame();
@@ -111,7 +136,7 @@ onUnmounted(() => {
         <!-- Loading Overlay -->
         <transition name="fade">
             <div 
-                v-if="isLoading" 
+                v-if="isLoading && !isTerminated" 
                 class="absolute inset-0 bg-zinc-950 flex flex-col items-center justify-center text-white z-10"
             >
                 <div class="flex flex-col items-center gap-4">
@@ -126,6 +151,28 @@ onUnmounted(() => {
                 </div>
             </div>
         </transition>
+
+        <!-- Terminated / Hangup Screen -->
+        <div 
+            v-if="isTerminated" 
+            class="absolute inset-0 bg-zinc-950 flex flex-col items-center justify-center text-white z-20"
+        >
+            <div class="flex flex-col items-center gap-3.5 text-center p-6">
+                <div class="h-10 w-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400">
+                    <Video class="h-4 w-4" />
+                </div>
+                <div class="space-y-1">
+                    <h4 class="text-xs font-bold text-zinc-200">تم إنهاء المكالمة بنجاح</h4>
+                    <p class="text-[10px] text-zinc-500 max-w-xs leading-relaxed">لقد غادرت الغرفة الدراسية المشتركة. يمكنك إعادة الانضمام للمكالمة في أي وقت.</p>
+                </div>
+                <button 
+                    @click="reconnect"
+                    class="h-8 px-4 bg-white text-zinc-950 hover:bg-zinc-100 active:scale-[0.98] font-bold rounded-md transition-all text-[10px] mt-2 shadow-sm"
+                >
+                    إعادة الاتصال بالغرفة
+                </button>
+            </div>
+        </div>
     </div>
 </template>
 

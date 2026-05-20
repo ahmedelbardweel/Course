@@ -326,7 +326,7 @@
     ]
   },
   "resources/js/Pages/StudyRoom/Components/JitsiStage.vue": {
-    "file": "assets/JitsiStage-DwbcK6fw.js",
+    "file": "assets/JitsiStage-CakFY8uk.js",
     "name": "JitsiStage",
     "src": "resources/js/Pages/StudyRoom/Components/JitsiStage.vue",
     "isDynamicEntry": true,
@@ -334,7 +334,7 @@
       "__plugin-vue_export-helper-1tPrXgE0.js"
     ],
     "css": [
-      "assets/JitsiStage-BPtDIqjC.css"
+      "assets/JitsiStage-C8qPonjt.css"
     ]
   },
   "resources/js/Pages/StudyRoom/Components/LiveKitStage.vue": {
@@ -359,7 +359,7 @@
     ]
   },
   "resources/js/Pages/StudyRoom/Index.vue": {
-    "file": "assets/Index-K7IZ3cmH.js",
+    "file": "assets/Index-k5s4rJdg.js",
     "name": "Index",
     "src": "resources/js/Pages/StudyRoom/Index.vue",
     "isDynamicEntry": true,
@@ -579,7 +579,7 @@
       "resources/js/Pages/Welcome.vue"
     ],
     "css": [
-      "assets/app-BMT5w0WD.css"
+      "assets/app-DoVTRZJi.css"
     ]
   }
 }
