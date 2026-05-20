@@ -13,8 +13,8 @@
       "_utils-H80jjgLf.js"
     ]
   },
-  "_CourseCard-DFUm2IVH.js": {
-    "file": "assets/CourseCard-DFUm2IVH.js",
+  "_CourseCard-BG67mtO9.js": {
+    "file": "assets/CourseCard-BG67mtO9.js",
     "name": "CourseCard",
     "imports": [
       "_CardTitle-Cy38L483.js",
@@ -198,13 +198,13 @@
     ]
   },
   "resources/js/Pages/Courses/Index.vue": {
-    "file": "assets/Index-DFck9GBb.js",
+    "file": "assets/Index-40RcIXfu.js",
     "name": "Index",
     "src": "resources/js/Pages/Courses/Index.vue",
     "isDynamicEntry": true,
     "imports": [
       "_AuthenticatedLayout-BAtzIAbQ.js",
-      "_CourseCard-DFUm2IVH.js",
+      "_CourseCard-BG67mtO9.js",
       "_Input-Bd7d8AJ3.js",
       "_index-BhZ8Ukd6.js",
       "_CardTitle-Cy38L483.js",
@@ -257,7 +257,7 @@
     ]
   },
   "resources/js/Pages/Dashboard.vue": {
-    "file": "assets/Dashboard-CmWPLDE6.js",
+    "file": "assets/Dashboard-CW1Iivvg.js",
     "name": "Dashboard",
     "src": "resources/js/Pages/Dashboard.vue",
     "isDynamicEntry": true,
@@ -265,7 +265,7 @@
       "_AuthenticatedLayout-BAtzIAbQ.js",
       "_CardTitle-Cy38L483.js",
       "_index-BhZ8Ukd6.js",
-      "_CourseCard-DFUm2IVH.js",
+      "_CourseCard-BG67mtO9.js",
       "_utils-H80jjgLf.js",
       "_index-CGK-4kfq.js"
     ]
@@ -510,19 +510,19 @@
     ]
   },
   "resources/js/Pages/Welcome.vue": {
-    "file": "assets/Welcome-hE1dhldS.js",
+    "file": "assets/Welcome-i8BqN_lt.js",
     "name": "Welcome",
     "src": "resources/js/Pages/Welcome.vue",
     "isDynamicEntry": true,
     "imports": [
       "_index-BhZ8Ukd6.js",
-      "_CourseCard-DFUm2IVH.js",
+      "_CourseCard-BG67mtO9.js",
       "_index-CGK-4kfq.js",
       "_utils-H80jjgLf.js",
       "_CardTitle-Cy38L483.js"
     ],
     "css": [
-      "assets/Welcome-BrJHbGOW.css"
+      "assets/Welcome-CAsZmvqF.css"
     ]
   },
   "resources/js/app.js": {
@@ -568,7 +568,7 @@
       "resources/js/Pages/Welcome.vue"
     ],
     "css": [
-      "assets/app-CNW6nC3V.css"
+      "assets/app-D7I5nvLK.css"
     ]
   }
 }

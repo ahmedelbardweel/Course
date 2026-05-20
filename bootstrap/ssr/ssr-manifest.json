@@ -9,7 +9,7 @@
   ],
   "resources/css/app.css": [],
   "resources/js/Components/CourseCard.vue": [
-    "/build/assets/CourseCard-DFUm2IVH.js"
+    "/build/assets/CourseCard-BG67mtO9.js"
   ],
   "resources/js/Components/DashboardChart.vue": [
     "/build/assets/Dashboard-OaTmJmk8.js"
@@ -127,7 +127,7 @@
     "/build/assets/Checkout-Dxw4dh07.js"
   ],
   "resources/js/Pages/Courses/Index.vue": [
-    "/build/assets/Index-DFck9GBb.js"
+    "/build/assets/Index-40RcIXfu.js"
   ],
   "resources/js/Pages/Courses/MyLearning.vue": [
     "/build/assets/MyLearning-DrOfMti1.js"
@@ -144,7 +144,7 @@
     "/build/assets/TakeQuiz-U99Zkztb.js"
   ],
   "resources/js/Pages/Dashboard.vue": [
-    "/build/assets/Dashboard-CmWPLDE6.js"
+    "/build/assets/Dashboard-CW1Iivvg.js"
   ],
   "resources/js/Pages/Profile/Edit.vue": [
     "/build/assets/Edit-CrxbdS2z.js"
@@ -208,17 +208,17 @@
     "/build/assets/Index-BtwyyXPO.js"
   ],
   "resources/js/Pages/Welcome.vue": [
-    "/build/assets/Welcome-hE1dhldS.js",
-    "/build/assets/Welcome-BrJHbGOW.css"
+    "/build/assets/Welcome-i8BqN_lt.js",
+    "/build/assets/Welcome-CAsZmvqF.css"
   ],
   "resources/js/Pages/Welcome.vue?vue&type=style&index=0&lang.css": [
-    "/build/assets/Welcome-hE1dhldS.js",
-    "/build/assets/Welcome-BrJHbGOW.css"
+    "/build/assets/Welcome-i8BqN_lt.js",
+    "/build/assets/Welcome-CAsZmvqF.css"
   ],
   "resources/js/app.js": [],
   "resources/js/bootstrap.js": [],
   "resources/js/lib/tracker.js": [
-    "/build/assets/CourseCard-DFUm2IVH.js"
+    "/build/assets/CourseCard-BG67mtO9.js"
   ],
   "resources/js/lib/utils.js": [
     "/build/assets/utils-H80jjgLf.js"
