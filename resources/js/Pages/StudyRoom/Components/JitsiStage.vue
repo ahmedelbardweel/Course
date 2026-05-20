@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import { Loader2, Video } from 'lucide-vue-next';
+import { Loader2, Video, PhoneOff } from 'lucide-vue-next';
 
 const props = defineProps({
     room: Object,
@@ -68,7 +68,7 @@ const initJitsi = async () => {
                 disableDeepLinking: true,  // Prevent mobile redirect prompts
                 toolbarButtons: [
                     'microphone', 'camera', 'desktop', 'fullscreen',
-                    'fodeviceselection', 'hangup', 'profile', 'raisehand',
+                    'fodeviceselection', 'profile', 'raisehand',
                     'videoquality', 'tileview'
                 ]
             },
@@ -133,6 +133,17 @@ onUnmounted(() => {
     <div class="w-full aspect-video bg-zinc-950 rounded-xl overflow-hidden border border-zinc-800 relative shadow-inner">
         <div ref="jitsiContainer" class="w-full h-full"></div>
         
+        <!-- Custom Hangup Button at the top-right -->
+        <div v-if="!isLoading && !isTerminated" class="absolute top-4 right-4 z-10">
+            <button 
+                @click="handleHangup"
+                class="flex items-center gap-1.5 h-8 px-3 rounded-lg bg-red-600 hover:bg-red-700 active:scale-95 text-white font-bold text-[10px] transition-all shadow-md"
+            >
+                <PhoneOff class="h-3.5 w-3.5" />
+                <span>غادرة الغرفة</span>
+            </button>
+        </div>
+
         <!-- Loading Overlay -->
         <transition name="fade">
             <div 
