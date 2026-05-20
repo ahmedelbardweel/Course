@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
+import { Loader2 } from 'lucide-vue-next';
 
 const props = defineProps({
     room: Object,
@@ -8,6 +9,7 @@ const props = defineProps({
 });
 
 const jitsiContainer = ref(null);
+const isLoading = ref(true);
 let api = null;
 
 const loadJitsiScript = () => {
@@ -56,8 +58,8 @@ const initJitsi = async () => {
             interfaceConfigOverwrite: {
                 SHOW_JITSI_WATERMARK: false,
                 SHOW_WATERMARK_FOR_GUEST: false,
-                DEFAULT_BACKGROUND: '#f4f4f5', // Light zinc background matching Shadcn UI
-                TOOLBAR_BACKGROUND: '#ffffff', // Clean white toolbar matching Shadcn UI
+                DEFAULT_BACKGROUND: '#18181b', // Dark background matching modern UI
+                TOOLBAR_BACKGROUND: '#18181b',
                 DISABLE_TRANSCRIPT: true,
                 DISABLE_RINGING: true
             }
@@ -66,10 +68,27 @@ const initJitsi = async () => {
         api = new JitsiMeetExternalAPI(domain, options);
         
         api.addEventListener('videoConferenceJoined', () => {
+            isLoading.value = false;
             console.log('Successfully joined Jitsi room!');
         });
         
+        // Hide loading once iframe finishes initial loading
+        const iframe = api.getIFrame();
+        if (iframe) {
+            iframe.onload = () => {
+                setTimeout(() => {
+                    isLoading.value = false;
+                }, 1000);
+            };
+        }
+        
+        // Safety timeout (max 5 seconds loading screen)
+        setTimeout(() => {
+            isLoading.value = false;
+        }, 5000);
+        
     } catch (error) {
+        isLoading.value = false;
         console.error('Failed to load Jitsi Meet:', error);
     }
 };
@@ -86,7 +105,37 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="w-full aspect-video bg-zinc-100 rounded-xl overflow-hidden border border-zinc-200 relative">
+    <div class="w-full aspect-video bg-zinc-950 rounded-xl overflow-hidden border border-zinc-800 relative shadow-inner">
         <div ref="jitsiContainer" class="w-full h-full"></div>
+        
+        <!-- Loading Overlay -->
+        <transition name="fade">
+            <div 
+                v-if="isLoading" 
+                class="absolute inset-0 bg-zinc-950 flex flex-col items-center justify-center text-white z-10"
+            >
+                <div class="flex flex-col items-center gap-4">
+                    <div class="relative flex items-center justify-center">
+                        <Loader2 class="h-8 w-8 text-zinc-400 animate-spin" />
+                        <div class="absolute h-12 w-12 rounded-full border border-white/5 animate-ping"></div>
+                    </div>
+                    <div class="text-center space-y-1 mt-2">
+                        <h4 class="text-xs font-bold text-zinc-200">جاري تهيئة الغرفة الدراسية</h4>
+                        <p class="text-[10px] text-zinc-500">يرجى الانتظار، يتم الاتصال بالبث...</p>
+                    </div>
+                </div>
+            </div>
+        </transition>
     </div>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.4s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+</style>

@@ -326,10 +326,16 @@
     ]
   },
   "resources/js/Pages/StudyRoom/Components/JitsiStage.vue": {
-    "file": "assets/JitsiStage-D6Fgowz2.js",
+    "file": "assets/JitsiStage-DwbcK6fw.js",
     "name": "JitsiStage",
     "src": "resources/js/Pages/StudyRoom/Components/JitsiStage.vue",
-    "isDynamicEntry": true
+    "isDynamicEntry": true,
+    "imports": [
+      "__plugin-vue_export-helper-1tPrXgE0.js"
+    ],
+    "css": [
+      "assets/JitsiStage-BPtDIqjC.css"
+    ]
   },
   "resources/js/Pages/StudyRoom/Components/LiveKitStage.vue": {
     "file": "assets/LiveKitStage-D9VpSxRx.js",
@@ -353,14 +359,15 @@
     ]
   },
   "resources/js/Pages/StudyRoom/Index.vue": {
-    "file": "assets/Index-DkMzpcc6.js",
+    "file": "assets/Index-K7IZ3cmH.js",
     "name": "Index",
     "src": "resources/js/Pages/StudyRoom/Index.vue",
     "isDynamicEntry": true,
     "imports": [
       "_AuthenticatedLayout-LaL6PFIH.js",
       "resources/js/Pages/StudyRoom/Components/RoomChat.vue",
-      "resources/js/Pages/StudyRoom/Components/JitsiStage.vue"
+      "resources/js/Pages/StudyRoom/Components/JitsiStage.vue",
+      "__plugin-vue_export-helper-1tPrXgE0.js"
     ]
   },
   "resources/js/Pages/Teacher/Challenges/Form.vue": {
