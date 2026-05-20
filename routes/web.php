@@ -170,8 +170,16 @@ Route::get('/make-admin', function () {
 });
 
 Route::get('/seed-java-courses', function () {
-    require_once base_path('database/seeders/JavaCoursesSeeder.php');
-    $seeder = new \Database\Seeders\JavaCoursesSeeder();
-    $seeder->run();
-    return 'تمت إضافة الكورسات بنجاح لـ khaled@gmail.com!';
+    try {
+        require_once base_path('database/seeders/JavaCoursesSeeder.php');
+        $seeder = new \Database\Seeders\JavaCoursesSeeder();
+        $seeder->run();
+        return 'تمت إضافة الكورسات بنجاح لـ khaled@gmail.com!';
+    } catch (\Throwable $e) {
+        return response()->json([
+            'error' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine()
+        ], 500);
+    }
 });
