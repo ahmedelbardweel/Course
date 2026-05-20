@@ -16,7 +16,7 @@ const isSidebarOpen = ref(false);
 </script>
 
 <template>
-    <div class="bg-white dark:bg-black font-sans selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black flex w-full h-screen overflow-hidden">
+    <div class="bg-white font-sans selection:bg-zinc-950 selection:text-white flex w-full h-screen overflow-hidden">
         
         <!-- Role-based Sidebar -->
         <TeacherSidebar 
@@ -33,9 +33,9 @@ const isSidebarOpen = ref(false);
         <!-- Main Content -->
         <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
             <!-- Header -->
-            <header class="h-11 shrink-0 bg-white/80 backdrop-blur-md dark:bg-black/80 border-b border-zinc-100 dark:border-zinc-900 sticky top-0 z-40 flex items-center justify-between px-4 lg:px-6">
+            <header class="h-11 shrink-0 bg-white/80 backdrop-blur-md border-b border-zinc-200 sticky top-0 z-40 flex items-center justify-between px-4 lg:px-6">
                 <div class="flex items-center gap-3">
-                    <button @click="isSidebarOpen = true" class="lg:hidden p-1.5 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded">
+                    <button @click="isSidebarOpen = true" class="lg:hidden p-1.5 hover:bg-zinc-100 rounded">
                         <Menu class="h-4 w-4" />
                     </button>
                     <h2 class="text-sm font-bold tracking-tight">
@@ -44,9 +44,9 @@ const isSidebarOpen = ref(false);
                 </div>
                 
                 <div class="flex items-center gap-3">
-                    <button class="p-1.5 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded relative">
+                    <button class="p-1.5 hover:bg-zinc-100 rounded relative">
                         <Bell class="h-4 w-4" />
-                        <span class="absolute top-1 right-1 w-1.5 h-1.5 bg-red-600 rounded-full"></span>
+                        <span class="absolute top-1 right-1 w-1.5 h-1.5 bg-zinc-950 rounded-full"></span>
                     </button>
                     <div class="hidden sm:flex flex-col items-end">
                         <span class="text-xs font-bold leading-none">{{ $page.props.auth?.user?.name }}</span>
@@ -54,14 +54,14 @@ const isSidebarOpen = ref(false);
                             {{ $page.props.auth?.user?.role === 'teacher' ? 'معلم' : ($page.props.auth?.user?.role === 'admin' ? 'مدير' : 'طالب') }}
                         </span>
                     </div>
-                    <div class="h-7 w-7 bg-black dark:bg-white rounded-full flex items-center justify-center text-white dark:text-black font-black text-xs">
+                    <div class="h-7 w-7 bg-zinc-950 rounded-md flex items-center justify-center text-white font-black text-xs shadow-sm">
                         {{ $page.props.auth?.user?.name?.charAt(0) }}
                     </div>
                 </div>
             </header>
 
             <!-- Content Area -->
-            <main class="flex-1 overflow-y-auto p-4 lg:p-6 scrollbar-none">
+            <main class="flex-1 overflow-y-auto p-4 lg:p-6 scrollbar-none animate-in fade-in duration-500 ease-out">
                 <slot />
             </main>
         </div>

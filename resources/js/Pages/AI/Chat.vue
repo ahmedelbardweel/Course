@@ -78,7 +78,7 @@ const sendMessage = async () => {
                     <div>
                         <h2 class="font-black text-sm tracking-tight">المدرب الشخصي الذكي</h2>
                         <div class="flex items-center gap-1.5">
-                            <span class="h-1.5 w-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                            <span class="h-1.5 w-1.5 bg-zinc-950 dark:bg-white rounded-full animate-pulse"></span>
                             <span class="text-[10px] text-zinc-400 font-bold uppercase tracking-widest">متصل وحاضر للمساعدة</span>
                         </div>
                     </div>
@@ -94,10 +94,10 @@ const sendMessage = async () => {
                 >
                     <div 
                         :class="[
-                            'max-w-[85%] p-3 rounded-xl text-xs leading-relaxed shadow-sm transition-all',
+                            'max-w-[85%] p-3 rounded-lg text-xs leading-relaxed shadow-sm transition-all',
                             msg.role === 'user' 
-                                ? 'bg-zinc-100 text-black rounded-tr-none border border-zinc-200 dark:bg-zinc-800 dark:text-white dark:border-zinc-700' 
-                                : 'bg-white text-black rounded-tl-none border border-zinc-200 dark:bg-zinc-900 dark:text-white dark:border-zinc-800'
+                                ? 'bg-zinc-950 text-white rounded-tr-none border border-zinc-950 dark:bg-white dark:text-black dark:border-white' 
+                                : 'bg-zinc-50 text-zinc-900 rounded-tl-none border border-zinc-200 dark:bg-zinc-900 dark:text-white dark:border-zinc-800'
                         ]"
                     >
                         <div class="flex items-center gap-1.5 mb-1.5 opacity-40">

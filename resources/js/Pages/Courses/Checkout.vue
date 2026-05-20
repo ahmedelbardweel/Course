@@ -47,10 +47,10 @@ const handlePayment = () => {
     <Head title="إتمام الشراء" />
 
     <AuthenticatedLayout>
-        <div class="flex flex-col h-full bg-zinc-50/20 text-[12px]">
+        <div class="flex flex-col h-full bg-white text-[12px]">
             
             <!-- Compact Header -->
-            <header class="h-11 border-b bg-white flex items-center justify-between px-4 sticky top-0 z-30 shadow-sm">
+            <header class="h-11 border-b border-zinc-200 bg-white flex items-center justify-between px-4 sticky top-0 z-30">
                 <div class="flex items-center gap-2 text-[11px] text-muted-foreground font-medium uppercase tracking-tight">
                     <Link :href="route('courses.index')" class="hover:text-zinc-900 transition-colors">الدورات</Link>
                     <ChevronLeft class="h-3 w-3" />
@@ -66,18 +66,18 @@ const handlePayment = () => {
                         
                         <!-- Left: Order Summary (Floating on Mobile) -->
                         <div class="lg:col-span-5 order-2 lg:order-1">
-                            <Card class="border-zinc-200 shadow-none bg-white rounded-xl overflow-hidden sticky top-4">
-                                <div class="aspect-video relative overflow-hidden border-b border-zinc-50">
+                            <Card class="border-zinc-200 shadow-none bg-white rounded-md overflow-hidden sticky top-4">
+                                <div class="aspect-video relative overflow-hidden border-b border-zinc-200">
                                     <img v-if="course.thumbnail" :src="course.thumbnail" class="w-full h-full object-cover" />
                                     <div class="absolute inset-0 bg-zinc-900/40 flex items-end p-4">
                                         <div class="space-y-1">
-                                            <Badge variant="secondary" class="h-4 text-[8px] font-black uppercase tracking-widest bg-white/90 text-zinc-900 border-none">{{ course.category?.name }}</Badge>
+                                            <Badge variant="secondary" class="h-4 text-[8px] font-black uppercase tracking-widest bg-white/90 text-zinc-900 border-none rounded">{{ course.category?.name }}</Badge>
                                             <h3 class="text-[14px] font-black text-white leading-tight line-clamp-1">{{ course.title }}</h3>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <CardHeader class="p-4 border-b border-zinc-50">
+                                <CardHeader class="p-4 border-b border-zinc-100">
                                     <CardTitle class="text-[10px] font-black uppercase tracking-widest text-zinc-400">تفاصيل الفاتورة</CardTitle>
                                 </CardHeader>
 
@@ -89,7 +89,7 @@ const handlePayment = () => {
                                         </div>
                                         <div class="flex justify-between items-center text-[11px] font-medium text-zinc-500">
                                             <span>رسوم المعالجة</span>
-                                            <span class="text-emerald-600 font-black">مجاني</span>
+                                            <span class="text-zinc-900 font-black">مجاني</span>
                                         </div>
                                         <div class="flex justify-between items-center text-[11px] font-medium text-zinc-500">
                                             <span>الخصومات المطبقة</span>
@@ -97,7 +97,7 @@ const handlePayment = () => {
                                         </div>
                                     </div>
                                     
-                                    <Separator class="bg-zinc-50" />
+                                    <Separator class="bg-zinc-100" />
                                     
                                     <div class="flex justify-between items-center py-2">
                                         <span class="text-[13px] font-black text-zinc-900 uppercase">الإجمالي النهائي</span>
@@ -108,17 +108,17 @@ const handlePayment = () => {
                                     </div>
                                 </CardContent>
                                 
-                                <CardFooter class="bg-zinc-50/30 p-4 flex flex-col gap-3">
+                                <CardFooter class="bg-zinc-50/20 p-4 flex flex-col gap-3">
                                     <h4 class="text-[9px] font-black uppercase tracking-widest text-zinc-400 w-full mb-1">مزايا الاشتراك:</h4>
                                     <div class="w-full space-y-2">
                                         <div class="flex items-center gap-2 text-[10px] font-bold text-zinc-600">
-                                            <CheckCircle2 class="h-3 w-3 text-emerald-500" /> وصول كامل لجميع الدروس ({{ course.lessons_count }} درس)
+                                            <CheckCircle2 class="h-3 w-3 text-zinc-900" /> وصول كامل لجميع الدروس ({{ course.lessons_count }} درس)
                                         </div>
                                         <div class="flex items-center gap-2 text-[10px] font-bold text-zinc-600">
-                                            <CheckCircle2 class="h-3 w-3 text-emerald-500" /> شهادة إتمام رقمية معتمدة
+                                            <CheckCircle2 class="h-3 w-3 text-zinc-900" /> شهادة إتمام رقمية معتمدة
                                         </div>
                                         <div class="flex items-center gap-2 text-[10px] font-bold text-zinc-600">
-                                            <CheckCircle2 class="h-3 w-3 text-emerald-500" /> استخدام غير محدود للمساعد الذكي AI
+                                            <CheckCircle2 class="h-3 w-3 text-zinc-900" /> استخدام غير محدود للمساعد الذكي AI
                                         </div>
                                     </div>
                                 </CardFooter>
@@ -132,10 +132,10 @@ const handlePayment = () => {
                                 <p class="text-[11px] text-zinc-400 font-medium leading-relaxed max-w-lg">اختر وسيلة الدفع المناسبة وأكمل العملية بأمان للبدء فوراً في رحلتك التعليمية.</p>
                             </div>
 
-                            <Card class="border-zinc-200 shadow-none bg-white rounded-xl overflow-hidden">
-                                <CardHeader class="p-4 border-b border-zinc-50 flex flex-row items-center justify-between">
+                            <Card class="border-zinc-200 shadow-none bg-white rounded-md overflow-hidden">
+                                <CardHeader class="p-4 border-b border-zinc-100 flex flex-row items-center justify-between">
                                     <CardTitle class="text-[11px] font-black uppercase tracking-widest flex items-center gap-2">
-                                        <div class="h-7 w-7 rounded-lg bg-zinc-900 text-white flex items-center justify-center shadow-md">
+                                        <div class="h-7 w-7 rounded bg-zinc-900 text-white flex items-center justify-center">
                                             <CreditCard class="h-3.5 w-3.5" />
                                         </div>
                                         بطاقة الائتمان / الخصم
@@ -149,29 +149,29 @@ const handlePayment = () => {
                                     <div class="space-y-4">
                                         <div class="space-y-1.5">
                                             <Label class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">الاسم على البطاقة</Label>
-                                            <Input placeholder="John Doe" class="h-9 text-[12px] font-medium border-zinc-100 bg-zinc-50/20" />
+                                            <Input placeholder="John Doe" class="h-9 text-[12px] font-medium border-zinc-200 bg-white rounded-md focus-visible:ring-zinc-950" />
                                         </div>
                                         <div class="space-y-1.5">
                                             <Label class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">رقم البطاقة</Label>
                                             <div class="relative">
-                                                <Input placeholder="0000 0000 0000 0000" class="h-9 text-[12px] font-mono font-bold pl-12 border-zinc-100 bg-zinc-50/20 tracking-widest" />
-                                                <Lock class="absolute left-3 top-2.5 h-4 w-4 text-zinc-200" />
+                                                <Input placeholder="0000 0000 0000 0000" class="h-9 text-[12px] font-mono font-bold pl-12 border-zinc-200 bg-white rounded-md focus-visible:ring-zinc-950 tracking-widest" />
+                                                <Lock class="absolute left-3 top-2.5 h-4 w-4 text-zinc-300" />
                                             </div>
                                         </div>
                                         <div class="grid grid-cols-2 gap-4">
                                             <div class="space-y-1.5">
                                                 <Label class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">تاريخ الانتهاء</Label>
-                                                <Input placeholder="MM/YY" class="h-9 text-[12px] font-medium border-zinc-100 bg-zinc-50/20" />
+                                                <Input placeholder="MM/YY" class="h-9 text-[12px] font-medium border-zinc-200 bg-white rounded-md focus-visible:ring-zinc-950" />
                                             </div>
                                             <div class="space-y-1.5">
                                                 <Label class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">رمز الأمان (CVV)</Label>
-                                                <Input placeholder="123" class="h-9 text-[12px] font-medium border-zinc-100 bg-zinc-50/20" />
+                                                <Input placeholder="123" class="h-9 text-[12px] font-medium border-zinc-200 bg-white rounded-md focus-visible:ring-zinc-950" />
                                             </div>
                                         </div>
                                     </div>
                                 </CardContent>
-                                <CardFooter class="bg-zinc-50/50 p-4 flex items-center gap-3 border-t border-zinc-50">
-                                    <div class="h-7 w-7 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0 shadow-inner">
+                                <CardFooter class="bg-zinc-50/20 p-4 flex items-center gap-3 border-t border-zinc-100">
+                                    <div class="h-7 w-7 rounded bg-zinc-100 text-zinc-900 border border-zinc-200 flex items-center justify-center shrink-0">
                                         <ShieldCheck class="h-3.5 w-3.5" />
                                     </div>
                                     <p class="text-[10px] font-medium text-zinc-500 italic">نحن نستخدم تشفيراً عالمياً 256-bit لضمان أمن بياناتك المالية.</p>
@@ -180,19 +180,19 @@ const handlePayment = () => {
 
                             <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-4">
                                 <Link :href="route('courses.show', course.slug)">
-                                    <Button variant="ghost" class="h-8 text-[11px] font-black uppercase tracking-widest text-zinc-400 hover:text-zinc-900 rounded-full px-6 transition-all">
+                                    <Button variant="ghost" class="h-8 text-[11px] font-black uppercase tracking-widest text-zinc-400 hover:text-zinc-900 rounded-md px-6 transition-all">
                                         <ChevronLeft class="h-3.5 w-3.5 ml-1.5" /> العودة للتفاصيل
                                     </Button>
                                 </Link>
                                 <Button 
                                     @click="handlePayment" 
                                     :disabled="isProcessing"
-                                    class="h-12 text-[14px] font-black uppercase tracking-[0.1em] bg-zinc-900 text-white hover:bg-zinc-800 rounded-xl px-12 shadow-xl shadow-zinc-900/20 transition-all hover:scale-[1.02] active:scale-95 group"
+                                    class="h-10 text-[12px] font-bold bg-zinc-950 text-white hover:bg-zinc-900 rounded-md px-8 shadow-none transition-colors border-none group"
                                 >
                                     <Loader2 v-if="isProcessing" class="ml-2 h-4 w-4 animate-spin" />
                                     <span v-else class="flex items-center gap-2">
                                         دفع ${{ course.price }} والاشتراك الآن
-                                        <Wallet class="h-4 w-4 opacity-50 group-hover:translate-x-1 transition-transform" />
+                                        <Wallet class="h-3.5 w-3.5 opacity-50 group-hover:translate-x-1 transition-transform" />
                                     </span>
                                 </Button>
                             </div>

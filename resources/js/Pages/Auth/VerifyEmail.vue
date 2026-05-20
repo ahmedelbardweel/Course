@@ -1,8 +1,8 @@
 <script setup>
 import { computed } from 'vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { Mail, LogOut, Loader2, CheckCircle2 } from 'lucide-vue-next';
 
 const props = defineProps({
     status: {
@@ -23,38 +23,46 @@ const verificationLinkSent = computed(
 
 <template>
     <GuestLayout>
-        <Head title="Email Verification" />
+        <Head title="تأكيد البريد الإلكتروني" />
 
-        <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-            Thanks for signing up! Before getting started, could you verify your
-            email address by clicking on the link we just emailed to you? If you
-            didn't receive the email, we will gladly send you another.
+        <div class="text-center mb-6">
+            <div class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-zinc-50 border border-zinc-200 mb-3">
+                <Mail class="h-5 w-5 text-zinc-900" />
+            </div>
+            <h1 class="text-lg font-black tracking-tight text-zinc-900">تأكيد البريد الإلكتروني</h1>
+            <p class="mt-1 text-zinc-500 text-[11px] leading-relaxed">
+                شكراً لتسجيلك! قبل البدء، يرجى تأكيد حسابك بالضغط على الرابط الذي أرسلناه للتو إلى بريدك الإلكتروني.
+            </p>
         </div>
 
         <div
-            class="mb-4 text-sm font-medium text-green-600 dark:text-green-400"
             v-if="verificationLinkSent"
+            class="mb-6 p-3 rounded-lg bg-zinc-50 border border-zinc-200 flex items-start gap-2.5 text-zinc-900 text-[11px] leading-relaxed animate-in fade-in duration-300"
         >
-            A new verification link has been sent to the email address you
-            provided during registration.
+            <CheckCircle2 class="h-4 w-4 text-zinc-900 shrink-0 mt-0.5" />
+            <span>تم إرسال رابط تأكيد جديد إلى البريد الإلكتروني الذي قدمته أثناء التسجيل.</span>
         </div>
 
-        <form @submit.prevent="submit">
-            <div class="mt-4 flex items-center justify-between">
-                <PrimaryButton
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Resend Verification Email
-                </PrimaryButton>
+        <form @submit.prevent="submit" class="space-y-4">
+            <button
+                type="submit"
+                :disabled="form.processing"
+                class="w-full flex items-center justify-center gap-2 bg-zinc-900 text-white hover:bg-zinc-800 disabled:opacity-50 disabled:pointer-events-none rounded-lg h-9 px-4 text-xs font-bold transition-all"
+            >
+                <Loader2 v-if="form.processing" class="h-3.5 w-3.5 animate-spin" />
+                <span>إعادة إرسال رابط التأكيد</span>
+            </button>
 
+            <div class="flex items-center justify-center pt-2">
                 <Link
                     :href="route('logout')"
                     method="post"
                     as="button"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
-                    >Log Out</Link
+                    class="inline-flex items-center gap-1.5 text-zinc-400 hover:text-zinc-900 text-xs font-bold transition-colors"
                 >
+                    <LogOut class="h-3.5 w-3.5" />
+                    <span>تسجيل الخروج</span>
+                </Link>
             </div>
         </form>
     </GuestLayout>

@@ -45,21 +45,21 @@ defineProps({
                     <!-- Stats Overview (Optional, but looks premium) -->
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4" v-if="enrolledCourses.length > 0">
                         <Card class="border-zinc-200 shadow-none bg-white rounded-lg p-3 flex items-center gap-3">
-                            <div class="h-8 w-8 rounded bg-emerald-50 text-emerald-600 flex items-center justify-center"><CheckCircle2 class="h-4 w-4" /></div>
+                            <div class="h-8 w-8 rounded bg-zinc-100 text-zinc-900 flex items-center justify-center border border-zinc-200"><CheckCircle2 class="h-4 w-4" /></div>
                             <div>
                                 <div class="text-[9px] font-black text-zinc-400 uppercase tracking-widest leading-none">الكورسات المكتملة</div>
                                 <div class="text-[12px] font-black mt-0.5">{{ enrolledCourses.filter(c => c.progress === 100).length }} دورات</div>
                             </div>
                         </Card>
                         <Card class="border-zinc-200 shadow-none bg-white rounded-lg p-3 flex items-center gap-3">
-                            <div class="h-8 w-8 rounded bg-blue-50 text-blue-600 flex items-center justify-center"><Layers class="h-4 w-4" /></div>
+                            <div class="h-8 w-8 rounded bg-zinc-100 text-zinc-900 flex items-center justify-center border border-zinc-200"><Layers class="h-4 w-4" /></div>
                             <div>
                                 <div class="text-[9px] font-black text-zinc-400 uppercase tracking-widest leading-none">قيد الدراسة</div>
                                 <div class="text-[12px] font-black mt-0.5">{{ enrolledCourses.filter(c => c.progress < 100).length }} دورات</div>
                             </div>
                         </Card>
                         <Card class="border-zinc-200 shadow-none bg-white rounded-lg p-3 flex items-center gap-3">
-                            <div class="h-8 w-8 rounded bg-amber-50 text-amber-600 flex items-center justify-center"><Trophy class="h-4 w-4" /></div>
+                            <div class="h-8 w-8 rounded bg-zinc-100 text-zinc-900 flex items-center justify-center border border-zinc-200"><Trophy class="h-4 w-4" /></div>
                             <div>
                                 <div class="text-[9px] font-black text-zinc-400 uppercase tracking-widest leading-none">إجمالي الإنجاز</div>
                                 <div class="text-[12px] font-black mt-0.5">{{ Math.round(enrolledCourses.reduce((acc, c) => acc + c.progress, 0) / (enrolledCourses.length || 1)) }}%</div>
@@ -73,7 +73,7 @@ defineProps({
                         <h3 class="text-[13px] font-black text-zinc-900">لم تبدأ رحلتك التعليمية بعد</h3>
                         <p class="text-[11px] text-zinc-400 mb-6 text-center max-w-xs leading-relaxed">استكشف الكورسات المتاحة وابدأ أول خطوة في رحلتك التعليمية اليوم بضغطة زر واحدة.</p>
                         <Link :href="route('courses.index')">
-                            <Button class="h-9 text-[11px] font-black px-8 rounded-full shadow-lg shadow-zinc-900/10">تصفح الكورسات الآن</Button>
+                            <Button class="h-9 text-[11px] font-black px-8 rounded-md bg-zinc-900 text-white hover:bg-zinc-800 transition-all border-none">تصفح الكورسات الآن</Button>
                         </Link>
                     </div>
 
@@ -86,10 +86,10 @@ defineProps({
                                     <PlayCircle class="h-10 w-10 opacity-20" />
                                 </div>
                                 <div class="absolute top-2 left-2 flex gap-1.5">
-                                    <Badge v-if="course.progress === 100" class="h-4 text-[8px] font-black uppercase tracking-widest px-2 bg-emerald-600 text-white border-none shadow-sm">
+                                    <Badge v-if="course.progress === 100" class="h-4 text-[8px] font-black uppercase tracking-widest px-2 bg-zinc-900 text-white border-none shadow-sm">
                                         مكتمل <CheckCircle2 class="mr-1 h-2.5 w-2.5" />
                                     </Badge>
-                                    <Badge v-else class="h-4 text-[8px] font-black uppercase tracking-widest px-2 bg-white/90 backdrop-blur-sm border-none text-zinc-900 shadow-sm">
+                                    <Badge v-else class="h-4 text-[8px] font-black uppercase tracking-widest px-2 bg-white border border-zinc-200 text-zinc-900 shadow-sm">
                                         قيد التعلم
                                     </Badge>
                                 </div>
@@ -98,7 +98,7 @@ defineProps({
                             
                             <CardHeader class="p-3 space-y-1">
                                 <div class="text-[9px] font-black uppercase tracking-[0.2em] text-zinc-400">{{ course.category?.name || 'عام' }}</div>
-                                <CardTitle class="text-[12px] font-bold text-zinc-900 line-clamp-1 group-hover:text-emerald-600 transition-colors leading-tight">{{ course.title }}</CardTitle>
+                                <CardTitle class="text-[12px] font-bold text-zinc-900 line-clamp-1 group-hover:underline transition-colors leading-tight">{{ course.title }}</CardTitle>
                             </CardHeader>
 
                             <CardContent class="p-3 pt-0 space-y-3">

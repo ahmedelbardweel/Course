@@ -119,12 +119,12 @@ onUnmounted(() => {
             <div class="bg-white border border-zinc-200 px-4 py-2.5 rounded-t-xl flex items-center justify-between shadow-sm text-zinc-900 relative flex-shrink-0">
                 <div>
                     <h1 class="text-sm sm:text-base font-bold flex items-center gap-1.5 text-zinc-900">
-                        <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                        <span class="w-2 h-2 bg-zinc-950 rounded-full animate-pulse"></span>
                         {{ room.course.title }}
                     </h1>
                     <p class="text-zinc-500 text-[10px] sm:text-xs mt-0.5 flex items-center gap-1.5">
                         القائد الحالي: {{ room.leader?.name || 'غير محدد' }}
-                        <span v-if="!isLeaderPresent && !isLeader" class="bg-red-100 text-red-700 px-1.5 py-0.5 rounded text-[9px] border border-red-200">
+                        <span v-if="!isLeaderPresent && !isLeader" class="bg-zinc-100 text-zinc-700 px-1.5 py-0.5 rounded text-[9px] border border-zinc-200">
                             غير متواجد
                         </span>
                     </p>
@@ -132,19 +132,19 @@ onUnmounted(() => {
                 
                 <!-- Claim Leadership Button -->
                 <div v-if="!isLeaderPresent && !isLeader" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                    <button @click="claimLeadership" class="bg-zinc-900 hover:bg-zinc-800 text-white px-3 py-1 rounded-lg text-[10px] sm:text-xs font-bold shadow transition-all flex items-center gap-1 animate-bounce">
+                    <button @click="claimLeadership" class="bg-zinc-950 hover:bg-zinc-900 text-white px-3 py-1 rounded-md text-[10px] sm:text-xs font-bold shadow transition-all flex items-center gap-1">
                         المطالبة بالقيادة
                     </button>
                 </div>
                 
                 <!-- Header Status Badge -->
                 <div>
-                    <span v-if="isLeader" class="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-lg text-[10px] sm:text-xs font-bold border border-emerald-200 flex items-center gap-1.5">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span v-if="isLeader" class="bg-zinc-950 text-white px-2.5 py-1 rounded-md text-[10px] sm:text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                        <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
                         أنت تبث شاشتك
                     </span>
-                    <span v-else class="bg-zinc-50 text-zinc-700 px-2.5 py-1 rounded-lg text-[10px] sm:text-xs font-bold border border-zinc-200 flex items-center gap-1.5">
-                        <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
+                    <span v-else class="bg-zinc-50 text-zinc-700 px-2.5 py-1 rounded-md text-[10px] sm:text-xs font-bold border border-zinc-200 flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-zinc-900 animate-pulse"></span>
                         يتم العرض بواسطة القائد
                     </span>
                 </div>

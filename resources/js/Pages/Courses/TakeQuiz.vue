@@ -155,7 +155,7 @@ onUnmounted(() => {
                                 </Card>
                                 <Card class="p-3 shadow-none border-zinc-200 text-center space-y-1">
                                     <span class="text-[9px] font-black text-zinc-300 uppercase tracking-widest block">النجاح</span>
-                                    <span class="text-xs font-black text-emerald-600">{{ quiz.passing_score }}%</span>
+                                    <span class="text-xs font-black text-zinc-900">{{ quiz.passing_score }}%</span>
                                 </Card>
                                 <Card class="p-3 shadow-none border-zinc-200 text-center space-y-1">
                                     <span class="text-[9px] font-black text-zinc-300 uppercase tracking-widest block">المحاولات</span>
@@ -175,10 +175,10 @@ onUnmounted(() => {
                             </Card>
 
                             <div class="pt-2">
-                                <div v-if="!isStarted" class="p-3 rounded-lg bg-amber-50 border border-amber-100 text-amber-700 font-bold flex items-center gap-2">
+                                <div v-if="!isStarted" class="p-3 rounded-lg bg-zinc-50 border border-zinc-200 text-zinc-900 font-bold flex items-center gap-2">
                                     <Clock class="h-3.5 w-3.5" /> سيبدأ في: {{ new Date(quiz.start_time).toLocaleString('ar-SA') }}
                                 </div>
-                                <div v-else-if="isEnded" class="p-3 rounded-lg bg-red-50 border border-red-100 text-red-700 font-bold flex items-center gap-2">
+                                <div v-else-if="isEnded" class="p-3 rounded-lg bg-zinc-50 border border-zinc-200 text-zinc-900 font-bold flex items-center gap-2">
                                     <AlertTriangle class="h-3.5 w-3.5" /> انتهى وقت التقديم.
                                 </div>
                                 <div v-else-if="!canAttempt" class="p-3 rounded-lg bg-zinc-100 border border-zinc-200 text-zinc-500 font-bold flex items-center gap-2 text-center justify-center">
@@ -201,7 +201,7 @@ onUnmounted(() => {
                                         <div class="text-[9px] font-bold text-zinc-400">{{ new Date(attempt.created_at).toLocaleDateString('ar-SA') }}</div>
                                         <div class="text-[12px] font-black tracking-tighter">{{ attempt.score }}%</div>
                                     </div>
-                                    <Badge :variant="attempt.status === 'passed' ? 'default' : 'destructive'" class="h-4.5 text-[8px] font-black uppercase rounded shadow-none">{{ attempt.status === 'passed' ? 'ناجح' : 'راسب' }}</Badge>
+                                    <div :class="[attempt.status === 'passed' ? 'bg-zinc-950 text-white' : 'bg-zinc-100 text-zinc-800 border-zinc-200 border', 'px-2 py-0.5 text-[8px] font-black uppercase rounded shadow-none']">{{ attempt.status === 'passed' ? 'ناجح' : 'راسب' }}</div>
                                 </Card>
                             </div>
                         </aside>
@@ -233,7 +233,7 @@ onUnmounted(() => {
                                 <Button 
                                     @click="submitQuiz" 
                                     :disabled="!allAnswered || form.processing" 
-                                    class="w-full h-8 text-[10px] font-black uppercase tracking-widest bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm"
+                                    class="w-full h-8 text-[10px] font-black uppercase tracking-widest bg-zinc-950 hover:bg-zinc-900 text-white shadow-sm"
                                 >
                                     تقديم الإجابات
                                 </Button>
@@ -269,7 +269,7 @@ onUnmounted(() => {
                             <CardFooter class="p-3 border-t border-zinc-100 bg-zinc-50/30 flex items-center justify-between">
                                 <Button variant="ghost" size="sm" @click="prevQuestion" :disabled="currentQuestionIndex === 0" class="h-7 px-4 text-[11px] font-bold">السابق</Button>
                                 <Button v-if="!isLastQuestion" @click="nextQuestion" variant="secondary" size="sm" class="h-7 px-6 text-[11px] font-black uppercase tracking-widest">التالي</Button>
-                                <Button v-else @click="submitQuiz" :disabled="!allAnswered || form.processing" class="h-7 px-8 text-[11px] font-black uppercase tracking-widest bg-emerald-600 hover:bg-emerald-700 text-white">إنهاء</Button>
+                                <Button v-else @click="submitQuiz" :disabled="!allAnswered || form.processing" class="h-7 px-8 text-[11px] font-black uppercase tracking-widest bg-zinc-950 hover:bg-zinc-900 text-white">إنهاء</Button>
                             </CardFooter>
                         </Card>
                     </div>
@@ -278,9 +278,9 @@ onUnmounted(() => {
                 <!-- 3. Result Screen -->
                 <div v-else-if="quizState === 'submitted'" class="max-w-lg mx-auto py-8">
                     <Card class="border-zinc-200 shadow-xl text-center p-10 bg-white rounded-2xl relative overflow-hidden">
-                        <div class="absolute top-0 left-0 w-full h-1" :class="$page.props.flash?.passed ? 'bg-emerald-500' : 'bg-red-500'"></div>
+                        <div class="absolute top-0 left-0 w-full h-1" :class="$page.props.flash?.passed ? 'bg-zinc-950' : 'bg-zinc-300'"></div>
                         
-                        <div :class="['h-16 w-16 mx-auto rounded-full flex items-center justify-center mb-6 shadow-inner', $page.props.flash?.passed ? 'bg-emerald-50 text-emerald-500' : 'bg-red-50 text-red-500']">
+                        <div class="h-16 w-16 mx-auto rounded-lg flex items-center justify-center mb-6 border border-zinc-200 bg-zinc-50 text-zinc-900">
                             <Trophy v-if="$page.props.flash?.passed" class="h-8 w-8" />
                             <Frown v-else class="h-8 w-8" />
                         </div>
@@ -299,7 +299,7 @@ onUnmounted(() => {
                             </div>
                             <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-100">
                                 <span class="text-[9px] font-black text-zinc-300 uppercase tracking-widest block mb-1">الحالة</span>
-                                <span :class="['text-base font-black uppercase', $page.props.flash?.passed ? 'text-emerald-500' : 'text-red-500']">{{ $page.props.flash?.passed ? 'ناجح' : 'راسب' }}</span>
+                                <span class="text-base font-black uppercase text-zinc-900">{{ $page.props.flash?.passed ? 'ناجح' : 'راسب' }}</span>
                             </div>
                         </div>
 

@@ -90,7 +90,7 @@ watch(() => props.initialMessages, (newVal) => {
                 </svg>
                 المحادثة المباشرة
             </h3>
-            <span class="text-[10px] bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded-full font-bold animate-pulse">مباشر</span>
+            <span class="text-[10px] bg-zinc-950 text-white px-1.5 py-0.5 rounded-md font-bold animate-pulse">مباشر</span>
         </div>
 
         <!-- Messages Area -->
@@ -109,10 +109,10 @@ watch(() => props.initialMessages, (newVal) => {
                     
                     <!-- Message Bubble -->
                     <div :class="[
-                        'px-3 py-1.5 rounded-2xl shadow-sm text-xs relative group',
+                        'px-3 py-1.5 rounded-lg shadow-sm text-xs relative group',
                         msg.user_id === user.id 
-                            ? 'bg-zinc-900 text-zinc-50 rounded-tr-none' 
-                            : 'bg-zinc-100 text-zinc-800 rounded-tl-none border border-zinc-200'
+                            ? 'bg-zinc-950 text-white rounded-tr-none border border-zinc-950' 
+                            : 'bg-zinc-50 text-zinc-900 rounded-tl-none border border-zinc-200'
                     ]">
                         {{ msg.content }}
                     </div>
@@ -125,7 +125,7 @@ watch(() => props.initialMessages, (newVal) => {
 
         <!-- Input Area -->
         <div class="p-2 border-t border-zinc-100 bg-white flex-shrink-0">
-            <form @submit.prevent="sendMessage" class="flex gap-2 items-center bg-zinc-50 p-0.5 pl-2.5 rounded-full border border-zinc-200 focus-within:border-zinc-400 focus-within:ring-1 focus-within:ring-zinc-400/20 transition-all">
+            <form @submit.prevent="sendMessage" class="flex gap-2 items-center bg-zinc-50 p-0.5 pl-2.5 rounded-md border border-zinc-200 focus-within:border-zinc-400 focus-within:ring-1 focus-within:ring-zinc-400/20 transition-all">
                 <input 
                     v-model="newMessage"
                     type="text" 
@@ -136,7 +136,7 @@ watch(() => props.initialMessages, (newVal) => {
                 <button 
                     type="submit" 
                     :disabled="!newMessage.trim() || isSending"
-                    class="h-8 w-8 flex items-center justify-center bg-zinc-900 hover:bg-zinc-800 disabled:bg-zinc-100 disabled:text-zinc-400 text-white rounded-full transition-colors flex-shrink-0"
+                    class="h-8 w-8 flex items-center justify-center bg-zinc-950 hover:bg-zinc-900 disabled:bg-zinc-100 disabled:text-zinc-400 text-white rounded-md shadow-sm transition-colors flex-shrink-0"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 transform rotate-180" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />

@@ -56,10 +56,10 @@ const selectCategory = (slug) => {
     <Head title="تصفح الكورسات" />
 
     <AuthenticatedLayout>
-        <div class="flex flex-col h-full bg-zinc-50/20 text-[12px]">
+        <div class="flex flex-col h-full bg-white text-[12px]">
             
             <!-- Compact Header -->
-            <header class="h-11 border-b bg-white flex items-center justify-between px-4 sticky top-0 z-30 shadow-sm">
+            <header class="h-11 border-b bg-white flex items-center justify-between px-4 sticky top-0 z-30 shadow-none">
                 <div class="flex items-center gap-2 text-[11px] text-muted-foreground font-medium uppercase tracking-tight">
                     <span>الرئيسية</span>
                     <ChevronLeft class="h-3 w-3" />
@@ -71,7 +71,7 @@ const selectCategory = (slug) => {
                         <Input 
                             v-model="search"
                             placeholder="ابحث عن كورس..." 
-                            class="h-7.5 pr-8 text-[11px] border-zinc-200 bg-zinc-50/50 shadow-none focus-visible:ring-zinc-900"
+                            class="h-7.5 pr-8 text-[11px] border-zinc-200 bg-white shadow-none focus-visible:ring-zinc-950 rounded-md"
                         />
                     </div>
                 </div>
@@ -83,7 +83,7 @@ const selectCategory = (slug) => {
                     <!-- Search/Categories Bar -->
                     <div class="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between border-b border-zinc-100 pb-4">
                         <div class="flex items-center gap-2">
-                            <div class="h-8 w-8 rounded-lg bg-zinc-900 text-white flex items-center justify-center">
+                            <div class="h-8 w-8 rounded-md bg-zinc-950 text-white flex items-center justify-center">
                                 <LayoutGrid class="h-4 w-4" />
                             </div>
                             <div>
@@ -98,7 +98,7 @@ const selectCategory = (slug) => {
                                 @click="selectCategory('')"
                                 :variant="currentCategory === '' ? 'default' : 'ghost'"
                                 size="sm"
-                                class="h-7 text-[10px] px-4 font-black uppercase tracking-widest rounded-full"
+                                class="h-7 text-[10px] px-4 font-black uppercase tracking-widest rounded-md"
                             >
                                 الكل
                             </Button>
@@ -108,7 +108,7 @@ const selectCategory = (slug) => {
                                 @click="selectCategory(category.slug)"
                                 :variant="currentCategory === category.slug ? 'default' : 'ghost'"
                                 size="sm"
-                                class="h-7 text-[10px] px-4 font-black uppercase tracking-widest rounded-full transition-all"
+                                class="h-7 text-[10px] px-4 font-black uppercase tracking-widest rounded-md transition-colors"
                             >
                                 {{ category.name }}
                             </Button>

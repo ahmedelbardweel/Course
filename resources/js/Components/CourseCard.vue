@@ -36,7 +36,7 @@ const handleView = () => {
                 </Badge>
             </div>
             <div v-if="isEnrolled" class="absolute inset-0 bg-zinc-900/40 backdrop-blur-[1px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <Button size="sm" variant="secondary" class="h-8 text-[10px] font-black rounded-full px-4 shadow-xl">
+                <Button size="sm" variant="secondary" class="h-8 text-[10px] font-black rounded-md px-4 shadow-none">
                     مواصلة التعلم
                 </Button>
             </div>
@@ -64,8 +64,8 @@ const handleView = () => {
                 {{ price }}
             </div>
             <Link :href="route('courses.show', { slug: props.slug })" class="shrink-0">
-                <Button @click="handleView" variant="ghost" size="sm" class="h-7 text-[10px] font-bold hover:bg-zinc-950 hover:text-white rounded px-3 transition-all">
-                    {{ isEnrolled ? 'دخلت' : 'التفاصيل' }}
+                <Button @click="handleView" variant="ghost" size="sm" class="h-7 text-[10px] font-bold hover:bg-zinc-950 hover:text-white rounded-md px-3 transition-colors">
+                    {{ isEnrolled ? 'عرض الكورس' : 'التفاصيل' }}
                 </Button>
             </Link>
         </CardFooter>
