@@ -15,15 +15,25 @@ window.Echo = new Echo({
   wssPort: 8011,
   forceTLS: false,
   enabledTransports: ["ws", "wss"],
-  auth: {
-    headers: {
-      "X-CSRF-TOKEN": (function() {
+  authorizer: (channel, options) => {
+    return {
+      authorize: (socketId, callback) => {
         var _a;
-        const token = (_a = document.querySelector('meta[name="csrf-token"]')) == null ? void 0 : _a.getAttribute("content");
-        console.log("Broadcasting CSRF Token:", token);
-        return token;
-      })()
-    }
+        axios.post("/broadcasting/auth", {
+          socket_id: socketId,
+          channel_name: channel.name
+        }, {
+          headers: {
+            "X-CSRF-TOKEN": (_a = document.querySelector('meta[name="csrf-token"]')) == null ? void 0 : _a.getAttribute("content")
+          }
+        }).then((response) => {
+          callback(false, response.data);
+        }).catch((error) => {
+          console.error("Broadcasting auth error:", error);
+          callback(true, error);
+        });
+      }
+    };
   }
 });
 window.Echo.connector.pusher.connection.bind("error", function(err) {

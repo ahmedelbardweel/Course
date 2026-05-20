@@ -18,14 +18,26 @@ window.Echo = new Echo({
     wssPort: 8011,
     forceTLS: false,
     enabledTransports: ['ws', 'wss'],
-    auth: {
-        headers: {
-            'X-CSRF-TOKEN': (function() {
-                const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-                console.log('Broadcasting CSRF Token:', token);
-                return token;
-            })()
-        }
+    authorizer: (channel, options) => {
+        return {
+            authorize: (socketId, callback) => {
+                axios.post('/broadcasting/auth', {
+                    socket_id: socketId,
+                    channel_name: channel.name
+                }, {
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+                    }
+                })
+                .then(response => {
+                    callback(false, response.data);
+                })
+                .catch(error => {
+                    console.error('Broadcasting auth error:', error);
+                    callback(true, error);
+                });
+            }
+        };
     }
 });
 
