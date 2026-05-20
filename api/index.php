@@ -1,16 +1,4 @@
 <?php
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-
-// Temporarily enable debugging and stderr logging for Vercel diagnostic purposes
-putenv('APP_DEBUG=true');
-$_ENV['APP_DEBUG'] = 'true';
-$_SERVER['APP_DEBUG'] = 'true';
-
-putenv('LOG_CHANNEL=stderr');
-$_ENV['LOG_CHANNEL'] = 'stderr';
-$_SERVER['LOG_CHANNEL'] = 'stderr';
 
 // --- Vercel Serverless Bootstrap for Laravel ---
 // Make /tmp writable directories for Laravel
