@@ -168,3 +168,10 @@ Route::get('/make-admin', function () {
     \App\Models\User::where('email', 'brdweelahmed@gmail.com')->update(['role' => 'admin']);
     return 'تمت ترقية الحساب بنجاح إلى مدير!';
 });
+
+Route::get('/seed-java-courses', function () {
+    require_once base_path('database/seeders/JavaCoursesSeeder.php');
+    $seeder = new \Database\Seeders\JavaCoursesSeeder();
+    $seeder->run();
+    return 'تمت إضافة الكورسات بنجاح لـ khaled@gmail.com!';
+});
