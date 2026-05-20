@@ -1,0 +1,1 @@
+import{c as a}from"./utils-COMqstzJ.js";import{c as t,m as o,n,u as c,o as l}from"./app-CbnLSk9P.js";const i={__name:"CardContent",props:{class:{type:[Boolean,null,String,Object,Array],required:!1,skipCheck:!0}},setup(e){const s=e;return(r,p)=>(l(),t("div",{class:n(c(a)("p-6 pt-0",s.class))},[o(r.$slots,"default")],2))}};export{i as _};

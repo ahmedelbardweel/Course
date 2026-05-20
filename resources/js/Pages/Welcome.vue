@@ -79,8 +79,8 @@ defineProps({
                     <span>الجيل القادم من التعليم الإلكتروني الفخم</span>
                 </div>
                 
-                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[1.1] text-zinc-950 mb-6">
-                    تعلم ما يجعلك <span class="bg-zinc-950 text-white px-4 py-1.5 rounded-lg shadow-sm">خارج الصندوق</span>
+                <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter leading-[1.3] text-zinc-950 mb-6">
+                    تعلم ما يجعلك <span class="text-zinc-400">خارج الصندوق</span>
                 </h1>
                 
                 <p class="text-[13px] sm:text-[15px] text-zinc-500 font-normal leading-relaxed max-w-2xl mx-auto mb-8">

@@ -510,7 +510,7 @@
     ]
   },
   "resources/js/Pages/Welcome.vue": {
-    "file": "assets/Welcome-i8BqN_lt.js",
+    "file": "assets/Welcome-CMTqc8Px.js",
     "name": "Welcome",
     "src": "resources/js/Pages/Welcome.vue",
     "isDynamicEntry": true,
@@ -568,7 +568,7 @@
       "resources/js/Pages/Welcome.vue"
     ],
     "css": [
-      "assets/app-D7I5nvLK.css"
+      "assets/app-C0Acwqk8.css"
     ]
   }
 }
