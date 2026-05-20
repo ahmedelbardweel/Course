@@ -15,10 +15,10 @@
     "/build/assets/Dashboard-OaTmJmk8.js"
   ],
   "resources/js/Components/InputError.vue": [
-    "/build/assets/TextInput-Doytf5Bt.js"
+    "/build/assets/ResetPassword-DquJh0U3.js"
   ],
   "resources/js/Components/InputLabel.vue": [
-    "/build/assets/TextInput-Doytf5Bt.js"
+    "/build/assets/ResetPassword-DquJh0U3.js"
   ],
   "resources/js/Components/Layout/StudentSidebar.vue": [
     "/build/assets/AuthenticatedLayout-BAtzIAbQ.js",
@@ -35,7 +35,7 @@
     "/build/assets/PrimaryButton-Cygj-hvK.js"
   ],
   "resources/js/Components/TextInput.vue": [
-    "/build/assets/TextInput-Doytf5Bt.js"
+    "/build/assets/ResetPassword-DquJh0U3.js"
   ],
   "resources/js/Components/ui/badge/Badge.vue": [
     "/build/assets/index-CGK-4kfq.js"
@@ -68,7 +68,7 @@
     "/build/assets/CardTitle-Cy38L483.js"
   ],
   "resources/js/Components/ui/checkbox/Checkbox.vue": [
-    "/build/assets/Login-CzBGS3Xk.js"
+    "/build/assets/Login-yu2cAcD7.js"
   ],
   "resources/js/Components/ui/input/Input.vue": [
     "/build/assets/Input-Bd7d8AJ3.js"
@@ -106,19 +106,19 @@
     "/build/assets/ContentScanner-Bbj5lTro.js"
   ],
   "resources/js/Pages/Auth/ConfirmPassword.vue": [
-    "/build/assets/ConfirmPassword-B24YKktR.js"
+    "/build/assets/ConfirmPassword-r2ePm66b.js"
   ],
   "resources/js/Pages/Auth/ForgotPassword.vue": [
-    "/build/assets/ForgotPassword-CTzczvO6.js"
+    "/build/assets/ForgotPassword-BuxWarfS.js"
   ],
   "resources/js/Pages/Auth/Login.vue": [
-    "/build/assets/Login-CzBGS3Xk.js"
+    "/build/assets/Login-yu2cAcD7.js"
   ],
   "resources/js/Pages/Auth/Register.vue": [
-    "/build/assets/Register-CGCxrDvO.js"
+    "/build/assets/Register-B8HlRNJk.js"
   ],
   "resources/js/Pages/Auth/ResetPassword.vue": [
-    "/build/assets/ResetPassword-Cnp1AYrg.js"
+    "/build/assets/ResetPassword-DquJh0U3.js"
   ],
   "resources/js/Pages/Auth/VerifyEmail.vue": [
     "/build/assets/VerifyEmail-X6eXdVRE.js"
