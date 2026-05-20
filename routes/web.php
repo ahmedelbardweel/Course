@@ -163,3 +163,8 @@ Route::get('/run-migrations', function () {
     \Illuminate\Support\Facades\Artisan::call('migrate');
     return \Illuminate\Support\Facades\Artisan::output();
 });
+
+Route::get('/make-admin', function () {
+    \App\Models\User::where('email', 'brdweelahmed@gmail.com')->update(['role' => 'admin']);
+    return 'تمت ترقية الحساب بنجاح إلى مدير!';
+});
