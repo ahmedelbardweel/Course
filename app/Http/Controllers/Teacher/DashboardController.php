@@ -35,6 +35,14 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
+        $courses = $user->taughtCourses()
+            ->with(['category', 'lessons' => function($query) {
+                $query->orderBy('position');
+            }])
+            ->withCount(['users', 'lessons', 'quizzes'])
+            ->latest()
+            ->get();
+
         // Real Chart Data: Revenue for the last 7 days
         $chart_data = collect(range(6, 0))->map(function ($days_ago) use ($user) {
             $date = now()->subDays($days_ago);
@@ -53,7 +61,8 @@ class DashboardController extends Controller
         return Inertia::render('Teacher/Dashboard', [
             'stats' => $stats,
             'latest_courses' => $latest_courses,
-            'chart_data' => $chart_data
+            'chart_data' => $chart_data,
+            'courses' => $courses
         ]);
     }
 

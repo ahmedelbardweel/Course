@@ -21,7 +21,14 @@ import {
     GraduationCap,
     LayoutGrid,
     List,
-    Trash2
+    Trash2,
+    ChevronLeft,
+    Plus,
+    BookOpen,
+    HelpCircle,
+    Trophy,
+    Check,
+    X
 } from 'lucide-vue-next';
 import { router } from '@inertiajs/vue3';
 
