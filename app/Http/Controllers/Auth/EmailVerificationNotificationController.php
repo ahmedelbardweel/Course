@@ -17,7 +17,13 @@ class EmailVerificationNotificationController extends Controller
             return redirect()->intended(route('dashboard', absolute: false));
         }
 
-        $request->user()->sendEmailVerificationNotification();
+        try {
+            $request->user()->sendEmailVerificationNotification();
+        } catch (\Throwable $e) {
+            return back()->withErrors([
+                'error' => 'تعذر إرسال البريد الإلكتروني. يرجى العلم أنه في وضع Resend التجريبي لا يمكنك الإرسال إلا للبريد المفعّل لديك وهو: brdweelahmed@gmail.com'
+            ]);
+        }
 
         return back()->with('status', 'verification-link-sent');
     }

@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import { Mail, LogOut, Loader2, CheckCircle2 } from 'lucide-vue-next';
+import { Mail, LogOut, Loader2, CheckCircle2, AlertCircle } from 'lucide-vue-next';
 
 const props = defineProps({
     status: {
@@ -41,6 +41,14 @@ const verificationLinkSent = computed(
         >
             <CheckCircle2 class="h-4 w-4 text-zinc-900 shrink-0 mt-0.5" />
             <span>تم إرسال رابط تأكيد جديد إلى البريد الإلكتروني الذي قدمته أثناء التسجيل.</span>
+        </div>
+
+        <div
+            v-if="$page.props.errors.error"
+            class="mb-6 p-3 rounded-lg bg-red-50 border border-red-200 flex items-start gap-2.5 text-red-700 text-[11px] leading-relaxed animate-in fade-in duration-300"
+        >
+            <AlertCircle class="h-4 w-4 text-red-600 shrink-0 mt-0.5" />
+            <span>{{ $page.props.errors.error }}</span>
         </div>
 
         <form @submit.prevent="submit" class="space-y-4">
