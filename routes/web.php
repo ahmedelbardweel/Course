@@ -58,7 +58,7 @@ Route::get('/dashboard', function () {
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/ai-tutor', [\App\Http\Controllers\AIController::class, 'index'])->name('ai.index');
     Route::post('/ai-tutor/ask', [\App\Http\Controllers\AIController::class, 'ask'])->name('ai.ask');
     Route::post('/ai-tutor/summarize', [\App\Http\Controllers\AIController::class, 'summarize'])->name('ai.summarize');
