@@ -44,7 +44,7 @@ return [
             'host' => env('MAIL_HOST', 'smtp.resend.com'),
             'port' => env('MAIL_PORT', 587),
             'username' => env('MAIL_USERNAME', 'resend'),
-            'password' => env('MAIL_PASSWORD', 're_U2hX9gy2_2W77TaBdCoD6YiqfKPvx1RKf'),
+            'password' => env('MAIL_PASSWORD', 're_U2hX9gy2_2W77TaBdCoD6YiqfKPvxiRKf'),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
