@@ -12,7 +12,7 @@
     "/build/assets/CourseCard-Dj4p1AJI.js"
   ],
   "resources/js/Components/DashboardChart.vue": [
-    "/build/assets/Dashboard-DrWgEz59.js"
+    "/build/assets/Dashboard-rYA-BGG1.js"
   ],
   "resources/js/Components/Layout/StudentSidebar.vue": [
     "/build/assets/AuthenticatedLayout-CtY-O8y9.js",
@@ -188,7 +188,7 @@
     "/build/assets/Index-Cy2fvaEY.js"
   ],
   "resources/js/Pages/Teacher/Dashboard.vue": [
-    "/build/assets/Dashboard-DrWgEz59.js"
+    "/build/assets/Dashboard-rYA-BGG1.js"
   ],
   "resources/js/Pages/Teacher/Lessons/Form.vue": [
     "/build/assets/Form-CkFxYWb0.js"
