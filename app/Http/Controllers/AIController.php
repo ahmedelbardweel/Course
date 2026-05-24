@@ -39,7 +39,7 @@ class AIController extends Controller
         $lessonId = $request->input('lesson_id');
         $goal = $user->preferences()->where('key', 'learning_goal')->first()?->value;
 
-        $apiKey = env('GEMINI_API_KEY');
+        $apiKey = config('services.gemini.key');
 
         if (!$apiKey || $apiKey === 'your_gemini_key_here') {
             return response()->json([
@@ -132,7 +132,7 @@ class AIController extends Controller
             ], 400);
         }
 
-        $apiKey = env('GEMINI_API_KEY');
+        $apiKey = config('services.gemini.key');
         $model = 'gemini-2.5-flash'; 
         $url = "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent?key={$apiKey}";
 
@@ -217,7 +217,7 @@ class AIController extends Controller
             ], 400);
         }
 
-        $apiKey = env('GEMINI_API_KEY');
+        $apiKey = config('services.gemini.key');
         $model = 'gemini-2.5-flash'; 
         $url = "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent?key={$apiKey}";
 
@@ -327,7 +327,7 @@ class AIController extends Controller
 
         $response = Http::withoutVerifying()->withHeaders([
             'Content-Type' => 'application/json',
-        ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" . env('GEMINI_API_KEY'), [
+        ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" . config('services.gemini.key'), [
             'contents' => [
                 [
                     'parts' => [
@@ -413,7 +413,7 @@ class AIController extends Controller
 
         $response = Http::withoutVerifying()->withHeaders([
             'Content-Type' => 'application/json',
-        ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" . env('GEMINI_API_KEY'), [
+        ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=" . config('services.gemini.key'), [
             'contents' => $messages,
             'generationConfig' => [
                 'temperature' => 0.7,

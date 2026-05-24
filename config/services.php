@@ -41,4 +41,8 @@ return [
         'api_secret' => env('LIVEKIT_API_SECRET', 'secret'),
     ],
 
+    'gemini' => [
+        'key' => env('GEMINI_API_KEY'),
+    ],
+
 ];

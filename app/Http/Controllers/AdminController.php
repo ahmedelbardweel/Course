@@ -44,7 +44,7 @@ class AdminController extends Controller
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
-        ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=" . env('GEMINI_API_KEY'), [
+        ])->post("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=" . config('services.gemini.key'), [
             'contents' => [['parts' => [['text' => $prompt]]]],
             'generationConfig' => ['temperature' => 0.2]
         ]);
