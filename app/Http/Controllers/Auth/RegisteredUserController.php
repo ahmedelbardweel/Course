@@ -53,6 +53,9 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        // Auto-verify email so users can access the app immediately
+        $user->markEmailAsVerified();
+
         Auth::login($user);
 
         return redirect(route('dashboard', absolute: false));

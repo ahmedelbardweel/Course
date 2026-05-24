@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'resend'),
+    'default' => env('MAIL_MAILER', 'smtp'),
 
     /*
     |--------------------------------------------------------------------------
@@ -41,10 +41,10 @@ return [
             'transport' => 'smtp',
             'scheme' => env('MAIL_SCHEME'),
             'url' => env('MAIL_URL'),
-            'host' => env('MAIL_HOST', 'smtp.resend.com'),
+            'host' => env('MAIL_HOST', 'smtp-relay.brevo.com'),
             'port' => env('MAIL_PORT', 587),
-            'username' => env('MAIL_USERNAME', 'resend'),
-            'password' => env('MAIL_PASSWORD', 're_U2hX9gy2_2W77TaBdCoD6YiqfKPvxiRKf'),
+            'username' => env('MAIL_USERNAME'),
+            'password' => env('MAIL_PASSWORD'),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'timeout' => null,
             'local_domain' => env('MAIL_EHLO_DOMAIN', parse_url((string) env('APP_URL', 'http://localhost'), PHP_URL_HOST)),
@@ -112,7 +112,7 @@ return [
     |*/
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'onboarding@resend.dev'),
+        'address' => env('MAIL_FROM_ADDRESS', 'brdweelahmed@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'غرفة المذاكرة التفاعلية'),
     ],
 
