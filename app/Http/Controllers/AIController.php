@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\User;
+use App\Models\LessonSummary;
 use Illuminate\Support\Facades\Http;
 
 class AIController extends Controller
@@ -164,6 +165,12 @@ class AIController extends Controller
                 $summaryMarkdown = $data['candidates'][0]['content']['parts'][0]['text'] ?? "لم أتمكن من توليد الملخص.";
                 $summaryHtml = \Illuminate\Support\Str::markdown($summaryMarkdown);
 
+                // حفظ الملخص في قاعدة البيانات (يحدّث إذا كان موجوداً)
+                LessonSummary::updateOrCreate(
+                    ['user_id' => auth()->id(), 'lesson_id' => $lesson->id],
+                    ['summary_html' => $summaryHtml]
+                );
+
                 // تسجيل تفاعل التلخيص
                 \App\Models\Interaction::create([
                     'user_id' => auth()->id(),
@@ -201,6 +208,24 @@ class AIController extends Controller
                 'summary' => "عذراً، حدث خطأ تقني أثناء التلخيص."
             ], 500);
         }
+    }
+
+    /**
+     * جلب الملخص المحفوظ لدرس معين
+     */
+    public function getSummary(Request $request)
+    {
+        $request->validate([
+            'lesson_id' => 'required|integer|exists:lessons,id',
+        ]);
+
+        $saved = LessonSummary::where('user_id', auth()->id())
+            ->where('lesson_id', $request->lesson_id)
+            ->first();
+
+        return response()->json([
+            'summary' => $saved ? $saved->summary_html : null,
+        ]);
     }
 
     public function generateQuiz(Request $request)

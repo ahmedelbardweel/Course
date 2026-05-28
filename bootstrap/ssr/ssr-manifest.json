@@ -1,7 +1,7 @@
 {
   "\u0000plugin-vue:export-helper": [
-    "/build/assets/Show-DRw2XYmg.js",
-    "/build/assets/Show--JqWoVSm.css"
+    "/build/assets/Show-CScCKSJu.js",
+    "/build/assets/Show-Cpm2_ZQa.css"
   ],
   "node_modules/laravel-vite-plugin/inertia-helpers/index.js": [],
   "node_modules/plyr/dist/plyr.css": [
@@ -69,8 +69,8 @@
     "/build/assets/Separator-CFmMgQM_.js"
   ],
   "resources/js/Components/ui/textarea/Textarea.vue": [
-    "/build/assets/Show-DRw2XYmg.js",
-    "/build/assets/Show--JqWoVSm.css"
+    "/build/assets/Show-CScCKSJu.js",
+    "/build/assets/Show-Cpm2_ZQa.css"
   ],
   "resources/js/Layouts/AuthenticatedLayout.vue": [
     "/build/assets/AuthenticatedLayout-DnWC7g1W.js",
@@ -125,12 +125,12 @@
     "/build/assets/MyLearning-DyNXjKeh.js"
   ],
   "resources/js/Pages/Courses/Show.vue": [
-    "/build/assets/Show-DRw2XYmg.js",
-    "/build/assets/Show--JqWoVSm.css"
+    "/build/assets/Show-CScCKSJu.js",
+    "/build/assets/Show-Cpm2_ZQa.css"
   ],
-  "resources/js/Pages/Courses/Show.vue?vue&type=style&index=0&scoped=f437f270&lang.css": [
-    "/build/assets/Show-DRw2XYmg.js",
-    "/build/assets/Show--JqWoVSm.css"
+  "resources/js/Pages/Courses/Show.vue?vue&type=style&index=0&scoped=698733f9&lang.css": [
+    "/build/assets/Show-CScCKSJu.js",
+    "/build/assets/Show-Cpm2_ZQa.css"
   ],
   "resources/js/Pages/Courses/TakeQuiz.vue": [
     "/build/assets/TakeQuiz-CFC0-iek.js"

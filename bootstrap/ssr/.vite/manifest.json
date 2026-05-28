@@ -221,7 +221,7 @@
     ]
   },
   "resources/js/Pages/Courses/Show.vue": {
-    "file": "assets/Show-DRw2XYmg.js",
+    "file": "assets/Show-CScCKSJu.js",
     "name": "Show",
     "src": "resources/js/Pages/Courses/Show.vue",
     "isDynamicEntry": true,
@@ -234,7 +234,7 @@
       "_utils-H80jjgLf.js"
     ],
     "css": [
-      "assets/Show--JqWoVSm.css"
+      "assets/Show-Cpm2_ZQa.css"
     ]
   },
   "resources/js/Pages/Courses/TakeQuiz.vue": {
@@ -564,7 +564,7 @@
       "resources/js/Pages/Welcome.vue"
     ],
     "css": [
-      "assets/app-BfLs6QI6.css"
+      "assets/app-gP-2Zg0W.css"
     ]
   }
 }

@@ -65,6 +65,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/ai-tutor/quiz', [\App\Http\Controllers\AIController::class, 'generateQuiz'])->name('ai.quiz');
     Route::post('/ai-tutor/roadmap', [\App\Http\Controllers\AIController::class, 'generateRoadmap'])->name('ai.roadmap');
     Route::post('/ai-tutor/interview', [\App\Http\Controllers\AIController::class, 'simulateInterview'])->name('ai.interview');
+    Route::get('/ai-tutor/summary', [\App\Http\Controllers\AIController::class, 'getSummary'])->name('ai.summary.get');
 
     // Admin Routes
     Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {

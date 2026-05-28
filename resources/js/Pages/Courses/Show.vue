@@ -6,7 +6,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardDescription } from '@/Com
 import { Badge } from '@/Components/ui/badge';
 import { Textarea } from '@/Components/ui/textarea';
 import { Separator } from '@/Components/ui/separator';
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import axios from 'axios';
 import { 
     PlayCircle, CheckCircle2, ChevronLeft, Lock, Play, 
@@ -86,20 +86,52 @@ const deleteNote = async (id) => {
 // -- AI Summarize --
 const isSummarizing = ref(false);
 const summaryResult = ref(null);
+const summaryIsSaved = ref(false);  // هل الملخص الحالي محفوظ من قبل؟
+
+// جلب الملخص المحفوظ من قاعدة البيانات
+const loadSavedSummary = async () => {
+    if (!props.currentLesson?.id) return;
+    try {
+        const res = await axios.get(route('ai.summary.get'), { params: { lesson_id: props.currentLesson.id } });
+        if (res.data.summary) {
+            summaryResult.value = res.data.summary;
+            summaryIsSaved.value = true;
+        } else {
+            summaryResult.value = null;
+            summaryIsSaved.value = false;
+        }
+    } catch (e) {
+        // تجاهل الأخطاء عند جلب الملخص
+    }
+};
 
 const summarizeLesson = async () => {
     if (!props.currentLesson?.id) return;
     isSummarizing.value = true;
     summaryResult.value = null;
+    summaryIsSaved.value = false;
     try {
         const response = await axios.post(route('ai.summarize'), { lesson_id: props.currentLesson.id });
         summaryResult.value = response.data.summary;
+        summaryIsSaved.value = true; // تم الحفظ تلقائياً في الباكند
     } catch (error) {
         alert('حدث خطأ أثناء التلخيص.');
     } finally {
         isSummarizing.value = false;
     }
 };
+
+const clearSummary = () => {
+    summaryResult.value = null;
+    summaryIsSaved.value = false;
+};
+
+// عند تغيير الدرس، جلب ملخصه المحفوظ
+watch(() => props.currentLesson?.id, () => {
+    summaryResult.value = null;
+    summaryIsSaved.value = false;
+    loadSavedSummary();
+});
 
 // -- Challenges --
 const challengeForm = useForm({});
@@ -157,6 +189,7 @@ const sendInterviewAnswer = async () => {
 onMounted(() => {
     if (props.isEnrolled && props.currentLesson) {
         fetchNotes();
+        loadSavedSummary(); // جلب الملخص المحفوظ تلقائياً عند فتح الدرس
     }
 });
 
@@ -301,11 +334,28 @@ const totalDuration = computed(() => {
 
                     <!-- AI Summary Display -->
                     <div v-if="summaryResult" class="p-5 bg-[var(--muted)] border border-[var(--border)] rounded-md">
-                        <div class="flex items-center gap-2 mb-3">
-                            <Sparkles class="h-4 w-4 text-[var(--primary)]" />
-                            <h3 class="font-normal text-xs text-[var(--foreground)]">التلخيص</h3>
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <div class="flex items-center gap-2">
+                                <Sparkles class="h-4 w-4 text-[var(--primary)]" />
+                                <h3 class="font-normal text-xs text-[var(--foreground)]">ملخص الدرس</h3>
+                                <span v-if="summaryIsSaved" class="text-[9px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded font-medium">محفوظ ✓</span>
+                            </div>
+                            <button
+                                @click="clearSummary"
+                                class="text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors p-1 rounded"
+                                title="إخفاء الملخص"
+                            >
+                                <X class="h-3.5 w-3.5" />
+                            </button>
                         </div>
                         <div class="prose prose-sm max-w-none text-[var(--muted-foreground)] leading-relaxed text-xs" v-html="summaryResult"></div>
+                        <div class="mt-3 pt-3 border-t border-[var(--border)]">
+                            <button @click="summarizeLesson" :disabled="isSummarizing" class="text-[9px] text-[var(--muted-foreground)] hover:text-[var(--primary)] transition-colors flex items-center gap-1">
+                                <Loader2 v-if="isSummarizing" class="h-3 w-3 animate-spin" />
+                                <Sparkles v-else class="h-3 w-3" />
+                                إعادة التلخيص
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Tabs -->
