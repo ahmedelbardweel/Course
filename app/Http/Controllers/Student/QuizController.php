@@ -22,7 +22,6 @@ class QuizController extends Controller
         // جلب كل الاختبارات في الكورسات التي سجّل فيها الطالب
         $query = Quiz::with(['course:id,title,slug'])
             ->whereIn('course_id', $user->courses()->pluck('courses.id'))
-            ->where('is_published', true)
             ->orderBy('created_at', 'desc');
 
         // فلترة بالكورس
