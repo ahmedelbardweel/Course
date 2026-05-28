@@ -9,6 +9,14 @@
 
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
+    <!-- PWA Settings -->
+    <meta name="theme-color" content="#f54e00">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="كورس">
+    <link rel="apple-touch-icon" href="/logo.svg">
+    <link rel="manifest" href="/manifest.json">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -17,6 +25,17 @@
     @routes
     @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
     @inertiaHead
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker Registered successfully:', reg.scope))
+                    .catch(err => console.error('Service Worker registration failed:', err));
+            });
+        }
+    </script>
 
     <style>
         /* Strict global font size enforcement for a dense UI */
