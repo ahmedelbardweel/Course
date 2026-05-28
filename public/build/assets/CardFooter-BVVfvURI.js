@@ -1,0 +1,1 @@
+import{c as a}from"./utils-COMqstzJ.js";import{c as t,q as o,n as c,u as n,o as l}from"./app-Cqn8jUbp.js";const u={__name:"CardFooter",props:{class:{type:[Boolean,null,String,Object,Array],required:!1,skipCheck:!0}},setup(e){const s=e;return(r,p)=>(l(),t("div",{class:c(n(a)("flex items-center p-6 pt-0",s.class))},[o(r.$slots,"default")],2))}};export{u as _};

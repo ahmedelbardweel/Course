@@ -155,6 +155,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Challenges (Student View)
     Route::post('/challenges/{challenge}/participate', [\App\Http\Controllers\Student\ChallengeController::class, 'participate'])->name('challenges.participate');
+
+    // Student Hub Pages
+    Route::get('/my-quizzes', [\App\Http\Controllers\Student\QuizController::class, 'index'])->name('student.quizzes.index');
+    Route::get('/my-challenges', [\App\Http\Controllers\Student\ChallengeController::class, 'index'])->name('student.challenges.index');
 });
 Route::post('/interactions', [\App\Http\Controllers\InteractionController::class, 'store'])->name('interactions.store');
 

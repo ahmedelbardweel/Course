@@ -9,7 +9,9 @@ import {
     LogOut,
     X,
     Settings,
-    Library
+    Library,
+    ClipboardList,
+    Trophy
 } from 'lucide-vue-next';
 
 defineProps({
@@ -57,6 +59,20 @@ defineEmits(['close']);
                     <Link :href="route('courses.my-learning')" :class="[route().current('courses.my-learning') ? 'bg-brand-surface-strong text-brand-ink font-semibold' : 'text-brand-body']" class="flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium">
                         <BookOpen class="h-4 w-4" />
                         دوراتي
+                    </Link>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <h4 class="px-2 text-[9px] font-semibold uppercase tracking-wider text-brand-muted">الأنشطة والتقييمات</h4>
+                <div class="space-y-1">
+                    <Link :href="route('student.quizzes.index')" :class="[route().current('student.quizzes.index') ? 'bg-brand-surface-strong text-brand-ink font-semibold' : 'text-brand-body']" class="flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium">
+                        <ClipboardList class="h-4 w-4" />
+                        كل الاختبارات
+                    </Link>
+                    <Link :href="route('student.challenges.index')" :class="[route().current('student.challenges.index') ? 'bg-brand-surface-strong text-brand-ink font-semibold' : 'text-brand-body']" class="flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium">
+                        <Trophy class="h-4 w-4" />
+                        التحديات
                     </Link>
                 </div>
             </div>

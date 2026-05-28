@@ -12,6 +12,91 @@ use Illuminate\Support\Facades\DB;
 
 class QuizController extends Controller
 {
+    /**
+     * صفحة كل اختبارات الطالب عبر كورساته المسجّلة
+     */
+    public function index(Request $request)
+    {
+        $user = auth()->user();
+
+        // جلب كل الاختبارات في الكورسات التي سجّل فيها الطالب
+        $query = Quiz::with(['course:id,title,slug'])
+            ->whereIn('course_id', $user->courses()->pluck('courses.id'))
+            ->where('is_published', true)
+            ->orderBy('created_at', 'desc');
+
+        // فلترة بالكورس
+        if ($request->course_id) {
+            $query->where('course_id', $request->course_id);
+        }
+
+        // فلترة بتاريخ البداية
+        if ($request->date_from) {
+            $query->whereDate('created_at', '>=', $request->date_from);
+        }
+        if ($request->date_to) {
+            $query->whereDate('created_at', '<=', $request->date_to);
+        }
+
+        $quizzes = $query->get()->map(function ($quiz) use ($user) {
+            // أفضل محاولة للطالب في هذا الاختبار
+            $bestAttempt = QuizAttempt::where('quiz_id', $quiz->id)
+                ->where('user_id', $user->id)
+                ->orderByDesc('score')
+                ->first();
+
+            $latestAttempt = QuizAttempt::where('quiz_id', $quiz->id)
+                ->where('user_id', $user->id)
+                ->latest()
+                ->first();
+
+            $attemptsCount = QuizAttempt::where('quiz_id', $quiz->id)
+                ->where('user_id', $user->id)
+                ->count();
+
+            // تحديد حالة الاختبار
+            $now = now();
+            $isExpired = $quiz->end_time && $quiz->end_time < $now;
+            $isNotStarted = $quiz->start_time && $quiz->start_time > $now;
+
+            if ($attemptsCount === 0) {
+                $status = $isExpired ? 'expired' : ($isNotStarted ? 'upcoming' : 'not_started');
+            } else {
+                $status = $bestAttempt->status === 'passed' ? 'passed' : 'failed';
+            }
+
+            return [
+                'id'             => $quiz->id,
+                'title'          => $quiz->title,
+                'description'    => $quiz->description,
+                'course'         => $quiz->course,
+                'passing_score'  => $quiz->passing_score,
+                'duration'       => $quiz->duration,
+                'attempts_limit' => $quiz->attempts_limit,
+                'start_time'     => $quiz->start_time,
+                'end_time'       => $quiz->end_time,
+                'status'         => $status,
+                'best_score'     => $bestAttempt?->score,
+                'attempts_count' => $attemptsCount,
+                'last_attempt_at'=> $latestAttempt?->created_at,
+            ];
+        });
+
+        // فلترة الحالة (تُطبَّق بعد البناء لأننا نحسبها في PHP)
+        if ($request->status && $request->status !== 'all') {
+            $quizzes = $quizzes->filter(fn($q) => $q['status'] === $request->status)->values();
+        }
+
+        // كل الكورسات المسجّل فيها الطالب (للـ dropdown)
+        $enrolledCourses = $user->courses()->select('courses.id', 'courses.title')->get();
+
+        return Inertia::render('Student/Quizzes/Index', [
+            'quizzes'         => $quizzes,
+            'enrolledCourses' => $enrolledCourses,
+            'filters'         => $request->only(['status', 'course_id', 'date_from', 'date_to']),
+        ]);
+    }
+
     public function show(Course $course, Quiz $quiz)
     {
         // Ensure the quiz belongs to the course
