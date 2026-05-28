@@ -170,6 +170,18 @@ class QuizController extends Controller
             'status' => $passed ? 'passed' : 'failed'
         ]);
 
+        // Send submission notification to teacher
+        $teacher = $quiz->course->teacher;
+        if ($teacher) {
+            $student = auth()->user();
+            $teacher->notify(new \App\Notifications\StudentSubmissionNotification(
+                $student,
+                'quiz',
+                $quiz->title,
+                "/teacher/quizzes"
+            ));
+        }
+
         return back()->with([
             'success' => 'تم استلام إجاباتك بنجاح!',
             'score' => $percentage,

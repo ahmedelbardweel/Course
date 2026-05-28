@@ -93,6 +93,18 @@ class ChallengeController extends Controller
         // Add user to challenge
         $challenge->users()->attach(auth()->id(), ['completed_at' => null]);
 
+        // Send submission notification to teacher
+        $teacher = $challenge->teacher;
+        if ($teacher) {
+            $student = auth()->user();
+            $teacher->notify(new \App\Notifications\StudentSubmissionNotification(
+                $student,
+                'challenge',
+                $challenge->title,
+                "/teacher/challenges"
+            ));
+        }
+
         return back()->with(['success' => 'تم الاشتراك في التحدي بنجاح!']);
     }
 }

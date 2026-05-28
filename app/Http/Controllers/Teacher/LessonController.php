@@ -55,7 +55,13 @@ class LessonController extends Controller
                 $lessonData['video_url'] = '/storage/' . $path;
             }
 
-            Lesson::create($lessonData);
+            $lesson = Lesson::create($lessonData);
+
+            // Send notification to all enrolled students
+            $students = $course->users()->where('role', 'student')->get();
+            foreach ($students as $student) {
+                $student->notify(new \App\Notifications\NewLessonNotification($lesson, $course));
+            }
         }
 
         return redirect()->route('teacher.courses.edit', $course->id)->with('success', 'تم إضافة الدروس بنجاح');

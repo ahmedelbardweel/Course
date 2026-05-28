@@ -60,7 +60,8 @@ class QuizController extends Controller
         // Security check: course belongs to teacher
         $course = Course::where('id', $validated['course_id'])->where('teacher_id', auth()->id())->firstOrFail();
 
-        DB::transaction(function () use ($validated) {
+        $quiz = null;
+        DB::transaction(function () use ($validated, &$quiz) {
             $quiz = Quiz::create([
                 'course_id' => $validated['course_id'],
                 'title' => $validated['title'],
@@ -89,6 +90,13 @@ class QuizController extends Controller
                 }
             }
         });
+
+        if ($quiz && $quiz->is_published) {
+            $students = $course->users()->where('role', 'student')->get();
+            foreach ($students as $student) {
+                $student->notify(new \App\Notifications\NewQuizNotification($quiz, $course));
+            }
+        }
 
         return redirect()->route('teacher.quizzes.index')->with('success', 'تم إنشاء الاختبار بنجاح');
     }

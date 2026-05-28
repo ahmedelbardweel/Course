@@ -51,7 +51,14 @@ class CourseController extends Controller
         $validated['slug'] = Str::slug($validated['title']) . '-' . rand(1000, 9999);
         $validated['teacher_id'] = auth()->id();
 
-        Course::create($validated);
+        $course = Course::create($validated);
+
+        if ($course && $course->is_published) {
+            $students = \App\Models\User::where('role', 'student')->get();
+            foreach ($students as $student) {
+                $student->notify(new \App\Notifications\NewCourseNotification($course));
+            }
+        }
 
         return redirect()->route('teacher.courses.index')->with('success', 'تم إنشاء الكورس بنجاح');
     }

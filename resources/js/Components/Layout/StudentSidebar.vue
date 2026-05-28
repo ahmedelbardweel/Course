@@ -11,7 +11,8 @@ import {
     Settings,
     Library,
     ClipboardList,
-    Trophy
+    Trophy,
+    Bell
 } from 'lucide-vue-next';
 
 defineProps({
@@ -45,6 +46,11 @@ defineEmits(['close']);
                     <Link :href="route('dashboard')" :class="[route().current('dashboard') ? 'bg-brand-surface-strong text-brand-ink font-semibold' : 'text-brand-body']" class="flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium">
                         <LayoutDashboard class="h-4 w-4" />
                         لوحة التحكم
+                    </Link>
+                    <Link :href="route('notifications.index')" :class="[route().current('notifications.index') ? 'bg-brand-surface-strong text-brand-ink font-semibold' : 'text-brand-body']" class="flex items-center gap-3 px-3 py-2 rounded-md text-xs font-medium relative">
+                        <Bell class="h-4 w-4" />
+                        الإشعارات
+                        <span v-if="$page.props.auth?.unreadNotificationsCount > 0" class="absolute left-3 top-2.5 w-2 h-2 bg-red-500 rounded-full"></span>
                     </Link>
                 </div>
             </div>

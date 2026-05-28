@@ -43,10 +43,20 @@ class ChallengeController extends Controller
             'is_active' => 'boolean'
         ]);
 
-        Challenge::create([
+        $challenge = Challenge::create([
             'teacher_id' => auth()->id(),
             ...$validated
         ]);
+
+        if ($challenge && $challenge->is_active) {
+            $course = $challenge->course;
+            if ($course) {
+                $students = $course->users()->where('role', 'student')->get();
+                foreach ($students as $student) {
+                    $student->notify(new \App\Notifications\NewChallengeNotification($challenge));
+                }
+            }
+        }
 
         return redirect()->route('teacher.challenges.index')->with('success', 'تم إنشاء التحدي بنجاح');
     }
