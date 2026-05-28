@@ -28,11 +28,11 @@ defineEmits(['close']);
 <template>
     <aside 
         :class="[
-            'fixed inset-y-0 right-0 z-50 w-64 bg-white border-l border-brand-hairline transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] lg:relative lg:translate-x-0 shrink-0 flex flex-col',
+            'fixed inset-y-0 right-0 z-50 w-64 bg-white border-l border-brand-hairline transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] lg:relative lg:inset-y-auto lg:translate-x-0 shrink-0 flex flex-col',
             isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
         ]"
     >
-        <div class="flex h-11 items-center justify-between px-4 border-b border-brand-hairline">
+        <div class="flex items-center justify-between px-4 border-b border-brand-hairline" :style="{ paddingTop: 'max(0.625rem, env(safe-area-inset-top, 0px))', paddingBottom: '0.625rem', minHeight: 'calc(2.75rem + env(safe-area-inset-top, 0px))' }">
             <Link href="/" class="flex items-center gap-2 font-bold tracking-tight">
                 <div class="h-6 w-6 bg-brand-orange rounded flex items-center justify-center text-white text-[11px] font-medium">C</div>
                 <span class="text-sm font-semibold tracking-tight text-brand-ink">كورس</span>

@@ -26,6 +26,15 @@ defineProps({
 <template>
     <div class="bg-background font-sans selection:bg-brand-orange selection:text-white flex w-full h-screen overflow-hidden relative">
         
+        <!-- Mobile Backdrop Overlay -->
+        <transition name="fade">
+            <div 
+                v-if="isSidebarOpen"
+                @click="isSidebarOpen = false"
+                class="fixed inset-0 z-40 bg-black/50 backdrop-blur-[2px] lg:hidden"
+            />
+        </transition>
+
         <!-- Role-based Sidebar -->
         <TeacherSidebar 
             v-if="$page.props.auth?.user?.role === 'teacher' || $page.props.auth?.user?.role === 'admin'"
@@ -42,27 +51,33 @@ defineProps({
 
         <!-- Main Content -->
         <div class="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
-            <!-- Header -->
-            <header class="shrink-0 bg-[var(--card)] border-b border-[var(--border)] sticky top-0 z-40 flex items-center justify-between px-4 lg:px-6 shadow-none pt-[calc(0.25rem+env(safe-area-inset-top,0px))] pb-1 min-h-[calc(2.75rem+env(safe-area-inset-top,0px))]">
-                <div class="flex items-center gap-3">
-                    <button @click="isSidebarOpen = true" class="lg:hidden p-1.5 rounded pt-[env(safe-area-inset-top,0px)]">
+            <!-- Header: single row, menu icon + breadcrumbs + user actions all on same line -->
+            <header class="shrink-0 bg-[var(--card)] border-b border-[var(--border)] sticky top-0 z-40 flex items-center justify-between px-3 lg:px-6 shadow-none"
+                :style="{ paddingTop: 'max(0.5rem, env(safe-area-inset-top, 0px))', paddingBottom: '0.5rem', minHeight: 'calc(2.75rem + env(safe-area-inset-top, 0px))' }">
+                <div class="flex items-center gap-2 min-w-0">
+                    <!-- Menu button: vertically centered in same row as breadcrumbs -->
+                    <button 
+                        @click="isSidebarOpen = true" 
+                        class="lg:hidden flex-shrink-0 p-1.5 rounded hover:bg-[var(--muted)] transition-colors"
+                    >
                         <Menu class="h-4 w-4 text-[var(--foreground)]" />
                     </button>
-                    <div class="text-[12px] font-normal tracking-tight text-[var(--foreground)] flex items-center gap-2">
+                    <!-- Breadcrumbs -->
+                    <div class="text-[12px] font-normal tracking-tight text-[var(--foreground)] flex items-center gap-1.5 min-w-0 overflow-hidden">
                         <template v-if="breadcrumbs && breadcrumbs.length">
-                            <div class="flex items-center gap-2">
+                            <div class="flex items-center gap-1.5 flex-wrap">
                                 <template v-for="(item, index) in breadcrumbs" :key="index">
                                     <Link 
                                         v-if="item.url && index < breadcrumbs.length - 1" 
                                         :href="item.url" 
-                                        class="text-[var(--primary)] hover:underline font-normal"
+                                        class="text-[var(--primary)] hover:underline font-normal whitespace-nowrap"
                                     >
                                         {{ item.label }}
                                     </Link>
-                                    <span v-else class="text-[var(--foreground)] font-normal">
+                                    <span v-else class="text-[var(--foreground)] font-normal truncate">
                                         {{ item.label }}
                                     </span>
-                                    <ChevronLeft v-if="index < breadcrumbs.length - 1" class="h-3.5 w-3.5 text-[var(--muted-foreground)] opacity-60" />
+                                    <ChevronLeft v-if="index < breadcrumbs.length - 1" class="h-3 w-3 text-[var(--muted-foreground)] opacity-50 flex-shrink-0" />
                                 </template>
                             </div>
                         </template>
@@ -72,9 +87,9 @@ defineProps({
                     </div>
                 </div>
                 
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 flex-shrink-0">
                     <slot name="header-actions" />
-                    <button class="p-1.5 rounded relative">
+                    <button class="p-1.5 rounded relative hover:bg-[var(--muted)] transition-colors">
                         <Bell class="h-4 w-4 text-[var(--foreground)] opacity-70" />
                         <span class="absolute top-1 right-1 w-1.5 h-1.5 bg-[var(--primary)] rounded-full"></span>
                     </button>
@@ -84,7 +99,7 @@ defineProps({
                             {{ $page.props.auth?.user?.role === 'teacher' ? 'معلم' : ($page.props.auth?.user?.role === 'admin' ? 'مدير' : 'طالب') }}
                         </span>
                     </div>
-                    <div class="h-7 w-7 bg-[var(--foreground)] text-[var(--background)] rounded-md flex items-center justify-center font-normal text-xs select-none">
+                    <div class="h-7 w-7 bg-[var(--foreground)] text-[var(--background)] rounded-md flex items-center justify-center font-normal text-xs select-none flex-shrink-0">
                         {{ $page.props.auth?.user?.name?.charAt(0) }}
                     </div>
                 </div>
@@ -109,5 +124,14 @@ html {
 }
 *::-webkit-scrollbar {
     display: none;
+}
+/* Backdrop fade transition */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.25s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
 }
 </style>
