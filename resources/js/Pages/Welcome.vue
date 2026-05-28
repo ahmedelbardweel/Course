@@ -33,43 +33,43 @@ defineProps({
 <template>
     <Head title="المستقبل يبدأ هنا - كورس" />
 
-    <div class="h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth no-scrollbar bg-background text-brand-ink font-sans selection:bg-brand-orange selection:text-white">
+    <div class="h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth no-scrollbar bg-background text-brand-ink font-sans selection:bg-brand-orange selection:text-white relative">
         
-        <!-- ================= SECTION 1: HERO & NAVBAR (100vh) ================= -->
-        <section class="h-screen w-full snap-start snap-always shrink-0 flex flex-col justify-between relative overflow-hidden border-b border-brand-hairline bg-background">
-            
-            <!-- Premium Minimalist Navbar -->
-            <nav class="h-16 border-b border-brand-hairline bg-background sticky top-0 z-50 px-6 flex items-center justify-between w-full">
-                <div class="flex items-center gap-8">
-                    <Link href="/" class="text-[18px] font-bold tracking-tighter text-brand-ink flex items-center gap-2">
-                        <div class="h-8 w-8 bg-brand-orange rounded flex items-center justify-center text-white text-[14px] font-semibold">C</div>
-                        <span class="font-semibold tracking-tight">كورس</span>
+        <!-- Premium Minimalist Navbar - Fixed globally across the entire landing page -->
+        <nav class="border-b border-brand-hairline bg-background/95 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 px-6 flex items-center justify-between w-full pt-[calc(0.25rem+env(safe-area-inset-top,0px))] pb-2 min-h-[calc(4rem+env(safe-area-inset-top,0px))]">
+            <div class="flex items-center gap-8">
+                <Link href="/" class="text-[18px] font-bold tracking-tighter text-brand-ink flex items-center gap-2">
+                    <div class="h-8 w-8 bg-brand-orange rounded flex items-center justify-center text-white text-[14px] font-semibold">C</div>
+                    <span class="font-semibold tracking-tight">كورس</span>
+                </Link>
+                <div class="hidden md:flex items-center gap-8 text-[12px] font-medium text-brand-body">
+                    <a href="#features">عن المنصة</a>
+                    <a href="#courses">الكورسات</a>
+                    <a href="#ai-experience">المساعد الذكي</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <template v-if="canLogin">
+                    <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-[12px] font-medium text-brand-body px-4 h-9 flex items-center">
+                        لوحة التحكم
                     </Link>
-                    <div class="hidden md:flex items-center gap-8 text-[12px] font-medium text-brand-body">
-                        <a href="#features">عن المنصة</a>
-                        <a href="#courses">الكورسات</a>
-                        <a href="#ai-experience">المساعد الذكي</a>
-                    </div>
-                </div>
-                <div class="flex items-center gap-3">
-                    <template v-if="canLogin">
-                        <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-[12px] font-medium text-brand-body px-4 h-9 flex items-center">
-                            لوحة التحكم
+                    <template v-else>
+                        <Link :href="route('login')">
+                            <Button variant="ghost" class="h-9 text-[12px] font-medium text-brand-ink">تسجيل الدخول</Button>
                         </Link>
-                        <template v-else>
-                            <Link :href="route('login')">
-                                <Button variant="ghost" class="h-9 text-[12px] font-medium text-brand-ink">تسجيل الدخول</Button>
-                            </Link>
-                            <Link :href="route('register')">
-                                <Button class="h-9 bg-brand-orange text-white border border-brand-orange text-[12px] font-medium px-5 rounded-md">
-                                    انضم إلينا مجاناً
-                                </Button>
-                            </Link>
-                        </template>
+                        <Link :href="route('register')">
+                            <Button class="h-9 bg-brand-orange text-white border border-brand-orange text-[12px] font-medium px-5 rounded-md">
+                                انضم إلينا مجاناً
+                            </Button>
+                        </Link>
                     </template>
-                </div>
-            </nav>
+                </template>
+            </div>
+        </nav>
 
+        <!-- ================= SECTION 1: HERO & NAVBAR (100vh) ================= -->
+        <section class="h-screen w-full snap-start snap-always shrink-0 flex flex-col justify-between relative overflow-hidden border-b border-brand-hairline bg-background pt-[calc(4.5rem+env(safe-area-inset-top,0px))]">
+            
             <!-- Hero Main Content -->
             <div class="container mx-auto px-6 flex-1 flex flex-col justify-center items-center text-center relative z-10 py-12 max-w-4xl">
                 <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-hairline bg-brand-surface-strong text-[11px] font-semibold text-brand-ink mb-6">

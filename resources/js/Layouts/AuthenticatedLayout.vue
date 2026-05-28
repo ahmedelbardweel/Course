@@ -43,9 +43,9 @@ defineProps({
         <!-- Main Content -->
         <div class="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
             <!-- Header -->
-            <header class="h-11 shrink-0 bg-[var(--card)] border-b border-[var(--border)] sticky top-0 z-40 flex items-center justify-between px-4 lg:px-6 shadow-none">
+            <header class="shrink-0 bg-[var(--card)] border-b border-[var(--border)] sticky top-0 z-40 flex items-center justify-between px-4 lg:px-6 shadow-none pt-[calc(0.25rem+env(safe-area-inset-top,0px))] pb-1 min-h-[calc(2.75rem+env(safe-area-inset-top,0px))]">
                 <div class="flex items-center gap-3">
-                    <button @click="isSidebarOpen = true" class="lg:hidden p-1.5 rounded">
+                    <button @click="isSidebarOpen = true" class="lg:hidden p-1.5 rounded pt-[env(safe-area-inset-top,0px)]">
                         <Menu class="h-4 w-4 text-[var(--foreground)]" />
                     </button>
                     <div class="text-[12px] font-normal tracking-tight text-[var(--foreground)] flex items-center gap-2">
