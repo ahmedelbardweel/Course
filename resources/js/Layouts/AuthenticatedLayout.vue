@@ -7,18 +7,24 @@ import {
     X,
     User as UserIcon,
     Bell,
-    Settings
+    Settings,
+    ChevronLeft
 } from 'lucide-vue-next';
 import StudentSidebar from '@/Components/Layout/StudentSidebar.vue';
 import TeacherSidebar from '@/Components/Layout/TeacherSidebar.vue';
 
 const isSidebarOpen = ref(false);
+
+defineProps({
+    breadcrumbs: {
+        type: Array,
+        default: () => [],
+    }
+});
 </script>
 
 <template>
-    <div class="bg-zinc-50/30 font-sans selection:bg-zinc-950 selection:text-white flex w-full h-screen overflow-hidden relative">
-        <!-- Subtle Dot Grid Background matching Welcome.vue but softer -->
-        <div class="absolute inset-0 bg-[radial-gradient(#e4e4e7_1.2px,transparent_1.2px)] [background-size:24px_24px] opacity-60 pointer-events-none z-0"></div>
+    <div class="bg-background font-sans selection:bg-brand-orange selection:text-white flex w-full h-screen overflow-hidden relative">
         
         <!-- Role-based Sidebar -->
         <TeacherSidebar 
@@ -36,35 +42,55 @@ const isSidebarOpen = ref(false);
 
         <!-- Main Content -->
         <div class="flex-1 flex flex-col min-w-0 overflow-hidden relative z-10">
-            <!-- Header (Glassmorphic) -->
-            <header class="h-11 shrink-0 bg-white/70 backdrop-blur-md border-b border-zinc-200/80 sticky top-0 z-40 flex items-center justify-between px-4 lg:px-6">
+            <!-- Header -->
+            <header class="h-11 shrink-0 bg-[var(--card)] border-b border-[var(--border)] sticky top-0 z-40 flex items-center justify-between px-4 lg:px-6 shadow-none">
                 <div class="flex items-center gap-3">
-                    <button @click="isSidebarOpen = true" class="lg:hidden p-1.5 hover:bg-zinc-100 rounded transition-colors active:scale-95 duration-200">
-                        <Menu class="h-4 w-4" />
+                    <button @click="isSidebarOpen = true" class="lg:hidden p-1.5 rounded">
+                        <Menu class="h-4 w-4 text-[var(--foreground)]" />
                     </button>
-                    <h2 class="text-xs font-black tracking-tight text-zinc-800 uppercase flex items-center gap-2">
-                        <slot name="header" />
-                    </h2>
+                    <div class="text-[12px] font-normal tracking-tight text-[var(--foreground)] flex items-center gap-2">
+                        <template v-if="breadcrumbs && breadcrumbs.length">
+                            <div class="flex items-center gap-2">
+                                <template v-for="(item, index) in breadcrumbs" :key="index">
+                                    <Link 
+                                        v-if="item.url && index < breadcrumbs.length - 1" 
+                                        :href="item.url" 
+                                        class="text-[var(--primary)] hover:underline font-normal"
+                                    >
+                                        {{ item.label }}
+                                    </Link>
+                                    <span v-else class="text-[var(--foreground)] font-normal">
+                                        {{ item.label }}
+                                    </span>
+                                    <ChevronLeft v-if="index < breadcrumbs.length - 1" class="h-3.5 w-3.5 text-[var(--muted-foreground)] opacity-60" />
+                                </template>
+                            </div>
+                        </template>
+                        <template v-else>
+                            <slot name="header" />
+                        </template>
+                    </div>
                 </div>
                 
                 <div class="flex items-center gap-3">
-                    <button class="p-1.5 hover:bg-zinc-100 rounded relative transition-colors duration-200">
-                        <Bell class="h-4 w-4 text-zinc-600" />
-                        <span class="absolute top-1 right-1 w-1.5 h-1.5 bg-zinc-950 rounded-full animate-pulse"></span>
+                    <slot name="header-actions" />
+                    <button class="p-1.5 rounded relative">
+                        <Bell class="h-4 w-4 text-[var(--foreground)] opacity-70" />
+                        <span class="absolute top-1 right-1 w-1.5 h-1.5 bg-[var(--primary)] rounded-full"></span>
                     </button>
                     <div class="hidden sm:flex flex-col items-end">
-                        <span class="text-[11px] font-bold text-zinc-900 leading-none">{{ $page.props.auth?.user?.name }}</span>
-                        <span class="text-[8px] text-zinc-400 font-extrabold uppercase tracking-widest mt-0.5">
+                        <span class="text-[11px] font-normal text-[var(--foreground)] leading-none">{{ $page.props.auth?.user?.name }}</span>
+                        <span class="text-[8px] text-[var(--muted-foreground)] font-normal uppercase tracking-widest mt-0.5">
                             {{ $page.props.auth?.user?.role === 'teacher' ? 'معلم' : ($page.props.auth?.user?.role === 'admin' ? 'مدير' : 'طالب') }}
                         </span>
                     </div>
-                    <div class="h-7 w-7 bg-zinc-950 text-white rounded-md flex items-center justify-center font-black text-xs shadow-sm select-none transition-transform duration-200 hover:scale-105">
+                    <div class="h-7 w-7 bg-[var(--foreground)] text-[var(--background)] rounded-md flex items-center justify-center font-normal text-xs select-none">
                         {{ $page.props.auth?.user?.name?.charAt(0) }}
                     </div>
                 </div>
             </header>
 
-            <!-- Content Area (Clean animate-in transition) -->
+            <!-- Content Area -->
             <main class="flex-1 overflow-y-auto p-4 lg:p-6 scrollbar-none animate-in fade-in slide-in-from-bottom-2 duration-700 ease-out">
                 <slot />
             </main>

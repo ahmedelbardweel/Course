@@ -25,8 +25,8 @@ const submit = () => {
         <Head title="تأكيد كلمة المرور - كورس" />
 
         <div class="mb-6 text-center sm:text-right">
-            <h1 class="text-2xl font-bold tracking-tight text-zinc-950">تأكيد الهوية</h1>
-            <p class="text-[13px] text-zinc-500 mt-1.5 leading-relaxed">
+            <h1 class="text-2xl font-semibold tracking-tight text-brand-ink">تأكيد الهوية</h1>
+            <p class="text-[13px] text-brand-body mt-1.5 leading-relaxed">
                 هذه منطقة آمنة من التطبيق. يرجى تأكيد كلمة المرور الخاصة بك للمتابعة.
             </p>
         </div>
@@ -34,15 +34,15 @@ const submit = () => {
         <form @submit.prevent="submit" class="space-y-5">
             <!-- Password Field -->
             <div class="space-y-2">
-                <Label for="password" class="text-zinc-700 font-semibold text-[11px] uppercase tracking-wider">كلمة المرور</Label>
+                <Label for="password" class="text-brand-ink font-semibold text-[11px] uppercase tracking-wider">كلمة المرور</Label>
                 <div class="relative group">
-                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-zinc-400 group-focus-within:text-zinc-950 transition-colors">
+                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-brand-muted">
                         <Lock class="h-4 w-4" />
                     </span>
                     <Input
                         id="password"
                         :type="showPassword ? 'text' : 'password'"
-                        class="h-11 pr-10 pl-10 border-zinc-200 bg-zinc-50/30 hover:bg-zinc-50 focus:bg-white focus:border-zinc-950 focus-visible:ring-0 transition-all rounded-xl"
+                        class="h-11 pr-10 pl-10 border border-brand-hairline bg-white text-brand-ink placeholder-brand-muted/55 focus:border-brand-orange focus:ring-1 focus:ring-brand-orange rounded-md"
                         v-model="form.password"
                         required
                         placeholder="••••••••"
@@ -52,13 +52,13 @@ const submit = () => {
                     <button
                         type="button"
                         @click="showPassword = !showPassword"
-                        class="absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-400 hover:text-zinc-950 transition-colors"
+                        class="absolute inset-y-0 left-0 flex items-center pl-3 text-brand-muted"
                     >
                         <Eye v-if="showPassword" class="h-4 w-4" />
                         <EyeOff v-else class="h-4 w-4" />
                     </button>
                 </div>
-                <div v-if="form.errors.password" class="text-[11px] font-bold text-red-600 bg-red-50 border border-red-100 px-3 py-1.5 rounded-lg flex items-center gap-1.5 mt-1.5">
+                <div v-if="form.errors.password" class="text-[11px] font-semibold text-brand-orange bg-white border border-brand-hairline px-3 py-1.5 rounded-md flex items-center gap-1.5 mt-1.5">
                     <AlertCircle class="h-3.5 w-3.5 shrink-0" />
                     {{ form.errors.password }}
                 </div>
@@ -66,7 +66,7 @@ const submit = () => {
 
             <!-- Submit Button -->
             <Button
-                class="w-full h-11 bg-zinc-950 text-white hover:bg-zinc-900 active:scale-[0.98] font-bold rounded-xl transition-all shadow-md shadow-zinc-950/10 flex items-center justify-center gap-2"
+                class="w-full h-11 bg-brand-orange border border-brand-orange text-white font-semibold rounded-md flex items-center justify-center gap-2"
                 :class="{ 'opacity-80 cursor-not-allowed': form.processing }"
                 :disabled="form.processing"
             >

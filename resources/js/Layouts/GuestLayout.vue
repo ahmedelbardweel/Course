@@ -1,44 +1,36 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
-import { Zap } from 'lucide-vue-next';
 </script>
 
 <template>
-    <div class="flex min-h-screen flex-col items-center justify-center bg-white selection:bg-zinc-900 selection:text-white px-4 relative overflow-hidden text-[12px] animate-in fade-in duration-700 ease-out">
+    <div class="flex min-h-screen flex-col items-center justify-center bg-background selection:bg-brand-orange selection:text-white px-4 relative overflow-hidden text-[12px] animate-in fade-in duration-700 ease-out">
         
-        <!-- Background Decorations (Subtle & calm) -->
-        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-zinc-50/50 rounded-full blur-[100px] opacity-40 pointer-events-none"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-zinc-50/50 rounded-full blur-[100px] opacity-40 pointer-events-none"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.015] pointer-events-none select-none">
-            <Zap class="h-[500px] w-[500px] text-zinc-900" />
-        </div>
-
         <div class="relative z-10 w-full flex flex-col items-center">
             <!-- Premium Logo -->
             <div class="mb-8">
-                <Link href="/" class="flex flex-col items-center gap-2 group">
-                    <div class="h-10 w-10 bg-zinc-950 rounded-md flex items-center justify-center text-white border border-zinc-950 transition-colors duration-300">
-                        <span class="text-xl font-black italic">C</span>
+                <Link href="/" class="flex flex-col items-center gap-2">
+                    <div class="h-10 w-10 bg-brand-orange rounded-md flex items-center justify-center text-white border border-brand-orange">
+                        <span class="text-xl font-normal italic">C</span>
                     </div>
-                    <span class="text-sm font-extrabold tracking-tight text-zinc-950 uppercase">كورس</span>
+                    <span class="text-sm font-semibold tracking-tight text-brand-ink uppercase">كورس</span>
                 </Link>
             </div>
 
             <!-- Content Card -->
-            <div class="w-full sm:max-w-[400px] bg-white border border-zinc-200 p-6 sm:p-8 rounded-lg shadow-sm transition-all duration-300">
+            <div class="w-full sm:max-w-[400px] bg-white border border-brand-hairline p-6 sm:p-8 rounded-lg">
                 <slot />
             </div>
             
             <!-- Compact Footer -->
             <div class="mt-8 flex flex-col items-center gap-3">
-                <div class="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-zinc-400">
-                    <Link href="#" class="hover:text-zinc-900 transition-colors">الشروط</Link>
-                    <div class="h-1 w-1 bg-zinc-200 rounded-full"></div>
-                    <Link href="#" class="hover:text-zinc-900 transition-colors">الخصوصية</Link>
-                    <div class="h-1 w-1 bg-zinc-200 rounded-full"></div>
-                    <Link href="#" class="hover:text-zinc-900 transition-colors">الدعم</Link>
+                <div class="flex items-center gap-3 text-[10px] uppercase tracking-widest text-brand-muted">
+                    <Link href="#" class="text-brand-body">الشروط</Link>
+                    <div class="h-1 w-1 bg-brand-hairline rounded-full"></div>
+                    <Link href="#" class="text-brand-body">الخصوصية</Link>
+                    <div class="h-1 w-1 bg-brand-hairline rounded-full"></div>
+                    <Link href="#" class="text-brand-body">الدعم</Link>
                 </div>
-                <div class="text-[9px] text-zinc-400 uppercase tracking-[0.2em] font-black">
+                <div class="text-[9px] text-brand-muted uppercase tracking-[0.2em] font-medium">
                     © 2024 كورس. المستقبل يبدأ هنا.
                 </div>
             </div>

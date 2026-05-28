@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('lesson_notes', function (Blueprint $table) {
-            //
+            $table->integer('timestamp')->nullable()->after('content');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('lesson_notes', function (Blueprint $table) {
-            //
+            $table->dropColumn('timestamp');
         });
     }
 };

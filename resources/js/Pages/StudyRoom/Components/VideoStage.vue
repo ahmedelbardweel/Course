@@ -21,7 +21,7 @@ let player = null;
 
 // State
 const isDrawingMode = ref(false);
-const brushColor = ref('#ef4444'); // Default red
+const brushColor = ref('#f54e00'); // Default primary orange
 const brushSize = ref(4);
 const isSyncing = ref(false);
 
@@ -85,7 +85,6 @@ const clearCanvas = () => {
 
 const broadcastDrawingEvent = async (action, data) => {
     try {
-        // If drawing, calculate relative percentages to fix scaling issues across different screen sizes
         if (action === 'draw' && data && canvasElement.value) {
             const width = canvasElement.value.width || containerElement.value.clientWidth;
             const height = canvasElement.value.height || containerElement.value.clientHeight;
@@ -113,7 +112,6 @@ const listenForDrawingEvents = () => {
                 isSyncing.value = true;
                 util.enlivenObjects([e.data]).then((objects) => {
                     objects.forEach((obj) => {
-                        // Scale object based on reference dimensions vs current dimensions
                         if (e.data.rx && e.data.ry && containerElement.value) {
                             const currentWidth = containerElement.value.clientWidth;
                             const currentHeight = containerElement.value.clientHeight;
@@ -204,7 +202,6 @@ const initPlayer = () => {
     };
 
     player.on('ready', () => {
-        // Force YouTube HD quality (1080p) on initialization
         if (player.provider === 'youtube' && player.embed) {
             try {
                 if (typeof player.embed.setPlaybackQuality === 'function') {
@@ -216,7 +213,6 @@ const initPlayer = () => {
         }
 
         if (!isLeader.value) {
-            // Student joins / syncs on ready
             if (props.room.current_time) {
                 player.currentTime = props.room.current_time;
             }
@@ -227,12 +223,10 @@ const initPlayer = () => {
                 safePlay(player);
             }
         } else {
-            // Leader ready state
             isPlaying.value = player.playing;
             if (props.room.volume !== undefined && props.room.volume !== null) {
                 player.volume = props.room.volume;
             }
-            // Automatically broadcast initial paused state on load to reset DB is_playing
             broadcastVideoSync();
         }
     });
@@ -255,7 +249,6 @@ const initPlayer = () => {
             broadcastVideoSync();
         });
     } else {
-        // Student player safety guard: crush any autoplay bugs or unsolicited plays!
         player.on('play', () => {
             if (!isPlaying.value) {
                 player.pause();
@@ -272,7 +265,7 @@ const startPlaybackSyncTimer = () => {
         if (player && player.playing && isLeader.value) {
             broadcastVideoSync();
         }
-    }, 5000); // Save and broadcast leader's current time every 5 seconds
+    }, 5000);
 };
 
 const stopPlaybackSyncTimer = () => {
@@ -309,9 +302,9 @@ const broadcastVideoSync = () => {
 
     const state = {
         video_url: props.room.video_url,
-        is_playing: isPlaying.value, // Enforce absolute ground-truth playback state
+        is_playing: isPlaying.value,
         current_time: player.currentTime,
-        volume: player.volume, // Enforce absolute ground-truth volume state
+        volume: player.volume,
         stage_mode: props.room.stage_mode || 'video'
     };
 
@@ -347,33 +340,27 @@ const listenForVideoSync = () => {
         .listen('.sync', (e) => {
             if (player && e.stageMode === 'video') {
                 try {
-                    // Sync volume in real-time
                     if (e.volume !== undefined && e.volume !== null && Math.abs(player.volume - e.volume) > 0.01) {
                         player.volume = e.volume;
                     }
 
-                    // Update student playback tracking state
                     isPlaying.value = e.isPlaying;
 
                     if (e.isPlaying) {
                         if (!player.playing) {
-                            // Leader is playing, student was paused: align time instantly and play
                             player.currentTime = e.currentTime;
                             safePlay(player);
                         } else {
-                            // Both playing: only sync time if drift is significant (keeps playback smooth and prevents buffering stutter)
                             const timeDiff = Math.abs(player.currentTime - e.currentTime);
                             if (timeDiff > 12) {
                                 player.currentTime = e.currentTime;
                             }
                         }
                     } else {
-                        // Leader is paused: ALWAYS enforce pause on student player
                         if (player.playing) {
                             player.pause();
                         }
                         
-                        // If both are paused, align time safely using a setTimeout to crush any YouTube API autoplay triggers!
                         const timeDiff = Math.abs(player.currentTime - e.currentTime);
                         if (timeDiff > 3) {
                             player.currentTime = e.currentTime;
@@ -417,17 +404,16 @@ watch(brushSize, (newSize) => {
 watch(() => props.room.video_url, (newUrl) => {
     clearCanvas();
     if (player) {
-        player.destroy(); // Destroy old instance to avoid YouTube iframe glitches
+        player.destroy();
         nextTick(() => {
             initPlayer();
         });
     }
 });
-
 </script>
 
 <template>
-    <div class="relative w-full h-full bg-black rounded-2xl overflow-hidden shadow-lg group flex items-center justify-center" ref="containerElement">
+    <div class="relative w-full h-full bg-black rounded-md overflow-hidden shadow-none group flex items-center justify-center" ref="containerElement">
         <!-- Plyr Video Container -->
         <div class="w-full h-full relative z-10" :class="{'pointer-events-none': !isLeader}">
             <video ref="videoPlayerContainer" playsinline crossorigin></video>
@@ -439,10 +425,10 @@ watch(() => props.room.video_url, (newUrl) => {
         </div>
 
         <!-- Leader Drawing Controls -->
-        <div v-if="isLeader" class="absolute top-4 left-4 z-30 bg-white/90 backdrop-blur-sm p-2 rounded-xl shadow-lg flex items-center gap-3 transition-opacity opacity-0 group-hover:opacity-100">
+        <div v-if="isLeader" class="absolute top-4 left-4 z-30 bg-[var(--card)] border border-[var(--border)] p-2 rounded-md shadow-none flex items-center gap-3">
             <button 
                 @click="toggleDrawingMode"
-                :class="['p-2 rounded-lg transition-colors', isDrawingMode ? 'bg-indigo-600 text-white' : 'bg-zinc-100 text-zinc-600 hover:bg-zinc-200']"
+                :class="['p-2 rounded transition-none', isDrawingMode ? 'bg-[var(--primary)] text-white' : 'bg-[var(--muted)] text-[var(--foreground)] hover:bg-[var(--accent)]']"
                 title="تفعيل الرسم"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -450,12 +436,12 @@ watch(() => props.room.video_url, (newUrl) => {
                 </svg>
             </button>
 
-            <div v-if="isDrawingMode" class="flex items-center gap-2 border-r border-zinc-200 pr-3 mr-1">
+            <div v-if="isDrawingMode" class="flex items-center gap-2 border-r border-[var(--border)] pr-3 mr-1">
                 <input type="color" v-model="brushColor" class="w-8 h-8 rounded cursor-pointer border-0 p-0" />
                 
-                <input type="range" v-model="brushSize" min="1" max="20" class="w-24 accent-indigo-600" />
+                <input type="range" v-model="brushSize" min="1" max="20" class="w-24 accent-[var(--primary)]" />
                 
-                <button @click="clearCanvas" class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors" title="مسح الكل">
+                <button @click="clearCanvas" class="p-2 text-red-500 hover:bg-red-50 rounded" title="مسح الكل">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
@@ -464,26 +450,26 @@ watch(() => props.room.video_url, (newUrl) => {
         </div>
 
         <!-- Student Overlay Status -->
-        <div v-if="!isLeader" class="absolute top-4 right-4 z-30 bg-black/60 backdrop-blur-sm text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <div v-if="!isLeader" class="absolute top-4 right-4 z-30 bg-black/60 text-white px-3 py-1.5 rounded text-xs font-normal flex items-center gap-2 border border-zinc-800">
+            <span class="w-2 h-2 rounded-full bg-[var(--primary)] animate-pulse"></span>
             يتم العرض بواسطة القائد
         </div>
 
         <!-- Leader Player Custom Controls -->
-        <div v-if="isLeader" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 bg-indigo-950/85 backdrop-blur-md px-4 py-2 rounded-2xl shadow-xl flex items-center gap-4 transition-all opacity-0 group-hover:opacity-100 border border-indigo-500/25 text-white select-none">
+        <div v-if="isLeader" class="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 bg-[var(--card)] border border-[var(--border)] px-4 py-2 rounded-md shadow-none flex items-center gap-4 text-[var(--foreground)] select-none">
             <!-- Pulsing Sync Indicator -->
-            <div class="flex items-center gap-2 border-l border-indigo-800/80 pl-3">
+            <div class="flex items-center gap-2 border-l border-[var(--border)] pl-3 text-right">
                 <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--primary)] opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-[var(--primary)]"></span>
                 </span>
-                <span class="text-[10px] font-medium text-emerald-400 tracking-wider">بث مباشر للطلاب</span>
+                <span class="text-[10px] font-normal text-[var(--primary)] tracking-wider">بث مباشر للطلاب</span>
             </div>
 
             <!-- Rewind Button -->
             <button 
                 @click="seekVideo(-10)" 
-                class="p-2 rounded-xl bg-indigo-900/50 hover:bg-indigo-800 text-indigo-200 hover:text-white transition-all hover:scale-105 active:scale-95" 
+                class="p-2 rounded border border-[var(--border)] bg-[var(--muted)] text-[var(--foreground)] hover:bg-[var(--accent)]" 
                 title="إرجاع 10 ثواني"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -495,7 +481,7 @@ watch(() => props.room.video_url, (newUrl) => {
             <!-- Play/Pause Button -->
             <button 
                 @click="togglePlay" 
-                class="p-3 rounded-full bg-amber-500 hover:bg-amber-600 text-white font-bold transition-all shadow-md hover:scale-105 active:scale-95 flex items-center justify-center" 
+                class="p-3 rounded-full bg-[var(--primary)] text-white hover:opacity-95 flex items-center justify-center shadow-none" 
                 :title="isPlaying ? 'إيقاف مؤقت' : 'تشغيل'"
             >
                 <svg v-if="isPlaying" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -509,7 +495,7 @@ watch(() => props.room.video_url, (newUrl) => {
             <!-- Stop Button -->
             <button 
                 @click="stopVideo" 
-                class="p-2 rounded-xl bg-red-600 hover:bg-red-700 text-white transition-all hover:scale-105 active:scale-95" 
+                class="p-2 rounded border border-[var(--border)] bg-[var(--muted)] text-[var(--foreground)] hover:text-red-500 hover:bg-[var(--accent)]" 
                 title="إيقاف كامل"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -520,7 +506,7 @@ watch(() => props.room.video_url, (newUrl) => {
             <!-- Fast Forward Button -->
             <button 
                 @click="seekVideo(10)" 
-                class="p-2 rounded-xl bg-indigo-900/50 hover:bg-indigo-800 text-indigo-200 hover:text-white transition-all hover:scale-105 active:scale-95" 
+                class="p-2 rounded border border-[var(--border)] bg-[var(--muted)] text-[var(--foreground)] hover:bg-[var(--accent)]" 
                 title="تقديم 10 ثواني"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

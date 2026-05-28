@@ -63,30 +63,30 @@ const sendMessage = async () => {
 <template>
     <Head title="المساعد الذكي" />
 
-    <AuthenticatedLayout class="h-full">
-        <template #header>
-            المساعد الذكي
-        </template>
+    <AuthenticatedLayout class="h-full bg-[var(--background)]" :breadcrumbs="[
+        { label: 'الرئيسية', url: route('dashboard') },
+        { label: 'المساعد الذكي' }
+    ]">
 
-        <div class="max-w-4xl mx-auto flex flex-col bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm h-[calc(100vh-76px)] lg:h-[calc(100vh-92px)]">
+        <div class="max-w-4xl mx-auto flex flex-col bg-[var(--card)] border border-[var(--border)] rounded-md overflow-hidden shadow-none h-[calc(100vh-76px)] lg:h-[calc(100vh-92px)] text-right">
             <!-- Chat Header -->
-            <div class="px-4 py-3 border-b border-zinc-100 dark:border-zinc-900 bg-white dark:bg-zinc-950 flex items-center justify-between shrink-0">
+            <div class="px-4 py-3 border-b border-[var(--border)] bg-[var(--card)] flex items-center justify-between shrink-0">
                 <div class="flex items-center gap-3">
-                    <div class="h-8 w-8 bg-black dark:bg-white rounded-lg flex items-center justify-center text-white dark:text-black">
+                    <div class="h-8 w-8 bg-[var(--primary)] text-white rounded flex items-center justify-center border border-[var(--border)]">
                         <Sparkles class="h-4 w-4" />
                     </div>
                     <div>
-                        <h2 class="font-black text-sm tracking-tight">المدرب الشخصي الذكي</h2>
+                        <h2 class="font-normal text-sm tracking-tight text-[var(--foreground)]">المدرب الشخصي الذكي</h2>
                         <div class="flex items-center gap-1.5">
-                            <span class="h-1.5 w-1.5 bg-zinc-950 dark:bg-white rounded-full animate-pulse"></span>
-                            <span class="text-[10px] text-zinc-400 font-bold uppercase tracking-widest">متصل وحاضر للمساعدة</span>
+                            <span class="h-1.5 w-1.5 bg-[var(--primary)] rounded-full animate-pulse"></span>
+                            <span class="text-[10px] text-[var(--muted-foreground)] font-normal uppercase tracking-widest">متصل وحاضر للمساعدة</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Messages Area -->
-            <div ref="scrollContainer" class="flex-1 overflow-y-auto p-4 space-y-3 scroll-smooth">
+            <div ref="scrollContainer" class="flex-1 overflow-y-auto p-4 space-y-3 bg-[var(--card)]">
                 <div 
                     v-for="(msg, index) in messages" 
                     :key="index"
@@ -94,16 +94,16 @@ const sendMessage = async () => {
                 >
                     <div 
                         :class="[
-                            'max-w-[85%] p-3 rounded-lg text-xs leading-relaxed shadow-sm transition-all',
+                            'max-w-[85%] p-3 rounded-md text-xs leading-relaxed border shadow-none',
                             msg.role === 'user' 
-                                ? 'bg-zinc-950 text-white rounded-tr-none border border-zinc-950 dark:bg-white dark:text-black dark:border-white' 
-                                : 'bg-zinc-50 text-zinc-900 rounded-tl-none border border-zinc-200 dark:bg-zinc-900 dark:text-white dark:border-zinc-800'
+                                ? 'bg-[var(--primary)] text-white border-[var(--primary)] rounded-tr-none' 
+                                : 'bg-[var(--muted)] text-[var(--foreground)] border-[var(--border)] rounded-tl-none'
                         ]"
                     >
                         <div class="flex items-center gap-1.5 mb-1.5 opacity-40">
-                            <User v-if="msg.role === 'user'" class="h-2.5 w-2.5" />
-                            <Sparkles v-else class="h-2.5 w-2.5" />
-                            <span class="text-[9px] font-bold uppercase tracking-widest">{{ msg.role === 'user' ? 'أنت' : 'المساعد الذكي' }}</span>
+                            <User v-if="msg.role === 'user'" class="h-2.5 w-2.5 text-white" />
+                            <Sparkles v-else class="h-2.5 w-2.5 text-[var(--foreground)]" />
+                            <span class="text-[9px] font-normal uppercase tracking-widest text-[var(--foreground)]">{{ msg.role === 'user' ? 'أنت' : 'المساعد الذكي' }}</span>
                         </div>
                         {{ msg.content }}
                     </div>
@@ -111,31 +111,31 @@ const sendMessage = async () => {
 
                 <!-- Loading State -->
                 <div v-if="isLoading" class="flex justify-end">
-                    <div class="bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 rounded-2xl rounded-tl-none flex items-center gap-3">
-                        <Loader2 class="h-4 w-4 animate-spin text-zinc-500" />
-                        <span class="text-xs font-bold text-zinc-500">جاري التفكير...</span>
+                    <div class="bg-[var(--muted)] border border-[var(--border)] p-4 rounded-md rounded-tl-none flex items-center gap-3">
+                        <Loader2 class="h-4 w-4 animate-spin text-[var(--muted-foreground)]" />
+                        <span class="text-xs font-normal text-[var(--muted-foreground)]">جاري التفكير...</span>
                     </div>
                 </div>
             </div>
 
             <!-- Input Area -->
-            <div class="p-3 bg-white dark:bg-zinc-950 border-t border-zinc-100 dark:border-zinc-900 shrink-0">
+            <div class="p-3 bg-[var(--card)] border-t border-[var(--border)] shrink-0">
                 <form @submit.prevent="sendMessage" class="relative flex items-center">
                     <Input 
                         v-model="newMessage"
                         placeholder="اسألني أي شيء..."
-                        class="h-9 pr-3 pl-10 text-xs border-zinc-200 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 rounded-lg focus-visible:ring-black dark:focus-visible:ring-white transition-all"
+                        class="h-9 pr-3 pl-10 text-xs border-[var(--border)] bg-[var(--muted)] text-[var(--foreground)] rounded-md focus-visible:ring-[var(--primary)] shadow-none"
                     />
                     <Button 
                         type="submit"
                         :disabled="isLoading || !newMessage.trim()"
                         size="icon"
-                        class="absolute left-1 h-7 w-7 bg-black text-white hover:bg-zinc-800 dark:bg-white dark:text-black rounded-md shadow-sm"
+                        class="absolute left-1 h-7 w-7 bg-[var(--primary)] text-white hover:bg-[var(--primary)] opacity-95 rounded shadow-none border-none"
                     >
                         <Send class="h-3 w-3" />
                     </Button>
                 </form>
-                <p class="text-[9px] text-zinc-400 text-center mt-1.5 uppercase tracking-widest">
+                <p class="text-[9px] text-[var(--muted-foreground)] text-center mt-1.5 uppercase tracking-widest">
                     مدعوم بالذكاء الاصطناعي لخدمتك
                 </p>
             </div>

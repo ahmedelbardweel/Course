@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('duration')->comment('in minutes')->default(0);
             $table->integer('position')->default(0);
             $table->boolean('is_preview')->default(false);
+            $table->boolean('is_free')->default(false);
             $table->timestamps();
         });
     }

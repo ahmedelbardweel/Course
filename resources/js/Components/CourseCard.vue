@@ -23,48 +23,46 @@ const handleView = () => {
 </script>
 
 <template>
-    <Card class="group border-zinc-200 shadow-none rounded-lg overflow-hidden flex flex-col bg-white hover:border-zinc-400 transition-all duration-300">
+    <Card class="border border-brand-hairline rounded-lg overflow-hidden flex flex-col bg-white">
         <!-- Thumbnail Area -->
-        <div class="aspect-video relative bg-zinc-100 overflow-hidden border-b border-zinc-100">
-            <img v-if="thumbnail" :src="thumbnail" :alt="title" class="h-full w-full object-cover transition-transform group-hover:scale-110 duration-700" />
-            <div v-else class="h-full w-full flex items-center justify-center text-zinc-300">
-                <PlayCircle class="h-10 w-10 opacity-20" />
+        <div class="aspect-video relative bg-brand-canvas overflow-hidden border-b border-brand-hairline">
+            <img v-if="thumbnail" :src="thumbnail" :alt="title" class="h-full w-full object-cover" />
+            <div v-else class="h-full w-full flex items-center justify-center text-brand-muted opacity-40">
+                <PlayCircle class="h-10 w-10" />
             </div>
             <div class="absolute top-2 left-2 flex gap-1.5">
-                <Badge variant="secondary" class="h-4 text-[8px] font-black uppercase tracking-widest px-2 bg-white/90 backdrop-blur-sm border-none text-zinc-900 shadow-sm">
+                <Badge variant="secondary" class="h-4 text-[8px] font-semibold uppercase px-2 bg-white border border-brand-hairline text-brand-ink">
                     {{ category }}
                 </Badge>
-            </div>
-            <div v-if="isEnrolled" class="absolute inset-0 bg-zinc-900/40 backdrop-blur-[1px] flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <Button size="sm" variant="secondary" class="h-8 text-[10px] font-black rounded-md px-4 shadow-none">
-                    مواصلة التعلم
-                </Button>
+                <Badge v-if="isEnrolled" class="h-4 text-[8px] font-semibold uppercase px-2 bg-brand-orange text-white border border-brand-orange">
+                    مشترك
+                </Badge>
             </div>
         </div>
         
         <CardHeader class="p-3 space-y-1">
             <div class="flex items-center gap-1 mb-0.5">
-                <div class="flex items-center text-zinc-950 gap-0.5">
-                    <Star class="h-2.5 w-2.5 fill-zinc-950" />
-                    <Star class="h-2.5 w-2.5 fill-zinc-950" />
-                    <Star class="h-2.5 w-2.5 fill-zinc-950" />
-                    <Star class="h-2.5 w-2.5 fill-zinc-950" />
-                    <Star class="h-2.5 w-2.5 text-zinc-200 fill-zinc-100" />
+                <div class="flex items-center text-brand-ink gap-0.5">
+                    <Star class="h-2.5 w-2.5 fill-brand-ink text-brand-ink" />
+                    <Star class="h-2.5 w-2.5 fill-brand-ink text-brand-ink" />
+                    <Star class="h-2.5 w-2.5 fill-brand-ink text-brand-ink" />
+                    <Star class="h-2.5 w-2.5 fill-brand-ink text-brand-ink" />
+                    <Star class="h-2.5 w-2.5 text-brand-hairline fill-brand-hairline" />
                 </div>
-                <span class="text-[9px] font-semibold text-zinc-400 mr-1">(4.8)</span>
+                <span class="text-[9px] font-semibold text-brand-muted mr-1">(4.8)</span>
             </div>
-            <CardTitle class="text-[12px] font-bold text-zinc-950 line-clamp-1 group-hover:underline group-hover:underline-offset-4 transition-all leading-tight">{{ title }}</CardTitle>
-            <CardDescription class="text-[10px] line-clamp-2 h-7 leading-relaxed text-zinc-500 font-medium">
+            <CardTitle class="text-[12px] font-semibold text-brand-ink line-clamp-1 leading-tight">{{ title }}</CardTitle>
+            <CardDescription class="text-[10px] line-clamp-2 h-7 leading-relaxed text-brand-body font-medium">
                 {{ description }}
             </CardDescription>
         </CardHeader>
 
-        <CardFooter class="p-3 pt-0 mt-auto border-t border-zinc-100 bg-zinc-50/50 flex items-center justify-between">
-            <div class="text-[12px] font-extrabold text-zinc-950">
+        <CardFooter class="p-3 pt-0 mt-auto border-t border-brand-hairline bg-brand-canvas-soft flex items-center justify-between">
+            <div class="text-[12px] font-semibold text-brand-ink">
                 {{ price }}
             </div>
             <Link :href="route('courses.show', { slug: props.slug })" class="shrink-0">
-                <Button @click="handleView" variant="ghost" size="sm" class="h-7 text-[10px] font-bold hover:bg-zinc-950 hover:text-white rounded-md px-3 transition-colors">
+                <Button @click="handleView" variant="ghost" size="sm" class="h-7 text-[10px] font-semibold text-brand-ink border border-brand-hairline rounded-md px-3 bg-white">
                     {{ isEnrolled ? 'عرض الكورس' : 'التفاصيل' }}
                 </Button>
             </Link>

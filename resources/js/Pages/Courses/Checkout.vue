@@ -46,19 +46,13 @@ const handlePayment = () => {
 <template>
     <Head title="إتمام الشراء" />
 
-    <AuthenticatedLayout>
-        <div class="flex flex-col h-full bg-white text-[12px]">
-            
-            <!-- Compact Header -->
-            <header class="h-11 border-b border-zinc-200 bg-white flex items-center justify-between px-4 sticky top-0 z-30">
-                <div class="flex items-center gap-2 text-[11px] text-muted-foreground font-medium uppercase tracking-tight">
-                    <Link :href="route('courses.index')" class="hover:text-zinc-900 transition-colors">الدورات</Link>
-                    <ChevronLeft class="h-3 w-3" />
-                    <Link :href="route('courses.show', course.slug)" class="hover:text-zinc-900 transition-colors">{{ course.title }}</Link>
-                    <ChevronLeft class="h-3 w-3" />
-                    <span class="text-zinc-900 font-black">إتمام الدفع</span>
-                </div>
-            </header>
+    <AuthenticatedLayout :breadcrumbs="[
+        { label: 'الرئيسية', url: route('dashboard') },
+        { label: 'الدورات', url: route('courses.index') },
+        { label: course.title, url: route('courses.show', course.slug) },
+        { label: 'إتمام الدفع' }
+    ]">
+        <div class="flex flex-col h-full bg-[var(--background)] text-[12px]">
 
             <main class="flex-1 p-4 lg:p-8 text-right overflow-y-auto">
                 <div class="w-full max-w-6xl mx-auto">
@@ -66,59 +60,59 @@ const handlePayment = () => {
                         
                         <!-- Left: Order Summary (Floating on Mobile) -->
                         <div class="lg:col-span-5 order-2 lg:order-1">
-                            <Card class="border-zinc-200 shadow-none bg-white rounded-md overflow-hidden sticky top-4">
-                                <div class="aspect-video relative overflow-hidden border-b border-zinc-200">
+                            <Card class="border-[var(--border)] shadow-none bg-[var(--card)] rounded-md overflow-hidden sticky top-4">
+                                <div class="aspect-video relative overflow-hidden border-b border-[var(--border)]">
                                     <img v-if="course.thumbnail" :src="course.thumbnail" class="w-full h-full object-cover" />
-                                    <div class="absolute inset-0 bg-zinc-900/40 flex items-end p-4">
+                                    <div class="absolute inset-0 bg-[var(--foreground)]/40 flex items-end p-4">
                                         <div class="space-y-1">
-                                            <Badge variant="secondary" class="h-4 text-[8px] font-black uppercase tracking-widest bg-white/90 text-zinc-900 border-none rounded">{{ course.category?.name }}</Badge>
-                                            <h3 class="text-[14px] font-black text-white leading-tight line-clamp-1">{{ course.title }}</h3>
+                                            <Badge variant="secondary" class="h-4 text-[8px] font-normal uppercase tracking-widest bg-[var(--card)] text-[var(--foreground)] border-none rounded">{{ course.category?.name }}</Badge>
+                                            <h3 class="text-[14px] font-normal text-white leading-tight line-clamp-1">{{ course.title }}</h3>
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <CardHeader class="p-4 border-b border-zinc-100">
-                                    <CardTitle class="text-[10px] font-black uppercase tracking-widest text-zinc-400">تفاصيل الفاتورة</CardTitle>
+                                <CardHeader class="p-4 border-b border-[var(--border)] bg-[var(--card)]">
+                                    <CardTitle class="text-[10px] font-normal uppercase tracking-widest text-[var(--muted-foreground)]">تفاصيل الفاتورة</CardTitle>
                                 </CardHeader>
 
-                                <CardContent class="p-4 space-y-4">
+                                <CardContent class="p-4 space-y-4 bg-[var(--card)]">
                                     <div class="space-y-2.5">
-                                        <div class="flex justify-between items-center text-[11px] font-medium text-zinc-500">
+                                        <div class="flex justify-between items-center text-[11px] font-normal text-[var(--muted-foreground)]">
                                             <span>سعر الكورس الأصلي</span>
-                                            <span class="font-black text-zinc-900">${{ course.price }}</span>
+                                            <span class="font-normal text-[var(--foreground)]">${{ course.price }}</span>
                                         </div>
-                                        <div class="flex justify-between items-center text-[11px] font-medium text-zinc-500">
+                                        <div class="flex justify-between items-center text-[11px] font-normal text-[var(--muted-foreground)]">
                                             <span>رسوم المعالجة</span>
-                                            <span class="text-zinc-900 font-black">مجاني</span>
+                                            <span class="text-[var(--foreground)] font-normal">مجاني</span>
                                         </div>
-                                        <div class="flex justify-between items-center text-[11px] font-medium text-zinc-500">
+                                        <div class="flex justify-between items-center text-[11px] font-normal text-[var(--muted-foreground)]">
                                             <span>الخصومات المطبقة</span>
-                                            <span class="text-zinc-300 font-black">$0.00</span>
+                                            <span class="text-[var(--muted-foreground)] font-normal">$0.00</span>
                                         </div>
                                     </div>
                                     
-                                    <Separator class="bg-zinc-100" />
+                                    <Separator class="bg-[var(--border)]" />
                                     
                                     <div class="flex justify-between items-center py-2">
-                                        <span class="text-[13px] font-black text-zinc-900 uppercase">الإجمالي النهائي</span>
+                                        <span class="text-[13px] font-normal text-[var(--foreground)] uppercase">الإجمالي النهائي</span>
                                         <div class="text-right">
-                                            <div class="text-2xl font-black text-zinc-900 tracking-tighter">${{ course.price }}</div>
-                                            <div class="text-[9px] font-black text-zinc-300 uppercase tracking-widest mt-1">مدى الحياة</div>
+                                            <div class="text-2xl font-normal text-[var(--foreground)] tracking-tighter">${{ course.price }}</div>
+                                            <div class="text-[9px] font-normal text-[var(--muted-foreground)] uppercase tracking-widest mt-1">مدى الحياة</div>
                                         </div>
                                     </div>
                                 </CardContent>
                                 
-                                <CardFooter class="bg-zinc-50/20 p-4 flex flex-col gap-3">
-                                    <h4 class="text-[9px] font-black uppercase tracking-widest text-zinc-400 w-full mb-1">مزايا الاشتراك:</h4>
+                                <CardFooter class="bg-[var(--muted)] p-4 flex flex-col gap-3 border-t border-[var(--border)]">
+                                    <h4 class="text-[9px] font-normal uppercase tracking-widest text-[var(--muted-foreground)] w-full mb-1">مزايا الاشتراك:</h4>
                                     <div class="w-full space-y-2">
-                                        <div class="flex items-center gap-2 text-[10px] font-bold text-zinc-600">
-                                            <CheckCircle2 class="h-3 w-3 text-zinc-900" /> وصول كامل لجميع الدروس ({{ course.lessons_count }} درس)
+                                        <div class="flex items-center gap-2 text-[10px] font-normal text-[var(--foreground)]">
+                                            <CheckCircle2 class="h-3 w-3 text-[var(--primary)]" /> وصول كامل لجميع الدروس ({{ course.lessons_count }} درس)
                                         </div>
-                                        <div class="flex items-center gap-2 text-[10px] font-bold text-zinc-600">
-                                            <CheckCircle2 class="h-3 w-3 text-zinc-900" /> شهادة إتمام رقمية معتمدة
+                                        <div class="flex items-center gap-2 text-[10px] font-normal text-[var(--foreground)]">
+                                            <CheckCircle2 class="h-3 w-3 text-[var(--primary)]" /> شهادة إتمام رقمية معتمدة
                                         </div>
-                                        <div class="flex items-center gap-2 text-[10px] font-bold text-zinc-600">
-                                            <CheckCircle2 class="h-3 w-3 text-zinc-900" /> استخدام غير محدود للمساعد الذكي AI
+                                        <div class="flex items-center gap-2 text-[10px] font-normal text-[var(--foreground)]">
+                                            <CheckCircle2 class="h-3 w-3 text-[var(--primary)]" /> استخدام غير محدود للمساعد الذكي AI
                                         </div>
                                     </div>
                                 </CardFooter>
@@ -128,14 +122,14 @@ const handlePayment = () => {
                         <!-- Right: Payment Methods & Info -->
                         <div class="lg:col-span-7 order-1 lg:order-2 space-y-6">
                             <div class="space-y-1 pb-2">
-                                <h1 class="text-2xl font-black text-zinc-900 tracking-tight leading-none uppercase">إتمام عملية الدفع</h1>
-                                <p class="text-[11px] text-zinc-400 font-medium leading-relaxed max-w-lg">اختر وسيلة الدفع المناسبة وأكمل العملية بأمان للبدء فوراً في رحلتك التعليمية.</p>
+                                <h1 class="text-2xl font-normal text-[var(--foreground)] tracking-tight leading-none uppercase">إتمام عملية الدفع</h1>
+                                <p class="text-[11px] text-[var(--muted-foreground)] font-normal leading-relaxed max-w-lg">اختر وسيلة الدفع المناسبة وأكمل العملية بأمان للبدء فوراً في رحلتك التعليمية.</p>
                             </div>
 
-                            <Card class="border-zinc-200 shadow-none bg-white rounded-md overflow-hidden">
-                                <CardHeader class="p-4 border-b border-zinc-100 flex flex-row items-center justify-between">
-                                    <CardTitle class="text-[11px] font-black uppercase tracking-widest flex items-center gap-2">
-                                        <div class="h-7 w-7 rounded bg-zinc-900 text-white flex items-center justify-center">
+                            <Card class="border-[var(--border)] shadow-none bg-[var(--card)] rounded-md overflow-hidden">
+                                <CardHeader class="p-4 border-b border-[var(--border)] flex flex-row items-center justify-between">
+                                    <CardTitle class="text-[11px] font-normal uppercase tracking-widest flex items-center gap-2 text-[var(--foreground)]">
+                                        <div class="h-7 w-7 rounded bg-[var(--primary)] text-white flex items-center justify-center">
                                             <CreditCard class="h-3.5 w-3.5" />
                                         </div>
                                         بطاقة الائتمان / الخصم
@@ -145,54 +139,54 @@ const handlePayment = () => {
                                         <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" class="h-3.5" />
                                     </div>
                                 </CardHeader>
-                                <CardContent class="p-6 space-y-6">
+                                <CardContent class="p-6 space-y-6 bg-[var(--card)]">
                                     <div class="space-y-4">
                                         <div class="space-y-1.5">
-                                            <Label class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">الاسم على البطاقة</Label>
-                                            <Input placeholder="John Doe" class="h-9 text-[12px] font-medium border-zinc-200 bg-white rounded-md focus-visible:ring-zinc-950" />
+                                            <Label class="text-[10px] font-normal text-[var(--muted-foreground)] uppercase tracking-widest">الاسم على البطاقة</Label>
+                                            <Input placeholder="John Doe" class="h-9 text-[12px] font-normal border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] rounded-md focus-visible:ring-[var(--primary)]" />
                                         </div>
                                         <div class="space-y-1.5">
-                                            <Label class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">رقم البطاقة</Label>
+                                            <Label class="text-[10px] font-normal text-[var(--muted-foreground)] uppercase tracking-widest">رقم البطاقة</Label>
                                             <div class="relative">
-                                                <Input placeholder="0000 0000 0000 0000" class="h-9 text-[12px] font-mono font-bold pl-12 border-zinc-200 bg-white rounded-md focus-visible:ring-zinc-950 tracking-widest" />
-                                                <Lock class="absolute left-3 top-2.5 h-4 w-4 text-zinc-300" />
+                                                <Input placeholder="0000 0000 0000 0000" class="h-9 text-[12px] font-mono font-normal pl-12 border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] rounded-md focus-visible:ring-[var(--primary)] tracking-widest" />
+                                                <Lock class="absolute left-3 top-2.5 h-4 w-4 text-[var(--muted-foreground)]" />
                                             </div>
                                         </div>
                                         <div class="grid grid-cols-2 gap-4">
                                             <div class="space-y-1.5">
-                                                <Label class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">تاريخ الانتهاء</Label>
-                                                <Input placeholder="MM/YY" class="h-9 text-[12px] font-medium border-zinc-200 bg-white rounded-md focus-visible:ring-zinc-950" />
+                                                <Label class="text-[10px] font-normal text-[var(--muted-foreground)] uppercase tracking-widest">تاريخ الانتهاء</Label>
+                                                <Input placeholder="MM/YY" class="h-9 text-[12px] font-normal border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] rounded-md focus-visible:ring-[var(--primary)]" />
                                             </div>
                                             <div class="space-y-1.5">
-                                                <Label class="text-[10px] font-black text-zinc-400 uppercase tracking-widest">رمز الأمان (CVV)</Label>
-                                                <Input placeholder="123" class="h-9 text-[12px] font-medium border-zinc-200 bg-white rounded-md focus-visible:ring-zinc-950" />
+                                                <Label class="text-[10px] font-normal text-[var(--muted-foreground)] uppercase tracking-widest">رمز الأمان (CVV)</Label>
+                                                <Input placeholder="123" class="h-9 text-[12px] font-normal border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] rounded-md focus-visible:ring-[var(--primary)]" />
                                             </div>
                                         </div>
                                     </div>
                                 </CardContent>
-                                <CardFooter class="bg-zinc-50/20 p-4 flex items-center gap-3 border-t border-zinc-100">
-                                    <div class="h-7 w-7 rounded bg-zinc-100 text-zinc-900 border border-zinc-200 flex items-center justify-center shrink-0">
-                                        <ShieldCheck class="h-3.5 w-3.5" />
+                                <CardFooter class="bg-[var(--muted)] p-4 flex items-center gap-3 border-t border-[var(--border)]">
+                                    <div class="h-7 w-7 rounded bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] flex items-center justify-center shrink-0">
+                                        <ShieldCheck class="h-3.5 w-3.5 text-[var(--primary)]" />
                                     </div>
-                                    <p class="text-[10px] font-medium text-zinc-500 italic">نحن نستخدم تشفيراً عالمياً 256-bit لضمان أمن بياناتك المالية.</p>
+                                    <p class="text-[10px] font-normal text-[var(--muted-foreground)] italic">نحن نستخدم تشفيراً عالمياً 256-bit لضمان أمن بياناتك المالية.</p>
                                 </CardFooter>
                             </Card>
 
                             <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-4">
                                 <Link :href="route('courses.show', course.slug)">
-                                    <Button variant="ghost" class="h-8 text-[11px] font-black uppercase tracking-widest text-zinc-400 hover:text-zinc-900 rounded-md px-6 transition-all">
+                                    <Button variant="ghost" class="h-8 text-[11px] font-normal uppercase tracking-widest text-[var(--muted-foreground)] hover:text-[var(--foreground)] rounded-md px-6 bg-transparent border border-[var(--border)] hover:bg-[var(--muted)]">
                                         <ChevronLeft class="h-3.5 w-3.5 ml-1.5" /> العودة للتفاصيل
                                     </Button>
                                 </Link>
                                 <Button 
                                     @click="handlePayment" 
                                     :disabled="isProcessing"
-                                    class="h-10 text-[12px] font-bold bg-zinc-950 text-white hover:bg-zinc-900 rounded-md px-8 shadow-none transition-colors border-none group"
+                                    class="h-10 text-[12px] font-normal bg-[var(--primary)] text-white hover:bg-[var(--primary)] opacity-95 rounded-md px-8 shadow-none border-none group"
                                 >
                                     <Loader2 v-if="isProcessing" class="ml-2 h-4 w-4 animate-spin" />
                                     <span v-else class="flex items-center gap-2">
                                         دفع ${{ course.price }} والاشتراك الآن
-                                        <Wallet class="h-3.5 w-3.5 opacity-50 group-hover:translate-x-1 transition-transform" />
+                                        <Wallet class="h-3.5 w-3.5 opacity-50" />
                                     </span>
                                 </Button>
                             </div>

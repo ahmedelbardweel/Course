@@ -30,22 +30,22 @@ const submit = () => {
         <Head title="إنشاء حساب جديد - كورس" />
 
         <div class="mb-8 text-center sm:text-right">
-            <h1 class="text-2xl font-bold tracking-tight text-zinc-950">ابدأ رحلتك اليوم</h1>
-            <p class="text-[13px] text-zinc-500 mt-1.5 leading-relaxed">انضم إلى مجتمع "كورس" الرائد وابدأ في بناء مستقبلك التعليمي والمهني.</p>
+            <h1 class="text-2xl font-semibold tracking-tight text-brand-ink">ابدأ رحلتك اليوم</h1>
+            <p class="text-[13px] text-brand-body mt-1.5 leading-relaxed">انضم إلى مجتمع "كورس" الرائد وابدأ في بناء مستقبلك التعليمي والمهني.</p>
         </div>
 
         <form @submit.prevent="submit" class="space-y-5">
             <!-- Full Name Field -->
             <div class="space-y-2">
-                <Label for="name" class="text-zinc-700 font-semibold text-[11px] uppercase tracking-wider">الاسم الكامل</Label>
+                <Label for="name" class="text-brand-ink font-semibold text-[11px] uppercase tracking-wider">الاسم الكامل</Label>
                 <div class="relative group">
-                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-zinc-400 group-focus-within:text-zinc-950 transition-colors">
+                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-brand-muted">
                         <User class="h-4 w-4" />
                     </span>
                     <Input
                         id="name"
                         type="text"
-                        class="h-11 pr-10 pl-4 border-zinc-200 bg-zinc-50/30 hover:bg-zinc-50 focus:bg-white focus:border-zinc-950 focus-visible:ring-0 transition-all rounded-xl"
+                        class="h-11 pr-10 pl-4 border border-brand-hairline bg-white text-brand-ink placeholder-brand-muted/55 focus:border-brand-orange focus:ring-1 focus:ring-brand-orange rounded-md"
                         v-model="form.name"
                         required
                         autofocus
@@ -53,7 +53,7 @@ const submit = () => {
                         placeholder="أحمد محمد"
                     />
                 </div>
-                <div v-if="form.errors.name" class="text-[11px] font-bold text-red-600 bg-red-50 border border-red-100 px-3 py-1.5 rounded-lg flex items-center gap-1.5 mt-1.5">
+                <div v-if="form.errors.name" class="text-[11px] font-semibold text-brand-orange bg-white border border-brand-hairline px-3 py-1.5 rounded-md flex items-center gap-1.5 mt-1.5">
                     <AlertCircle class="h-3.5 w-3.5 shrink-0" />
                     {{ form.errors.name }}
                 </div>
@@ -61,22 +61,22 @@ const submit = () => {
 
             <!-- Email Field -->
             <div class="space-y-2">
-                <Label for="email" class="text-zinc-700 font-semibold text-[11px] uppercase tracking-wider">البريد الإلكتروني</Label>
+                <Label for="email" class="text-brand-ink font-semibold text-[11px] uppercase tracking-wider">البريد الإلكتروني</Label>
                 <div class="relative group">
-                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-zinc-400 group-focus-within:text-zinc-950 transition-colors">
+                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-brand-muted">
                         <Mail class="h-4 w-4" />
                     </span>
                     <Input
                         id="email"
                         type="email"
-                        class="h-11 pr-10 pl-4 border-zinc-200 bg-zinc-50/30 hover:bg-zinc-50 focus:bg-white focus:border-zinc-950 focus-visible:ring-0 transition-all rounded-xl"
+                        class="h-11 pr-10 pl-4 border border-brand-hairline bg-white text-brand-ink placeholder-brand-muted/55 focus:border-brand-orange focus:ring-1 focus:ring-brand-orange rounded-md"
                         v-model="form.email"
                         required
                         autocomplete="username"
                         placeholder="name@example.com"
                     />
                 </div>
-                <div v-if="form.errors.email" class="text-[11px] font-bold text-red-600 bg-red-50 border border-red-100 px-3 py-1.5 rounded-lg flex items-center gap-1.5 mt-1.5">
+                <div v-if="form.errors.email" class="text-[11px] font-semibold text-brand-orange bg-white border border-brand-hairline px-3 py-1.5 rounded-md flex items-center gap-1.5 mt-1.5">
                     <AlertCircle class="h-3.5 w-3.5 shrink-0" />
                     {{ form.errors.email }}
                 </div>
@@ -84,35 +84,35 @@ const submit = () => {
 
             <!-- Learning Goal Field -->
             <div class="space-y-2">
-                <Label for="learning_goal" class="text-zinc-700 font-semibold text-[11px] uppercase tracking-wider">ما هو هدفك التعليمي؟ (اختياري)</Label>
+                <Label for="learning_goal" class="text-brand-ink font-semibold text-[11px] uppercase tracking-wider">ما هو هدفك التعليمي؟ (اختياري)</Label>
                 <div class="relative group">
-                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-zinc-400 group-focus-within:text-zinc-950 transition-colors">
+                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-brand-muted">
                         <Sparkles class="h-4 w-4" />
                     </span>
                     <Input
                         id="learning_goal"
                         type="text"
-                        class="h-11 pr-10 pl-4 border-zinc-200 bg-zinc-50/30 hover:bg-zinc-50 focus:bg-white focus:border-zinc-950 focus-visible:ring-0 transition-all rounded-xl"
+                        class="h-11 pr-10 pl-4 border border-brand-hairline bg-white text-brand-ink placeholder-brand-muted/55 focus:border-brand-orange focus:ring-1 focus:ring-brand-orange rounded-md"
                         v-model="form.learning_goal"
                         placeholder="مثلاً: تعلم تطوير واجهات الويب"
                     />
                 </div>
-                <p class="text-[10px] text-zinc-400 pr-1.5 leading-relaxed">نستخدم هذه البيانات لبناء مسارات تعلم تفاعلية ومخصصة لك.</p>
+                <p class="text-[10px] text-brand-muted pr-1.5 leading-relaxed">نستخدم هذه البيانات لبناء مسارات تعلم تفاعلية ومخصصة لك.</p>
             </div>
 
             <!-- Password Fields Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <!-- Password -->
                 <div class="space-y-2">
-                    <Label for="password" class="text-zinc-700 font-semibold text-[11px] uppercase tracking-wider">كلمة المرور</Label>
+                    <Label for="password" class="text-brand-ink font-semibold text-[11px] uppercase tracking-wider">كلمة المرور</Label>
                     <div class="relative group">
-                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-zinc-400 group-focus-within:text-zinc-950 transition-colors">
+                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-brand-muted">
                             <Lock class="h-4 w-4" />
                         </span>
                         <Input
                             id="password"
                             :type="showPassword ? 'text' : 'password'"
-                            class="h-11 pr-10 pl-10 border-zinc-200 bg-zinc-50/30 hover:bg-zinc-50 focus:bg-white focus:border-zinc-950 focus-visible:ring-0 transition-all rounded-xl text-left"
+                            class="h-11 pr-10 pl-10 border border-brand-hairline bg-white text-brand-ink placeholder-brand-muted/55 focus:border-brand-orange focus:ring-1 focus:ring-brand-orange rounded-md text-left"
                             v-model="form.password"
                             required
                             placeholder="••••••••"
@@ -121,7 +121,7 @@ const submit = () => {
                         <button
                             type="button"
                             @click="showPassword = !showPassword"
-                            class="absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-400 hover:text-zinc-950 transition-colors"
+                            class="absolute inset-y-0 left-0 flex items-center pl-3 text-brand-muted"
                         >
                             <Eye v-if="showPassword" class="h-4 w-4" />
                             <EyeOff v-else class="h-4 w-4" />
@@ -131,15 +131,15 @@ const submit = () => {
 
                 <!-- Password Confirmation -->
                 <div class="space-y-2">
-                    <Label for="password_confirmation" class="text-zinc-700 font-semibold text-[11px] uppercase tracking-wider">تأكيد الكلمة</Label>
+                    <Label for="password_confirmation" class="text-brand-ink font-semibold text-[11px] uppercase tracking-wider">تأكيد الكلمة</Label>
                     <div class="relative group">
-                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-zinc-400 group-focus-within:text-zinc-950 transition-colors">
+                        <span class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-brand-muted">
                             <Lock class="h-4 w-4" />
                         </span>
                         <Input
                             id="password_confirmation"
                             :type="showPasswordConfirm ? 'text' : 'password'"
-                            class="h-11 pr-10 pl-10 border-zinc-200 bg-zinc-50/30 hover:bg-zinc-50 focus:bg-white focus:border-zinc-950 focus-visible:ring-0 transition-all rounded-xl text-left"
+                            class="h-11 pr-10 pl-10 border border-brand-hairline bg-white text-brand-ink placeholder-brand-muted/55 focus:border-brand-orange focus:ring-1 focus:ring-brand-orange rounded-md text-left"
                             v-model="form.password_confirmation"
                             required
                             placeholder="••••••••"
@@ -148,7 +148,7 @@ const submit = () => {
                         <button
                             type="button"
                             @click="showPasswordConfirm = !showPasswordConfirm"
-                            class="absolute inset-y-0 left-0 flex items-center pl-3 text-zinc-400 hover:text-zinc-950 transition-colors"
+                            class="absolute inset-y-0 left-0 flex items-center pl-3 text-brand-muted"
                         >
                             <Eye v-if="showPasswordConfirm" class="h-4 w-4" />
                             <EyeOff v-else class="h-4 w-4" />
@@ -156,7 +156,7 @@ const submit = () => {
                     </div>
                 </div>
 
-                <div v-if="form.errors.password" class="col-span-1 sm:col-span-2 text-[11px] font-bold text-red-600 bg-red-50 border border-red-100 px-3 py-1.5 rounded-lg flex items-center gap-1.5 mt-1">
+                <div v-if="form.errors.password" class="col-span-1 sm:col-span-2 text-[11px] font-semibold text-brand-orange bg-white border border-brand-hairline px-3 py-1.5 rounded-md flex items-center gap-1.5 mt-1">
                     <AlertCircle class="h-3.5 w-3.5 shrink-0" />
                     {{ form.errors.password }}
                 </div>
@@ -164,7 +164,7 @@ const submit = () => {
 
             <!-- Submit Button -->
             <Button
-                class="w-full h-11 bg-zinc-950 text-white hover:bg-zinc-900 active:scale-[0.98] font-bold rounded-xl transition-all shadow-md shadow-zinc-950/10 flex items-center justify-center gap-2 mt-2"
+                class="w-full h-11 bg-brand-orange border border-brand-orange text-white font-semibold rounded-md flex items-center justify-center gap-2 mt-2"
                 :class="{ 'opacity-80 cursor-not-allowed': form.processing }"
                 :disabled="form.processing"
             >
@@ -174,8 +174,8 @@ const submit = () => {
 
             <!-- Bottom Link -->
             <div class="mt-6 text-center text-[12px]">
-                <span class="text-zinc-500">لديك حساب بالفعل؟ </span>
-                <Link :href="route('login')" class="font-extrabold text-zinc-950 hover:underline underline-offset-4">سجل دخولك</Link>
+                <span class="text-brand-body">لديك حساب بالفعل؟ </span>
+                <Link :href="route('login')" class="font-semibold text-brand-ink hover:underline underline-offset-4">سجل دخولك</Link>
             </div>
         </form>
     </GuestLayout>

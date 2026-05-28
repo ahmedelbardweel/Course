@@ -75,8 +75,8 @@ const initJitsi = async () => {
             interfaceConfigOverwrite: {
                 SHOW_JITSI_WATERMARK: false,
                 SHOW_WATERMARK_FOR_GUEST: false,
-                DEFAULT_BACKGROUND: '#18181b', // Dark background matching modern UI
-                TOOLBAR_BACKGROUND: '#18181b',
+                DEFAULT_BACKGROUND: '#000000',
+                TOOLBAR_BACKGROUND: '#000000',
                 DISABLE_TRANSCRIPT: true,
                 DISABLE_RINGING: true
             }
@@ -97,7 +97,6 @@ const initJitsi = async () => {
             handleHangup();
         });
         
-        // Hide loading once iframe finishes initial loading
         const iframe = api.getIFrame();
         if (iframe) {
             iframe.onload = () => {
@@ -107,7 +106,6 @@ const initJitsi = async () => {
             };
         }
         
-        // Safety timeout (max 5 seconds loading screen)
         setTimeout(() => {
             isLoading.value = false;
         }, 5000);
@@ -130,14 +128,14 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="w-full aspect-video bg-zinc-950 rounded-xl overflow-hidden border border-zinc-800 relative shadow-inner">
+    <div class="w-full aspect-video bg-black rounded-md overflow-hidden border border-[var(--border)] relative shadow-none">
         <div ref="jitsiContainer" class="w-full h-full"></div>
         
         <!-- Custom Hangup Button at the top-right -->
         <div v-if="!isLoading && !isTerminated" class="absolute top-4 right-4 z-10">
             <button 
                 @click="handleHangup"
-                class="flex items-center gap-1.5 h-8 px-3 rounded-lg bg-red-600 hover:bg-red-700 active:scale-95 text-white font-bold text-[10px] transition-all shadow-md"
+                class="flex items-center gap-1.5 h-8 px-3 rounded bg-red-600 hover:bg-red-700 text-white font-normal text-[10px] shadow-none"
             >
                 <PhoneOff class="h-3.5 w-3.5" />
                 <span>غادرة الغرفة</span>
@@ -145,40 +143,38 @@ onUnmounted(() => {
         </div>
 
         <!-- Loading Overlay -->
-        <transition name="fade">
-            <div 
-                v-if="isLoading && !isTerminated" 
-                class="absolute inset-0 bg-zinc-950 flex flex-col items-center justify-center text-white z-10"
-            >
-                <div class="flex flex-col items-center gap-4">
-                    <div class="relative flex items-center justify-center">
-                        <Loader2 class="h-8 w-8 text-zinc-400 animate-spin" />
-                        <div class="absolute h-12 w-12 rounded-full border border-white/5 animate-ping"></div>
-                    </div>
-                    <div class="text-center space-y-1 mt-2">
-                        <h4 class="text-xs font-bold text-zinc-200">جاري تهيئة الغرفة الدراسية</h4>
-                        <p class="text-[10px] text-zinc-500">يرجى الانتظار، يتم الاتصال بالبث...</p>
-                    </div>
+        <div 
+            v-if="isLoading && !isTerminated" 
+            class="absolute inset-0 bg-black flex flex-col items-center justify-center text-white z-10"
+        >
+            <div class="flex flex-col items-center gap-4">
+                <div class="relative flex items-center justify-center">
+                    <Loader2 class="h-8 w-8 text-zinc-400 animate-spin" />
+                    <div class="absolute h-12 w-12 rounded-full border border-white/5 animate-ping"></div>
+                </div>
+                <div class="text-center space-y-1 mt-2 text-right">
+                    <h4 class="text-xs font-normal text-zinc-200">جاري تهيئة الغرفة الدراسية</h4>
+                    <p class="text-[10px] text-zinc-550">يرجى الانتظار، يتم الاتصال بالبث...</p>
                 </div>
             </div>
-        </transition>
+        </div>
 
         <!-- Terminated / Hangup Screen -->
         <div 
             v-if="isTerminated" 
-            class="absolute inset-0 bg-zinc-950 flex flex-col items-center justify-center text-white z-20"
+            class="absolute inset-0 bg-black flex flex-col items-center justify-center text-white z-20"
         >
             <div class="flex flex-col items-center gap-3.5 text-center p-6">
-                <div class="h-10 w-10 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400">
+                <div class="h-10 w-10 rounded bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400">
                     <Video class="h-4 w-4" />
                 </div>
                 <div class="space-y-1">
-                    <h4 class="text-xs font-bold text-zinc-200">تم إنهاء المكالمة بنجاح</h4>
-                    <p class="text-[10px] text-zinc-500 max-w-xs leading-relaxed">لقد غادرت الغرفة الدراسية المشتركة. يمكنك إعادة الانضمام للمكالمة في أي وقت.</p>
+                    <h4 class="text-xs font-normal text-zinc-200">تم إنهاء المكالمة بنجاح</h4>
+                    <p class="text-[10px] text-zinc-550 max-w-xs leading-relaxed">لقد غادرت الغرفة الدراسية المشتركة. يمكنك إعادة الانضمام للمكالمة في أي وقت.</p>
                 </div>
                 <button 
                     @click="reconnect"
-                    class="h-8 px-4 bg-white text-zinc-950 hover:bg-zinc-100 active:scale-[0.98] font-bold rounded-md transition-all text-[10px] mt-2 shadow-sm"
+                    class="h-8 px-4 bg-[var(--primary)] text-white hover:bg-[var(--primary)] opacity-95 font-normal rounded shadow-none text-[10px] mt-2"
                 >
                     إعادة الاتصال بالغرفة
                 </button>
@@ -186,14 +182,3 @@ onUnmounted(() => {
         </div>
     </div>
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.4s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-    opacity: 0;
-}
-</style>

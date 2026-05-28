@@ -143,24 +143,24 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div class="w-full aspect-video bg-zinc-900 rounded-2xl overflow-hidden shadow-lg relative flex items-center justify-center">
+    <div class="w-full aspect-video bg-black rounded-md overflow-hidden border border-[var(--border)] relative flex items-center justify-center shadow-none">
         <!-- Status Overlay if empty -->
-        <div v-if="!videoContainer || videoContainer.children.length === 0" class="absolute inset-0 flex flex-col items-center justify-center text-zinc-400 z-10 pointer-events-none">
-            <svg v-if="stageMode === 'screen'" xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-4 opacity-50 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div v-if="!videoContainer || videoContainer.children.length === 0" class="absolute inset-0 flex flex-col items-center justify-center text-[var(--muted-foreground)] z-10 pointer-events-none">
+            <svg v-if="stageMode === 'screen'" xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-3 opacity-40 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-            <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mb-4 opacity-50 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mb-3 opacity-40 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
             </svg>
-            <p class="text-sm font-medium">{{ connectionStatus }}</p>
+            <p class="text-xs font-normal">{{ connectionStatus }}</p>
         </div>
 
         <!-- Video Container for LiveKit Tracks -->
         <div ref="videoContainer" class="w-full h-full relative z-20"></div>
         
         <!-- Badge -->
-        <div class="absolute top-4 right-4 bg-red-600/90 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 z-30 shadow-lg backdrop-blur-md">
-            <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+        <div class="absolute top-3 right-3 bg-[var(--primary)] text-white px-2.5 py-1 rounded text-[10px] font-normal flex items-center gap-1.5 z-30 uppercase tracking-widest shadow-none border-none">
+            <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
             بث مباشر: {{ stageMode === 'screen' ? 'شاشة العرض' : 'الكاميرا' }}
         </div>
     </div>

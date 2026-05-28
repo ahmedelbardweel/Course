@@ -30,43 +30,43 @@ const form = useForm({
         >
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="space-y-1.5">
-                    <Label for="name" class="text-[11px] font-black text-zinc-400 uppercase tracking-widest">الاسم الكامل</Label>
+                    <Label for="name" class="text-[11px] font-normal text-[var(--muted-foreground)] uppercase tracking-widest">الاسم الكامل</Label>
                     <Input
                         id="name"
                         type="text"
-                        class="h-8.5 text-[12px] font-medium border-zinc-100 bg-zinc-50/20"
+                        class="h-8.5 text-[12px] font-normal border-[var(--border)] bg-[var(--background)] rounded-md focus:ring-1 focus:ring-[var(--primary)]"
                         v-model="form.name"
                         required
                         autofocus
                         autocomplete="name"
                     />
-                    <div v-if="form.errors.name" class="text-[10px] text-red-500 font-bold">{{ form.errors.name }}</div>
+                    <div v-if="form.errors.name" class="text-[10px] text-[var(--destructive)] font-normal">{{ form.errors.name }}</div>
                 </div>
 
                 <div class="space-y-1.5">
-                    <Label for="email" class="text-[11px] font-black text-zinc-400 uppercase tracking-widest">البريد الإلكتروني</Label>
+                    <Label for="email" class="text-[11px] font-normal text-[var(--muted-foreground)] uppercase tracking-widest">البريد الإلكتروني</Label>
                     <Input
                         id="email"
                         type="email"
-                        class="h-8.5 text-[12px] font-medium border-zinc-100 bg-zinc-50/20"
+                        class="h-8.5 text-[12px] font-normal border-[var(--border)] bg-[var(--background)] rounded-md focus:ring-1 focus:ring-[var(--primary)]"
                         v-model="form.email"
                         required
                         autocomplete="username"
                     />
-                    <div v-if="form.errors.email" class="text-[10px] text-red-500 font-bold">{{ form.errors.email }}</div>
+                    <div v-if="form.errors.email" class="text-[10px] text-[var(--destructive)] font-normal">{{ form.errors.email }}</div>
                 </div>
             </div>
 
             <div v-if="mustVerifyEmail && user.email_verified_at === null">
-                <div class="p-3 rounded-lg border border-amber-100 bg-amber-50/50 flex items-center justify-between">
-                    <p class="text-[11px] text-amber-700 font-medium">
+                <div class="p-3 rounded-md border border-[var(--border)] bg-[var(--background)] flex items-center justify-between">
+                    <p class="text-[11px] text-[var(--foreground)] font-normal">
                         بريدك الإلكتروني غير مفعل حالياً.
                     </p>
                     <Link
                         :href="route('verification.send')"
                         method="post"
                         as="button"
-                        class="text-[10px] font-black uppercase tracking-widest text-amber-900 underline hover:no-underline"
+                        class="text-[10px] font-normal uppercase tracking-widest text-[var(--primary)] underline hover:no-underline"
                     >
                         إعادة إرسال رابط التفعيل
                     </Link>
@@ -74,14 +74,14 @@ const form = useForm({
 
                 <div
                     v-show="status === 'verification-link-sent'"
-                    class="mt-2 text-[10px] font-black text-emerald-600 uppercase tracking-tight"
+                    class="mt-2 text-[10px] font-normal text-emerald-700 uppercase tracking-tight"
                 >
                     تم إرسال رابط تفعيل جديد إلى بريدك الإلكتروني.
                 </div>
             </div>
 
             <div class="flex items-center gap-4 pt-2">
-                <Button :disabled="form.processing" size="sm" class="h-8 text-[11px] font-black px-8 rounded-full shadow-lg shadow-zinc-900/20 transition-all">
+                <Button :disabled="form.processing" size="sm" class="h-8 text-[11px] font-normal px-4 rounded-md border border-[var(--primary)] bg-[var(--primary)] text-[var(--primary-foreground)] shadow-none hover:none transition-none">
                     <Loader2 v-if="form.processing" class="ml-1.5 h-3 w-3 animate-spin" />
                     <Save v-else class="ml-1.5 h-3 w-3 opacity-60" />
                     حفظ التغييرات
@@ -93,11 +93,9 @@ const form = useForm({
                     leave-active-class="transition ease-in-out"
                     leave-to-class="opacity-0"
                 >
-                    <div v-if="form.recentlySuccessful" class="flex items-center gap-1.5 text-emerald-600">
-                        <div class="h-5 w-5 rounded-full bg-emerald-50 flex items-center justify-center">
-                            <Check class="h-3 w-3" />
-                        </div>
-                        <span class="text-[10px] font-black uppercase tracking-widest">تم الحفظ بنجاح</span>
+                    <div v-if="form.recentlySuccessful" class="flex items-center gap-1.5 text-emerald-700">
+                        <Check class="h-3.5 w-3.5" />
+                        <span class="text-[10px] font-normal uppercase tracking-widest">تم الحفظ بنجاح</span>
                     </div>
                 </Transition>
             </div>

@@ -27,18 +27,17 @@ const deleteQuiz = (id) => {
 <template>
     <Head title="إدارة الاختبارات" />
 
-    <AuthenticatedLayout>
-        <div class="flex flex-col h-full bg-zinc-50/20 text-[12px]">
+    <AuthenticatedLayout :breadcrumbs="[
+        { label: 'لوحة التحكم', url: route('teacher.dashboard') },
+        { label: 'الاختبارات' }
+    ]">
+        <div class="flex flex-col h-full bg-[var(--background)] text-[12px]">
             
             <!-- Compact Header -->
-            <header class="h-11 border-b bg-white flex items-center justify-between px-4 sticky top-0 z-30 shadow-sm">
-                <div class="flex items-center gap-2 text-[11px] text-muted-foreground font-medium uppercase tracking-tight">
-                    <span>لوحة التحكم</span>
-                    <ChevronLeft class="h-3 w-3" />
-                    <span class="text-zinc-900 font-bold">إدارة الاختبارات</span>
-                </div>
+            <header class="h-11 border-b border-[var(--border)] bg-[var(--card)] flex items-center justify-between px-4 sticky top-0 z-30 shadow-none">
+                <div></div>
                 <Link :href="route('teacher.quizzes.create')">
-                    <Button size="sm" class="h-7 text-[11px] px-4 font-bold">
+                    <Button size="sm" class="h-7 text-[11px] px-4 font-normal bg-[var(--primary)] text-white hover:bg-[var(--primary)] opacity-95 rounded shadow-none">
                         <Plus class="ml-1.5 h-3 w-3" /> إنشاء اختبار
                     </Button>
                 </Link>
@@ -47,59 +46,60 @@ const deleteQuiz = (id) => {
             <main class="flex-1 p-4 lg:p-6 text-right">
                 <div class="w-full space-y-4 max-w-full mx-auto">
                     
-                    <div v-if="quizzes.length === 0" class="flex flex-col items-center justify-center py-20 border border-dashed border-zinc-200 rounded-lg bg-white">
-                        <div class="h-10 w-10 rounded-full bg-zinc-50 flex items-center justify-center mb-3">
-                            <ClipboardList class="h-5 w-5 text-zinc-300" />
+                    <div v-if="quizzes.length === 0" class="flex flex-col items-center justify-center py-20 border border-dashed border-[var(--border)] rounded-md bg-[var(--card)] shadow-none">
+                        <div class="h-10 w-10 rounded-full bg-[var(--muted)] border border-[var(--border)] flex items-center justify-center mb-3">
+                            <ClipboardList class="h-5 w-5 text-[var(--muted-foreground)]" />
                         </div>
-                        <h3 class="text-[12px] font-bold text-zinc-900">لا يوجد أي اختبار حالياً</h3>
-                        <p class="text-[11px] text-zinc-400 mb-6">ابدأ الآن بإضافة أول اختبار لطلابك.</p>
+                        <h3 class="text-[12px] font-normal text-[var(--foreground)]">لا يوجد أي اختبار حالياً</h3>
+                        <p class="text-[11px] text-[var(--muted-foreground)] mb-6">ابدأ الآن بإضافة أول اختبار لطلابك.</p>
                         <Link :href="route('teacher.quizzes.create')">
-                            <Button variant="outline" size="sm" class="h-7 text-[11px] font-bold px-6">إضافة أول اختبار</Button>
+                            <Button variant="outline" size="sm" class="h-7 text-[11px] font-normal border-[var(--border)] bg-[var(--card)] px-6 text-[var(--foreground)]">إضافة أول اختبار</Button>
                         </Link>
                     </div>
 
-                    <div v-else class="border border-zinc-200 rounded-lg overflow-hidden bg-white shadow-sm">
+                    <div v-else class="border border-[var(--border)] rounded-md overflow-hidden bg-[var(--card)] shadow-none">
                         <table class="w-full text-right border-collapse text-[12px]">
                             <thead>
-                                <tr class="bg-zinc-50/50 border-b border-zinc-100">
-                                    <th class="p-2.5 font-black text-[10px] uppercase tracking-widest text-zinc-400">الاختبار</th>
-                                    <th class="p-2.5 font-black text-[10px] uppercase tracking-widest text-zinc-400">الكورس</th>
-                                    <th class="p-2.5 font-black text-[10px] uppercase tracking-widest text-zinc-400 text-center">النجاح</th>
-                                    <th class="p-2.5 font-black text-[10px] uppercase tracking-widest text-zinc-400 text-center">الحالة</th>
-                                    <th class="p-2.5 font-black text-[10px] uppercase tracking-widest text-zinc-400 text-left">إجراءات</th>
+                                <tr class="bg-[var(--muted)] border-b border-[var(--border)]">
+                                    <th class="p-2.5 font-normal text-[10px] uppercase tracking-widest text-[var(--muted-foreground)]">الاختبار</th>
+                                    <th class="p-2.5 font-normal text-[10px] uppercase tracking-widest text-[var(--muted-foreground)]">الكورس</th>
+                                    <th class="p-2.5 font-normal text-[10px] uppercase tracking-widest text-[var(--muted-foreground)] text-center">النجاح</th>
+                                    <th class="p-2.5 font-normal text-[10px] uppercase tracking-widest text-[var(--muted-foreground)] text-center">الحالة</th>
+                                    <th class="p-2.5 font-normal text-[10px] uppercase tracking-widest text-[var(--muted-foreground)] text-left">إجراءات</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-zinc-50">
-                                <tr v-for="quiz in quizzes" :key="quiz.id" class="group hover:bg-zinc-50/30 transition-colors">
+                            <tbody class="divide-y divide-[var(--border)] bg-[var(--card)]">
+                                <tr v-for="quiz in quizzes" :key="quiz.id" class="hover:bg-[var(--muted)]">
                                     <td class="p-2.5">
                                         <div class="flex items-center gap-2.5">
-                                            <div class="h-6 w-6 rounded bg-zinc-50 flex items-center justify-center text-zinc-400 group-hover:bg-zinc-900 group-hover:text-white transition-all">
-                                                <HelpCircle class="h-3 w-3" />
+                                            <div class="h-6 w-6 rounded bg-[var(--muted)] border border-[var(--border)] flex items-center justify-center text-[var(--muted-foreground)]">
+                                                <HelpCircle class="h-3 w-3 text-[var(--primary)]" />
                                             </div>
-                                            <span class="font-bold text-zinc-900">{{ quiz.title }}</span>
+                                            <span class="font-normal text-[var(--foreground)]">{{ quiz.title }}</span>
                                         </div>
                                     </td>
                                     <td class="p-2.5">
-                                        <div class="flex items-center gap-1.5 text-[11px] text-zinc-500 font-medium">
+                                        <div class="flex items-center gap-1.5 text-[11px] text-[var(--muted-foreground)] font-normal">
                                             <BookOpen class="h-3 w-3 opacity-60" />
                                             {{ quiz.course?.title }}
                                         </div>
                                     </td>
-                                    <td class="p-2.5 text-center font-bold text-zinc-900">
+                                    <td class="p-2.5 text-center font-normal text-[var(--foreground)]">
                                         {{ quiz.passing_score }}%
                                     </td>
                                     <td class="p-2.5 text-center">
-                                        <Badge v-if="quiz.is_published" variant="secondary" class="bg-emerald-50 text-emerald-600 hover:bg-emerald-50 border-emerald-100 text-[9px] font-black uppercase tracking-widest h-4.5 px-2">منشور</Badge>
-                                        <Badge v-else variant="outline" class="text-zinc-400 border-zinc-200 text-[9px] font-black uppercase tracking-widest h-4.5 px-2">مسودة</Badge>
+                                        <Badge :variant="quiz.is_published ? 'secondary' : 'outline'" class="h-4.5 text-[9px] font-normal uppercase px-2 rounded bg-[var(--accent)] text-[var(--foreground)] border-[var(--border)]">
+                                            {{ quiz.is_published ? 'منشور' : 'مسودة' }}
+                                        </Badge>
                                     </td>
                                     <td class="p-2.5 text-left">
                                         <div class="flex items-center justify-end gap-1">
                                             <Link :href="route('teacher.quizzes.edit', quiz.id)">
-                                                <Button variant="ghost" size="icon" class="h-6.5 w-6.5 rounded hover:bg-zinc-100">
-                                                    <Edit class="h-3.5 w-3.5 text-zinc-500" />
+                                                <Button variant="ghost" size="icon" class="h-6.5 w-6.5 rounded border border-[var(--border)] bg-[var(--card)] hover:bg-[var(--muted)] text-[var(--foreground)]">
+                                                    <Edit class="h-3.5 w-3.5" />
                                                 </Button>
                                             </Link>
-                                            <Button @click="deleteQuiz(quiz.id)" variant="ghost" size="icon" class="h-6.5 w-6.5 rounded text-zinc-200 hover:text-red-500 hover:bg-red-50">
+                                            <Button @click="deleteQuiz(quiz.id)" variant="ghost" size="icon" class="h-6.5 w-6.5 rounded border border-[var(--border)] bg-[var(--card)] hover:bg-[var(--muted)] text-[var(--muted-foreground)] hover:text-red-500">
                                                 <Trash2 class="h-3.5 w-3.5" />
                                             </Button>
                                         </div>
