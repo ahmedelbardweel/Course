@@ -9,11 +9,12 @@
 
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- PWA Settings -->
+    <!-- PWA Settings & Favicon -->
     <meta name="theme-color" content="#f54e00">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="كورس">
+    <link rel="icon" type="image/svg+xml" href="/logo.svg">
     <link rel="apple-touch-icon" href="/logo.svg">
     <link rel="manifest" href="/manifest.json">
 
