@@ -60,4 +60,33 @@ class NotificationController extends Controller
 
         return back()->with('success', 'تم حذف الإشعار بنجاح');
     }
+
+    public function storeSubscription(Request $request)
+    {
+        $request->validate([
+            'endpoint' => 'required',
+            'keys.p256dh' => 'required',
+            'keys.auth' => 'required',
+        ]);
+
+        $endpoint = $request->endpoint;
+        $key = $request->input('keys.p256dh');
+        $token = $request->input('keys.auth');
+        $contentEncoding = $request->input('content_encoding', 'aesgcm');
+
+        $request->user()->updatePushSubscription($endpoint, $key, $token, $contentEncoding);
+
+        return response()->json(['success' => true], 200);
+    }
+
+    public function deleteSubscription(Request $request)
+    {
+        $request->validate([
+            'endpoint' => 'required',
+        ]);
+
+        $request->user()->deletePushSubscription($request->endpoint);
+
+        return response()->json(['success' => true], 200);
+    }
 }

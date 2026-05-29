@@ -6,6 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\WebPush\WebPushChannel;
+use NotificationChannels\WebPush\WebPushMessage;
 
 class NewChallengeNotification extends Notification
 {
@@ -20,7 +22,7 @@ class NewChallengeNotification extends Notification
 
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', WebPushChannel::class];
     }
 
     public function toArray($notifiable)
@@ -36,5 +38,17 @@ class NewChallengeNotification extends Notification
                 'points' => $this->challenge->points,
             ]
         ];
+    }
+
+    public function toWebPush($notifiable, $notification)
+    {
+        return (new WebPushMessage)
+            ->title('🏆 تحدي جديد متاح')
+            ->icon('/favicon.ico')
+            ->body("تم طرح تحدي جديد \"{$this->challenge->title}\" بنقاط قيمتها {$this->challenge->points} نقطة!")
+            ->action('عرض التحديات', "/my-challenges")
+            ->data([
+                'url' => "/my-challenges",
+            ]);
     }
 }

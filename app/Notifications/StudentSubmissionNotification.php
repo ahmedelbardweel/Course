@@ -6,6 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\WebPush\WebPushChannel;
+use NotificationChannels\WebPush\WebPushMessage;
 
 class StudentSubmissionNotification extends Notification
 {
@@ -26,7 +28,7 @@ class StudentSubmissionNotification extends Notification
 
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', WebPushChannel::class];
     }
 
     public function toArray($notifiable)
@@ -43,5 +45,18 @@ class StudentSubmissionNotification extends Notification
                 'submission_type' => $this->submissionType,
             ]
         ];
+    }
+
+    public function toWebPush($notifiable, $notification)
+    {
+        $typeWord = $this->submissionType === 'quiz' ? 'اختبار' : 'تحدي';
+        return (new WebPushMessage)
+            ->title('📥 تسليم جديد من طالب')
+            ->icon('/favicon.ico')
+            ->body("قام الطالب \"{$this->student->name}\" بتسليم حل {$typeWord} \"{$this->itemTitle}\"")
+            ->action('عرض التسليم', $this->url)
+            ->data([
+                'url' => $this->url,
+            ]);
     }
 }

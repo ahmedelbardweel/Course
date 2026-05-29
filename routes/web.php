@@ -127,6 +127,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/notifications/{id}/read', [\App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.read');
     Route::post('/notifications/read-all', [\App\Http\Controllers\NotificationController::class, 'markAllAsRead'])->name('notifications.read-all');
     Route::delete('/notifications/{id}', [\App\Http\Controllers\NotificationController::class, 'destroy'])->name('notifications.destroy');
+    Route::post('/notifications/subscription', [\App\Http\Controllers\NotificationController::class, 'storeSubscription'])->name('notifications.subscription.store');
+    Route::delete('/notifications/subscription', [\App\Http\Controllers\NotificationController::class, 'deleteSubscription'])->name('notifications.subscription.destroy');
 
     Route::get('/courses', [\App\Http\Controllers\CourseController::class, 'index'])->name('courses.index');
     Route::get('/my-learning', [\App\Http\Controllers\CourseController::class, 'myLearning'])->name('courses.my-learning');

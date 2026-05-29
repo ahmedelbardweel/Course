@@ -6,6 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use NotificationChannels\WebPush\WebPushChannel;
+use NotificationChannels\WebPush\WebPushMessage;
 
 class NewLessonNotification extends Notification
 {
@@ -22,7 +24,7 @@ class NewLessonNotification extends Notification
 
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', WebPushChannel::class];
     }
 
     public function toArray($notifiable)
@@ -38,5 +40,17 @@ class NewLessonNotification extends Notification
                 'lesson_id' => $this->lesson->id,
             ]
         ];
+    }
+
+    public function toWebPush($notifiable, $notification)
+    {
+        return (new WebPushMessage)
+            ->title('📚 درس جديد متاح الآن')
+            ->icon('/favicon.ico')
+            ->body("تمت إضافة درس جديد بعنوان \"{$this->lesson->title}\" في كورس \"{$this->course->title}\"")
+            ->action('عرض الدرس', "/courses/{$this->course->id}?lesson={$this->lesson->id}")
+            ->data([
+                'url' => "/courses/{$this->course->id}?lesson={$this->lesson->id}",
+            ]);
     }
 }

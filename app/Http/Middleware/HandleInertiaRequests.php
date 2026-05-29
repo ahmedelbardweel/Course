@@ -57,6 +57,7 @@ class HandleInertiaRequests extends Middleware
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
+            'vapidPublicKey' => config('webpush.vapid.public_key'),
         ];
     }
 }

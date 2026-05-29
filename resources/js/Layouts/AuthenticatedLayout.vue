@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
+import axios from 'axios';
 import { 
     LogOut,
     Menu,
@@ -35,11 +36,55 @@ const breadcrumbs = defineProps({
 const unreadCount = computed(() => page.props.auth?.unreadNotificationsCount ?? 0);
 const latestNotifications = computed(() => page.props.auth?.latestNotifications ?? []);
 
+const urlBase64ToUint8Array = (base64String) => {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding)
+        .replace(/\-/g, '+')
+        .replace(/_/g, '/');
+
+    const rawData = window.atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+
+    for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+};
+
+const subscribeUserToPush = async () => {
+    if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+        console.warn('Push messaging is not supported in this browser.');
+        return;
+    }
+
+    try {
+        const registration = await navigator.serviceWorker.register('/sw.js');
+        await navigator.serviceWorker.ready;
+
+        const vapidPublicKey = page.props.vapidPublicKey;
+        if (!vapidPublicKey) {
+            console.warn('VAPID public key is missing.');
+            return;
+        }
+
+        const subscribeOptions = {
+            userVisibleOnly: true,
+            applicationServerKey: urlBase64ToUint8Array(vapidPublicKey)
+        };
+
+        const subscription = await registration.pushManager.subscribe(subscribeOptions);
+        await axios.post(route('notifications.subscription.store'), subscription);
+    } catch (err) {
+        console.error('Failed to subscribe the user: ', err);
+    }
+};
+
 const requestNotificationPermission = () => {
     if ('Notification' in window) {
         Notification.requestPermission().then(permission => {
             permissionGranted.value = permission;
             if (permission === 'granted') {
+                subscribeUserToPush();
                 new Notification('تم تفعيل الإشعارات الفورية! 🎉', {
                     body: 'ستتلقى تنبيهات فورية بالدروس، الاختبارات والتحديات مباشرة على جهازك.',
                     icon: '/favicon.ico'
@@ -72,6 +117,9 @@ const getIcon = (type) => {
 onMounted(() => {
     if ('Notification' in window) {
         permissionGranted.value = Notification.permission;
+        if (Notification.permission === 'granted') {
+            subscribeUserToPush();
+        }
     }
 
     // Bind real-time notifications if Laravel Echo / Reverb is configured
