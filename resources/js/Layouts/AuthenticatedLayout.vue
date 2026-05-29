@@ -51,9 +51,12 @@ const urlBase64ToUint8Array = (base64String) => {
     return outputArray;
 };
 
-const subscribeUserToPush = async () => {
+const subscribeUserToPush = async (isManualClick = false) => {
     if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
         console.warn('Push messaging is not supported in this browser.');
+        if (isManualClick) {
+            alert('⚠️ تنبيه: متصفحك أو هذا الرابط لا يدعم الإشعارات الفورية.\n\nالسبب: يجب تصفح الموقع عبر بروتوكول آمن (HTTPS) أو استخدام جهاز الكمبيوتر على (http://localhost:8000) لتفعيل الإشعارات الفورية بنجاح.');
+        }
         return;
     }
 
@@ -64,6 +67,9 @@ const subscribeUserToPush = async () => {
         const vapidPublicKey = page.props.vapidPublicKey;
         if (!vapidPublicKey) {
             console.warn('VAPID public key is missing.');
+            if (isManualClick) {
+                alert('❌ خطأ: مفتاح VAPID العام غير متوفر على الخادم.');
+            }
             return;
         }
 
@@ -74,8 +80,14 @@ const subscribeUserToPush = async () => {
 
         const subscription = await registration.pushManager.subscribe(subscribeOptions);
         await axios.post(route('notifications.subscription.store'), subscription);
+        if (isManualClick) {
+            alert('🎉 تم تفعيل واشتراك جهازك للإشعارات الفورية بنجاح! ستتلقى التنبيهات حتى عند إغلاق المتصفح.');
+        }
     } catch (err) {
         console.error('Failed to subscribe the user: ', err);
+        if (isManualClick) {
+            alert('❌ خطأ أثناء تفعيل الإشعارات: ' + err.message + '\n\nملاحظة: تأكد من أنك تستخدم HTTPS أو تصفح محلي عبر localhost، ولم تقم بحظر الإشعارات مسبقاً في إعدادات المتصفح.');
+        }
     }
 };
 
@@ -84,7 +96,7 @@ const requestNotificationPermission = () => {
         Notification.requestPermission().then(permission => {
             permissionGranted.value = permission;
             if (permission === 'granted') {
-                subscribeUserToPush();
+                subscribeUserToPush(true);
                 new Notification('تم تفعيل الإشعارات الفورية! 🎉', {
                     body: 'ستتلقى تنبيهات فورية بالدروس، الاختبارات والتحديات مباشرة على جهازك.',
                     icon: '/favicon.ico'
